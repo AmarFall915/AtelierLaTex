@@ -43,6 +43,7 @@
   </script>
 
   <style>
+    /* PRELOADER ACCÉLÉRÉ */
     #preloader {
       position: fixed;
       inset: 0;
@@ -52,7 +53,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+      transition: opacity 0.4s ease-out, visibility 0.4s ease-out; /* Fondu plus rapide (0.4s au lieu de 0.8s) */
     }
     .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .pulse-gold { animation: pulseGold 1.5s ease-in-out infinite; }
@@ -529,6 +530,7 @@
       <h3 class="font-display text-2xl tracking-[0.2em] uppercase mb-4 text-yemanja-gold">Yemanjā</h3>
       <div class="flex justify-center gap-4 mb-6">
         <a href="https://instagram.com/yemanja.dkr" target="_blank" class="text-yemanja-sand hover:text-yemanja-gold transition text-xl"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://facebook.com/yemanja.dkr" target="_blank" class="text-yemanja-sand hover:text-yemanja-gold transition text-xl"><i class="fa-brands fa-facebook-f"></i></a>
       </div>
       <p class="text-[10px] text-yemanja-sand/50 uppercase tracking-[0.2em]">© 2026 Yemanjā Dakar • Restaurant, Lounge & Sunset Bar. Tous droits réservés.</p>
     </div>
@@ -830,12 +832,12 @@
 
   <!-- SCRIPTS -->
   <script>
-    // PRELOADER
+    // PRELOADER ACCÉLÉRÉ
     window.addEventListener('load', () => {
       setTimeout(() => {
         const preloader = document.getElementById('preloader');
         preloader.classList.add('preloader-hidden');
-      }, 1500); 
+      }, 400); // 0.4s au lieu de 1.5s
     });
 
     // Modale
@@ -945,7 +947,7 @@
             feedback.classList.remove('hidden');
           }
           
-          // Action IMMÉDIATE pour éviter les blocages de sécurité sur mobile (Safari/Chrome)
+          // Action IMMÉDIATE
           window.location.href = `https://wa.me/221776356515?text=${encodeURIComponent(msg)}`;
           
           setTimeout(() => {
