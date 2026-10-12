@@ -142,6 +142,40 @@
       animation: shineEffect 7s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.5s;
     }
 
+    /* SLIDER D'ARRIÈRE-PLAN HERO (EFFET KEN BURNS) */
+    .hero-slider {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background-color: #1a1a1a;
+    }
+    .slide-item {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      animation: kenBurnsFade 24s infinite;
+      filter: brightness(0.55) contrast(1.1);
+    }
+    /* Décalage des animations pour créer la boucle (4 images x 6s = 24s) */
+    .slide-item:nth-child(1) { animation-delay: 0s; }
+    .slide-item:nth-child(2) { animation-delay: 6s; }
+    .slide-item:nth-child(3) { animation-delay: 12s; }
+    .slide-item:nth-child(4) { animation-delay: 18s; }
+
+    @keyframes kenBurnsFade {
+      0% { opacity: 0; transform: scale(1); }
+      4% { opacity: 1; }
+      25% { opacity: 1; }
+      29% { opacity: 0; transform: scale(1.08); }
+      100% { opacity: 0; transform: scale(1); }
+    }
+
     /* Utilitaires visuels pour le menu */
     .menu-dots {
       flex-grow: 1;
@@ -243,16 +277,23 @@
     </div>
   </header>
 
-  <!-- HERO SECTION : SUNSET & ÉLÉGANCE TROPICALE -->
+  <!-- HERO SECTION : SLIDER DYNAMIQUE FLUIDE -->
   <section class="relative min-h-[95vh] flex items-center justify-center pt-20 overflow-hidden w-full max-w-full">
-    <div class="absolute inset-0 z-0">
-      <img src="https://images.unsplash.com/photo-1540544660406-6a69dacb2804?auto=format&fit=crop&q=80&w=2000" 
-           alt="Yemanja Dakar Almadies Sunset" 
-           class="w-full h-full object-cover object-center filter brightness-[0.6] contrast-110">
-      <div class="absolute inset-0 bg-gradient-to-t from-yemanja-green/90 via-yemanja-green/40 to-transparent"></div>
+    
+    <!-- CONTENEUR DU SLIDER -->
+    <div class="hero-slider">
+      <!-- Remplacer les attributs src par les noms de vos propres images (ex: image_32.png, image_29.png, etc.) -->
+      <img src="https://images.unsplash.com/photo-1540544660406-6a69dacb2804?auto=format&fit=crop&q=80&w=2000" alt="Yemanja Slide 1" class="slide-item">
+      <img src="https://images.unsplash.com/photo-1515516089376-88db1e26e9c0?auto=format&fit=crop&q=80&w=2000" alt="Yemanja Slide 2" class="slide-item">
+      <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=2000" alt="Yemanja Slide 3" class="slide-item">
+      <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=2000" alt="Yemanja Slide 4" class="slide-item">
+      
+      <!-- Dégradés superposés pour garantir la lisibilité du texte -->
+      <div class="absolute inset-0 bg-gradient-to-t from-yemanja-green/95 via-yemanja-green/40 to-transparent z-10"></div>
+      <div class="absolute inset-0 bg-black/20 z-10"></div>
     </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center text-white">
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center text-white">
       <div class="max-w-3xl mx-auto space-y-6">
         
         <div data-aos="fade-down" data-aos-duration="800" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-bold uppercase tracking-[0.25em] text-yemanja-sand">
@@ -269,7 +310,7 @@
           L'évasion balinaise au cœur des Almadies. Une expérience culinaire fusion, des cocktails signatures et une atmosphère vibrante face à l'océan.
         </p>
 
-        <!-- BOUTONS HERO AVEC GLOW & SHINE -->
+        <!-- BOUTONS HERO -->
         <div data-aos="fade-up" data-aos-delay="450" data-aos-duration="900" class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
           <a href="#reservation" 
              class="btn-shine-primary group relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-sm bg-yemanja-gold text-yemanja-green font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 text-center shadow-[0_4px_20px_rgba(212,175,55,0.4)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.6)] hover:-translate-y-0.5 border border-yemanja-goldHover">
@@ -320,7 +361,7 @@
     </div>
   </section>
 
-  <!-- SECTION À PROPOS -->
+  <!-- SECTION À PROPOS (L'EXPÉRIENCE YEMANJA) -->
   <section id="about" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
       
@@ -352,6 +393,7 @@
         </div>
       </div>
 
+      <!-- Composition d'images asymétrique élégante -->
       <div data-aos="fade-left" data-aos-duration="900" class="relative">
         <div class="aspect-[4/5] w-4/5 ml-auto rounded-t-full overflow-hidden border border-yemanja-gold/30 shadow-2xl relative z-10">
           <img src="https://images.unsplash.com/photo-1515516089376-88db1e26e9c0?auto=format&fit=crop&q=80&w=800" 
@@ -548,6 +590,7 @@
   <!-- LA CARTE : FENÊTRE MODALE YEMANJA (MENU COMPLET RE-DESIGNÉ) -->
   <!-- ============================================================== -->
   <div id="menu-modal" class="hidden-modal fixed inset-0 z-50 bg-yemanja-green/95 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <!-- Modale intérieure -->
     <div class="modal-box bg-yemanja-sand border-2 border-yemanja-gold/30 w-full max-w-5xl rounded-sm p-6 sm:p-10 relative max-h-[92vh] overflow-y-auto shadow-[0_0_40px_rgba(0,0,0,0.5)]">
       
       <button onclick="closeMenuModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-yemanja-green/10 hover:bg-yemanja-gold text-yemanja-green hover:text-white flex items-center justify-center transition text-lg" aria-label="Fermer la carte">
@@ -578,10 +621,11 @@
         </button>
       </div>
 
-      <!-- Contenu 1 : ENTRÉES & COPAINS -->
+      <!-- Contenu 1 : ENTRÉES & COPAINS (Entrées + Beyrouth + Le Coin des copains) -->
       <div id="modal-tab-entrees" class="tab-panel active">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
           
+          <!-- Entrées de la mer & carpaccios -->
           <div>
             <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Entrées Marines & Végétales</h4>
             <div class="space-y-4 text-xs font-sans text-yemanja-green">
@@ -610,6 +654,7 @@
             </div>
           </div>
 
+          <!-- Escale à Beyrouth & Copains -->
           <div class="space-y-10">
             <div>
               <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Le Coin des Copains (Tapas)</h4>
@@ -647,6 +692,7 @@
       <div id="modal-tab-plats" class="tab-panel">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
           
+          <!-- Côté Mer -->
           <div>
             <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Côté Mer</h4>
             <div class="space-y-4 text-xs font-sans text-yemanja-green">
@@ -670,6 +716,7 @@
             </p>
           </div>
 
+          <!-- Côté Terre & Importations -->
           <div>
             <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Côté Terre & Viandes Importées</h4>
             <div class="space-y-4 text-xs font-sans text-yemanja-green">
@@ -703,6 +750,7 @@
       <div id="modal-tab-italie" class="tab-panel">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
           
+          <!-- Pizzas -->
           <div>
             <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Pizzas Artisanales</h4>
             <div class="space-y-5 text-xs font-sans text-yemanja-green">
@@ -726,6 +774,7 @@
             </div>
           </div>
 
+          <!-- Pasta (Dolce Vita) -->
           <div>
             <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Dolce Vita (Pasta & Gnocchi)</h4>
             <div class="space-y-4 text-xs font-sans text-yemanja-green">
@@ -749,6 +798,7 @@
       <div id="modal-tab-desserts" class="tab-panel">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
           
+          <!-- La Note Sucrée -->
           <div>
             <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">La Note Sucrée</h4>
             <div class="space-y-4 text-xs font-sans text-yemanja-green">
@@ -763,6 +813,7 @@
             </div>
           </div>
 
+          <!-- La Note Givrée -->
           <div>
             <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">La Note Givrée</h4>
             <div class="space-y-4 text-xs font-sans text-yemanja-green">
@@ -795,7 +846,7 @@
 
   <!-- SCRIPTS -->
   <script>
-    // PRELOADER
+    // PRELOADER DISPARITION
     window.addEventListener('load', () => {
       setTimeout(() => {
         const preloader = document.getElementById('preloader');
@@ -803,7 +854,7 @@
       }, 1500); 
     });
 
-    // Modale
+    // Ouverture / Fermeture Modale
     function openMenuModal() {
       const modal = document.getElementById('menu-modal');
       modal.classList.remove('hidden-modal');
@@ -827,14 +878,14 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      // AOS Animation
+      // Init AOS (Animation)
       if (typeof AOS !== 'undefined' && window.innerWidth > 640) {
         AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic', offset: 40 });
       } else if (typeof AOS !== 'undefined') {
         AOS.init({ once: true, offset: 0, duration: 400 });
       }
 
-      // Onglets
+      // Onglets de la carte modale
       const tabButtons = document.querySelectorAll('.tab-btn');
       const tabPanels = document.querySelectorAll('.tab-panel');
 
@@ -842,14 +893,17 @@
         button.addEventListener('click', () => {
           const targetId = button.getAttribute('data-tab');
 
+          // Reset tous les boutons
           tabButtons.forEach(btn => {
             btn.classList.remove('border-yemanja-green', 'text-yemanja-green');
             btn.classList.add('border-transparent', 'text-yemanja-muted');
           });
 
+          // Activer bouton
           button.classList.remove('border-transparent', 'text-yemanja-muted');
           button.classList.add('border-yemanja-green', 'text-yemanja-green');
 
+          // Switch contenus
           tabPanels.forEach(panel => panel.classList.remove('active'));
           const activePanel = document.getElementById(targetId);
           if (activePanel) activePanel.classList.add('active');
@@ -878,7 +932,7 @@
         });
       }
 
-      // Menu mobile
+      // Menu mobile Drawer
       const menuBtn = document.getElementById('menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
 
@@ -894,7 +948,7 @@
         });
       }
 
-      // Réservation WhatsApp
+      // Réservation WhatsApp (Numéro Yemanja)
       const submitResBtn = document.getElementById('btn-submit-res');
       if (submitResBtn) {
         submitResBtn.addEventListener('click', () => {
