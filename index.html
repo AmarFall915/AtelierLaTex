@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yemanjā Dakar | Restaurant, Lounge & Sunset Bar</title>
-  <meta name="description" content="L'évasion balinaise au cœur de Dakar. Découvrez notre cuisine fusion, nos cocktails signatures et profitez du coucher de soleil sur la Corniche des Almadies.">
+  <title>Exotik Beach Dakar | Restaurant & Plage aux Almadies</title>
+  <meta name="description" content="Eat, Grill & Chill sur la Corniche des Almadies. Une expérience culinaire unique les pieds dans l'eau au cœur de Dakar.">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,14 +27,15 @@
             signature: ['"Great Vibes"', 'cursive'],
           },
           colors: {
-            yemanja: {
-              sand: '#FDFBF7',
-              sandDark: '#F2ECE1',
-              green: '#2C3E35',
-              greenLight: '#3A5246',
-              gold: '#D4AF37',
-              goldHover: '#E5C048',
-              muted: '#7A8C82'
+            exotik: {
+              sand: '#F9F6F0',      /* Sable clair */
+              sandDark: '#EFEAE0',  /* Sable ombré */
+              text: '#2D3732',      /* Texte foncé doux */
+              ocean: '#28595A',     /* Vert/Bleu Océan */
+              oceanLight: '#3D7A7B',
+              wood: '#A67C52',      /* Bois flotté / Doré */
+              sunset: '#E27D60',    /* Orange coucher de soleil */
+              muted: '#8A9A92'
             }
           }
         }
@@ -43,55 +44,43 @@
   </script>
 
   <style>
-    /* SYSTEME DE TRADUCTION BILINGUE */
+    /* SYSTEME BILINGUE */
     html[lang="fr"] .lang-en { display: none !important; }
     html[lang="en"] .lang-fr { display: none !important; }
 
-    /* PRELOADER CHIC */
+    /* PRELOADER BOHÈME */
     #preloader {
-      position: fixed; inset: 0; z-index: 9999999; background-color: #FDFBF7; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+      position: fixed; inset: 0; z-index: 9999999; background-color: #F9F6F0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
     }
     .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .pulse-gold { animation: pulseGold 1.5s ease-in-out infinite; }
-    @keyframes pulseGold {
-      0%, 100% { opacity: 0.6; transform: scale(0.95); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2)); }
-      50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6)); }
+    .pulse-wood { animation: pulseWood 1.5s ease-in-out infinite; }
+    @keyframes pulseWood {
+      0%, 100% { opacity: 0.6; transform: scale(0.95); filter: drop-shadow(0 0 10px rgba(166, 124, 82, 0.2)); }
+      50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(166, 124, 82, 0.5)); }
     }
 
-    /* Verrouillage strict du défilement latéral */
     html, body {
-      max-width: 100vw !important; overflow-x: hidden !important; overflow-x: clip !important; position: relative; margin: 0; padding: 0; background-color: #FDFBF7; color: #2C3E35;
+      max-width: 100vw !important; overflow-x: hidden !important; overflow-x: clip !important; position: relative; margin: 0; padding: 0; background-color: #F9F6F0; color: #2D3732;
     }
     * { box-sizing: border-box; }
 
-    /* Curseur interactif doré sur Desktop */
+    /* CURSEUR INTERACTIF DESKTOP */
     @media (hover: hover) and (pointer: fine) {
       body { cursor: none; }
-      a, button, input, select, textarea, .tab-btn { cursor: none; }
+      a, button, input, select, textarea { cursor: none; }
       #cursor-dot, #cursor-circle {
         pointer-events: none; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 999999;
       }
-      #cursor-dot { width: 6px; height: 6px; background-color: #D4AF37; }
+      #cursor-dot { width: 6px; height: 6px; background-color: #E27D60; }
       #cursor-circle {
-        width: 32px; height: 32px; border: 1px solid rgba(212, 175, 55, 0.6); transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+        width: 32px; height: 32px; border: 1px solid rgba(226, 125, 96, 0.6); transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
       }
       body.cursor-active #cursor-circle {
-        width: 52px; height: 52px; border-color: #D4AF37; background-color: rgba(212, 175, 55, 0.1);
+        width: 52px; height: 52px; border-color: #E27D60; background-color: rgba(226, 125, 96, 0.1);
       }
     }
 
-    /* Fenêtre modale de la carte */
-    #menu-modal { transition: opacity 0.35s ease, visibility 0.35s ease; }
-    #menu-modal.hidden-modal { opacity: 0; visibility: hidden; pointer-events: none; }
-    #menu-modal.active-modal { opacity: 1; visibility: visible; pointer-events: auto; }
-    .modal-box { transform: scale(0.96) translateY(20px); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
-    #menu-modal.active-modal .modal-box { transform: scale(1) translateY(0); }
-
-    /* Onglets de la modale */
-    .tab-panel { display: none; opacity: 0; transform: translateY(8px); transition: opacity 0.25s ease, transform 0.25s ease; }
-    .tab-panel.active { display: block; opacity: 1; transform: translateY(0); }
-
-    /* Reflet lumineux des boutons */
+    /* EFFET BRILLANT BOUTONS */
     @keyframes shineEffect {
       0% { transform: translateX(-150%) skewX(-20deg); }
       25% { transform: translateX(250%) skewX(-20deg); }
@@ -101,19 +90,19 @@
       content: ''; position: absolute; top: 0; left: 0; width: 60%; height: 100%; transform: translateX(-150%) skewX(-20deg); pointer-events: none;
     }
     .btn-shine-primary::after {
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%); animation: shineEffect 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); animation: shineEffect 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
     .btn-shine-secondary::after {
-      background: linear-gradient(90deg, rgba(212, 175, 55, 0) 0%, rgba(212, 175, 55, 0.3) 50%, rgba(212, 175, 55, 0) 100%); animation: shineEffect 7s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.5s;
+      background: linear-gradient(90deg, rgba(226,125,96,0) 0%, rgba(226,125,96,0.3) 50%, rgba(226,125,96,0) 100%); animation: shineEffect 7s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.5s;
     }
 
-    /* SLIDER D'ARRIÈRE-PLAN HERO */
+    /* SLIDER HERO */
     .hero-slider {
       position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; background-color: #1a1a1a;
     }
     .slide-item {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0;
-      animation: kenBurnsFade 12s infinite; filter: brightness(0.55) contrast(1.1);
+      animation: kenBurnsFade 12s infinite; filter: brightness(0.65) contrast(1.05);
     }
     .slide-item:nth-child(1) { animation-delay: 0s; }
     .slide-item:nth-child(2) { animation-delay: 3s; }
@@ -127,105 +116,89 @@
       29% { opacity: 0; transform: scale(1.04); }
       100% { opacity: 0; transform: scale(1); }
     }
-
-    .menu-dots {
-      flex-grow: 1; border-bottom: 1px dotted rgba(212, 175, 55, 0.4); margin: 0 10px; position: relative; top: -6px;
-    }
   </style>
 </head>
-<body class="bg-yemanja-sand text-yemanja-green font-sans antialiased selection:bg-yemanja-gold selection:text-white w-full overflow-x-hidden">
+<body class="bg-exotik-sand text-exotik-text font-sans antialiased selection:bg-exotik-sunset selection:text-white w-full overflow-x-hidden">
 
   <!-- PRELOADER -->
   <div id="preloader">
-    <div class="pulse-gold flex flex-col items-center">
-      <span class="font-display text-4xl tracking-[0.2em] text-yemanja-green uppercase mb-2">Yemanjā</span>
-      <div class="w-12 h-0.5 bg-yemanja-gold"></div>
+    <div class="pulse-wood flex flex-col items-center">
+      <span class="font-display text-3xl sm:text-4xl tracking-[0.2em] text-exotik-ocean uppercase mb-2">Exotik Beach</span>
+      <div class="w-12 h-0.5 bg-exotik-sunset"></div>
     </div>
   </div>
 
-  <!-- CURSEUR CUSTOM DESKTOP -->
+  <!-- CURSEUR -->
   <div id="cursor-dot" class="hidden md:block"></div>
   <div id="cursor-circle" class="hidden md:block"></div>
 
   <!-- HEADER -->
-  <header class="fixed top-0 left-0 right-0 z-40 bg-yemanja-sand/90 backdrop-blur-md border-b border-yemanja-green/10 w-full transition-all duration-300">
+  <header class="fixed top-0 left-0 right-0 z-40 bg-exotik-sand/90 backdrop-blur-md border-b border-exotik-ocean/10 w-full transition-all duration-300 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
       
       <!-- LOGO -->
       <a href="#" class="flex flex-col items-start">
-        <span class="font-display tracking-[0.15em] text-xl sm:text-2xl font-bold uppercase text-yemanja-green leading-none">Yemanjā</span>
-        <span class="text-[8px] sm:text-[9px] tracking-[0.2em] text-yemanja-gold uppercase font-semibold mt-1">Restaurant & Lounge • Dakar</span>
+        <span class="font-display tracking-[0.1em] text-xl sm:text-2xl font-bold uppercase text-exotik-ocean leading-none">Exotik Beach</span>
+        <span class="text-[8px] sm:text-[9px] tracking-[0.2em] text-exotik-sunset uppercase font-semibold mt-1">Dakar</span>
       </a>
 
       <!-- NAVIGATION DESKTOP -->
-      <nav class="hidden lg:flex items-center gap-8 text-[11px] font-semibold tracking-[0.2em] uppercase text-yemanja-green">
-        <a href="#about" class="hover:text-yemanja-gold transition">
-          <span class="lang-fr">Le Cadre</span><span class="lang-en">The Setting</span>
+      <nav class="hidden lg:flex items-center gap-8 text-[11px] font-bold tracking-[0.15em] uppercase text-exotik-text">
+        <a href="#accueil" class="hover:text-exotik-sunset transition">
+          <span class="lang-fr">Accueil</span><span class="lang-en">Home</span>
         </a>
-        <button onclick="openMenuModal()" class="hover:text-yemanja-gold transition uppercase tracking-[0.2em] text-[11px] font-semibold text-yemanja-green flex items-center gap-1.5">
+        <a href="#concept" class="hover:text-exotik-sunset transition">
+          <span class="lang-fr">Le Concept</span><span class="lang-en">The Concept</span>
+        </a>
+        <a href="#carte" class="hover:text-exotik-sunset transition">
           <span class="lang-fr">La Carte</span><span class="lang-en">The Menu</span>
-          <i class="fa-solid fa-book-open text-[10px] text-yemanja-gold"></i>
-        </button>
-        <a href="#social" class="hover:text-yemanja-gold transition">
-          <span class="lang-fr">Expérience</span><span class="lang-en">Experience</span>
         </a>
-        <a href="#contact" class="hover:text-yemanja-gold transition">
-          <span class="lang-fr">Accès</span><span class="lang-en">Location</span>
+        <a href="#evenements" class="hover:text-exotik-sunset transition">
+          <span class="lang-fr">Événements</span><span class="lang-en">Events</span>
+        </a>
+        <a href="#galerie" class="hover:text-exotik-sunset transition">
+          <span class="lang-fr">Galerie</span><span class="lang-en">Gallery</span>
         </a>
       </nav>
 
       <!-- BOUTONS ACTIONS -->
       <div class="flex items-center gap-4 sm:gap-6">
         
-        <!-- SÉLECTEUR DE LANGUE (Interactif) -->
+        <!-- SÉLECTEUR DE LANGUE -->
         <div class="hidden sm:flex items-center gap-1.5 text-[10px] font-sans font-bold">
-          <button onclick="setLang('fr')" class="btn-lang-fr text-yemanja-gold transition cursor-pointer">FR</button>
-          <span class="text-yemanja-green/30">|</span>
-          <button onclick="setLang('en')" class="btn-lang-en text-yemanja-green/50 hover:text-yemanja-green transition cursor-pointer">EN</button>
+          <button onclick="setLang('fr')" class="btn-lang-fr text-exotik-sunset transition cursor-pointer">FR</button>
+          <span class="text-exotik-ocean/30">|</span>
+          <button onclick="setLang('en')" class="btn-lang-en text-exotik-ocean/50 hover:text-exotik-ocean transition cursor-pointer">EN</button>
         </div>
 
-        <div class="hidden sm:block w-px h-6 bg-yemanja-green/20"></div>
+        <div class="hidden sm:block w-px h-6 bg-exotik-ocean/20"></div>
 
-        <a href="https://instagram.com/yemanja.dkr" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-yemanja-green/20 hover:border-yemanja-gold flex items-center justify-center text-yemanja-green hover:text-yemanja-gold transition">
-          <i class="fa-brands fa-instagram text-sm"></i>
+        <a href="#reservation" class="hidden sm:inline-block px-6 py-2.5 bg-exotik-ocean text-white hover:bg-exotik-oceanLight transition-all duration-300 text-[10px] font-bold uppercase tracking-[0.15em] rounded-sm shadow-md">
+          <span class="lang-fr">Réserver une table</span><span class="lang-en">Book a table</span>
         </a>
 
-        <a href="#reservation" class="hidden sm:inline-block px-6 py-2.5 bg-yemanja-green text-yemanja-sand hover:bg-yemanja-greenLight transition-all duration-300 text-[10px] font-bold uppercase tracking-[0.15em] rounded-sm">
-          <span class="lang-fr">Réserver</span><span class="lang-en">Book</span>
-        </a>
-
-        <button id="menu-btn" class="lg:hidden text-yemanja-green text-2xl focus:outline-none" aria-label="Menu Mobile">
+        <button id="menu-btn" class="lg:hidden text-exotik-ocean text-2xl focus:outline-none" aria-label="Menu Mobile">
           <i class="fa-solid fa-bars-staggered"></i>
         </button>
       </div>
     </div>
 
     <!-- TIROIR MOBILE -->
-    <div id="mobile-menu" class="hidden lg:hidden bg-yemanja-sand border-b border-yemanja-green/10 px-6 py-6 space-y-4 shadow-xl">
-      <!-- Sélecteur de langue Mobile -->
-      <div class="flex items-center justify-center gap-2 pb-4 text-[11px] font-sans font-bold border-b border-yemanja-green/10">
-        <button onclick="setLang('fr')" class="btn-lang-fr text-yemanja-gold transition">FR</button>
-        <span class="text-yemanja-green/30">|</span>
-        <button onclick="setLang('en')" class="btn-lang-en text-yemanja-green/50 transition">EN</button>
+    <div id="mobile-menu" class="hidden lg:hidden bg-exotik-sandDark border-b border-exotik-ocean/10 px-6 py-6 space-y-4 shadow-xl">
+      <div class="flex items-center justify-center gap-2 pb-4 text-[11px] font-sans font-bold border-b border-exotik-ocean/10">
+        <button onclick="setLang('fr')" class="btn-lang-fr text-exotik-sunset transition">FR</button>
+        <span class="text-exotik-ocean/30">|</span>
+        <button onclick="setLang('en')" class="btn-lang-en text-exotik-ocean/50 transition">EN</button>
       </div>
       
-      <a href="#about" class="block text-yemanja-green text-xs tracking-[0.2em] uppercase hover:text-yemanja-gold pt-2">
-        <span class="lang-fr">Le Cadre</span><span class="lang-en">The Setting</span>
-      </a>
-      <button onclick="openMenuModal(); document.getElementById('mobile-menu').classList.add('hidden');" class="block w-full text-left text-yemanja-gold text-xs tracking-[0.2em] uppercase font-bold">
-        <span class="lang-fr">La Carte Complète</span><span class="lang-en">Full Menu</span> <i class="fa-solid fa-book-open ml-1 text-[10px]"></i>
-      </button>
-      <a href="#social" class="block text-yemanja-green text-xs tracking-[0.2em] uppercase hover:text-yemanja-gold">
-        <span class="lang-fr">L'Expérience</span><span class="lang-en">The Experience</span>
-      </a>
-      <a href="#contact" class="block text-yemanja-green text-xs tracking-[0.2em] uppercase hover:text-yemanja-gold">
-        <span class="lang-fr">Accès & Horaires</span><span class="lang-en">Location & Hours</span>
-      </a>
-      <div class="pt-4 border-t border-yemanja-green/10 flex flex-col gap-3">
-        <a href="https://instagram.com/yemanja.dkr" target="_blank" class="w-full text-center py-2.5 border border-yemanja-green/20 text-xs uppercase tracking-widest text-yemanja-green hover:border-yemanja-gold hover:text-yemanja-gold transition">
-          <i class="fa-brands fa-instagram mr-2"></i> @yemanja.dkr
-        </a>
-        <a href="#reservation" class="w-full text-center py-3 bg-yemanja-green text-yemanja-sand text-xs font-bold uppercase tracking-widest rounded-sm">
+      <a href="#accueil" class="block text-exotik-ocean text-xs tracking-[0.2em] uppercase font-bold hover:text-exotik-sunset pt-2"><span class="lang-fr">Accueil</span><span class="lang-en">Home</span></a>
+      <a href="#concept" class="block text-exotik-ocean text-xs tracking-[0.2em] uppercase font-bold hover:text-exotik-sunset"><span class="lang-fr">Le Concept</span><span class="lang-en">The Concept</span></a>
+      <a href="#carte" class="block text-exotik-ocean text-xs tracking-[0.2em] uppercase font-bold hover:text-exotik-sunset"><span class="lang-fr">La Carte</span><span class="lang-en">The Menu</span></a>
+      <a href="#evenements" class="block text-exotik-ocean text-xs tracking-[0.2em] uppercase font-bold hover:text-exotik-sunset"><span class="lang-fr">Événements</span><span class="lang-en">Events</span></a>
+      <a href="#galerie" class="block text-exotik-ocean text-xs tracking-[0.2em] uppercase font-bold hover:text-exotik-sunset"><span class="lang-fr">Galerie</span><span class="lang-en">Gallery</span></a>
+      
+      <div class="pt-4 border-t border-exotik-ocean/10 flex flex-col gap-3">
+        <a href="#reservation" class="w-full text-center py-3 bg-exotik-ocean text-white text-xs font-bold uppercase tracking-widest rounded-sm shadow-md">
           <span class="lang-fr">Réserver une table</span><span class="lang-en">Book a table</span>
         </a>
       </div>
@@ -233,93 +206,76 @@
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative min-h-[95vh] flex items-center justify-center pt-20 overflow-hidden w-full max-w-full">
+  <section id="accueil" class="relative min-h-[95vh] flex items-center justify-center pt-20 overflow-hidden w-full max-w-full">
     <div class="hero-slider">
-      <img src="slide-1.jpg" alt="Yemanja Piscine Sunset" class="slide-item">
-      <img src="slide-2.jpg" alt="Yemanja Vue Océan" class="slide-item">
-      <img src="slide-3.jpg" alt="Yemanja Lounge Palmiers" class="slide-item">
-      <img src="slide-4.jpg" alt="Yemanja Sunset Bar" class="slide-item">
-      <div class="absolute inset-0 bg-gradient-to-t from-yemanja-green/95 via-yemanja-green/40 to-transparent z-10"></div>
-      <div class="absolute inset-0 bg-black/20 z-10"></div>
+      <img src="slide-1.jpg" alt="Exotik Beach Sunset" class="slide-item">
+      <img src="slide-2.jpg" alt="Exotik Beach Ocean" class="slide-item">
+      <img src="slide-3.jpg" alt="Exotik Beach Cocktails" class="slide-item">
+      <img src="slide-4.jpg" alt="Exotik Beach Vibe" class="slide-item">
+      <div class="absolute inset-0 bg-gradient-to-t from-exotik-ocean/80 via-black/30 to-transparent z-10"></div>
     </div>
 
     <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center text-white">
-      <div class="max-w-3xl mx-auto space-y-6">
+      <div class="max-w-4xl mx-auto space-y-6">
         
-        <div data-aos="fade-down" data-aos-duration="800" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-bold uppercase tracking-[0.25em] text-yemanja-sand">
-          <i class="fa-solid fa-sun text-yemanja-gold"></i>
-          <span>Sunset Bar & Lounge Club</span>
-        </div>
-
-        <h1 data-aos="fade-up" data-aos-delay="150" data-aos-duration="900" class="font-display text-5xl sm:text-7xl lg:text-8xl font-bold uppercase leading-[1.05] tracking-tight drop-shadow-lg">
-          Yemanjā<br>
-          <span class="text-yemanja-gold font-signature capitalize text-5xl sm:text-7xl font-normal lowercase">Dakar</span>
+        <h1 data-aos="fade-up" data-aos-duration="900" class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.1] tracking-tight drop-shadow-lg">
+          Exotik Beach Dakar<br>
+          <span class="text-exotik-sunset font-signature capitalize text-4xl sm:text-6xl font-normal lowercase tracking-normal">
+            <span class="lang-fr">Votre parenthèse évasion face à l'océan</span>
+            <span class="lang-en">Your escape facing the ocean</span>
+          </span>
         </h1>
 
-        <p data-aos="fade-up" data-aos-delay="300" data-aos-duration="900" class="text-sm sm:text-base text-yemanja-sand/90 font-light leading-relaxed max-w-xl mx-auto drop-shadow-md">
-          <span class="lang-fr">L'évasion balinaise au cœur des Almadies. Une expérience de cuisine fusion, des cocktails signatures et une atmosphère vibrante face à l'océan.</span>
-          <span class="lang-en">The Balinese escape in the heart of Almadies. A fusion dining experience, signature cocktails, and a vibrant atmosphere facing the ocean.</span>
+        <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="900" class="text-sm sm:text-base text-white/90 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+          <span class="lang-fr">Eat, Grill & Chill sur la Corniche des Almadies. Une expérience culinaire unique les pieds dans l'eau.</span>
+          <span class="lang-en">Eat, Grill & Chill on the Almadies Corniche. A unique culinary experience right by the water.</span>
         </p>
 
-        <div data-aos="fade-up" data-aos-delay="450" data-aos-duration="900" class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-          <a href="#reservation" class="btn-shine-primary group relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-sm bg-yemanja-gold text-yemanja-green font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 text-center shadow-[0_4px_20px_rgba(212,175,55,0.4)] hover:shadow-[0_8px_30px_rgba(212,175,55,0.6)] hover:-translate-y-0.5 border border-yemanja-goldHover">
-            <span class="relative z-10 lang-fr">Réserver une table</span>
-            <span class="relative z-10 lang-en">Book a table</span>
-          </a>
-
-          <button onclick="openMenuModal()" class="btn-shine-secondary group relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-sm bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 hover:border-yemanja-gold text-white font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 text-center flex items-center justify-center gap-3">
+        <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="900" class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+          <a href="#carte" class="btn-shine-secondary group relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-sm bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/40 text-white font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 text-center">
             <span class="relative z-10 lang-fr">Découvrir la carte</span>
             <span class="relative z-10 lang-en">Discover the menu</span>
-            <i class="fa-solid fa-arrow-right text-[11px] text-yemanja-gold group-hover:translate-x-1 transition-all duration-300"></i>
-          </button>
+          </a>
+
+          <a href="#reservation" class="btn-shine-primary group relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-sm bg-exotik-sunset text-white font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 text-center shadow-[0_4px_20px_rgba(226,125,96,0.4)] hover:shadow-[0_8px_30px_rgba(226,125,96,0.6)] hover:-translate-y-0.5 border border-transparent">
+            <span class="relative z-10 lang-fr">Réserver en ligne</span>
+            <span class="relative z-10 lang-en">Book online</span>
+          </a>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- BANDEAU DES 4 PILIERS -->
-  <section class="border-b border-yemanja-green/10 bg-yemanja-sandDark py-12 w-full overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+  <!-- BANDEAU EAT, GRILL, CHILL -->
+  <section class="border-b border-exotik-ocean/10 bg-exotik-sandDark py-12 w-full overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-exotik-wood/20">
         
-        <div data-aos="fade-up" data-aos-delay="50" class="flex flex-col items-center text-center space-y-3">
-          <span class="text-yemanja-gold text-3xl"><i class="fa-solid fa-umbrella-beach"></i></span>
-          <h4 class="font-display text-sm uppercase tracking-[0.15em] text-yemanja-green font-bold">
-            <span class="lang-fr">Esprit Balinais</span><span class="lang-en">Balinese Spirit</span>
-          </h4>
-          <p class="text-[11px] text-yemanja-muted max-w-[200px]">
-            <span class="lang-fr">Un cadre tropical et dépaysant les pieds dans l'eau.</span>
-            <span class="lang-en">A tropical and exotic setting right by the water.</span>
+        <div data-aos="fade-up" data-aos-delay="50" class="flex flex-col items-center text-center space-y-3 pt-6 md:pt-0 px-4">
+          <span class="text-exotik-sunset text-3xl"><i class="fa-solid fa-utensils"></i></span>
+          <h4 class="font-display text-lg uppercase tracking-widest text-exotik-ocean font-bold">Eat</h4>
+          <p class="text-xs text-exotik-muted">
+            <span class="lang-fr">Une cuisine fusion audacieuse, mêlant saveurs locales sénégalaises et standards internationaux.</span>
+            <span class="lang-en">Bold fusion cuisine, blending local Senegalese flavors with international standards.</span>
           </p>
         </div>
 
-        <div data-aos="fade-up" data-aos-delay="150" class="flex flex-col items-center text-center space-y-3">
-          <span class="text-yemanja-gold text-3xl"><i class="fa-solid fa-martini-glass-citrus"></i></span>
-          <h4 class="font-display text-sm uppercase tracking-[0.15em] text-yemanja-green font-bold">Lounge & Club</h4>
-          <p class="text-[11px] text-yemanja-muted max-w-[200px]">
-            <span class="lang-fr">Cocktails signatures et soirées animées par nos DJs résidents.</span>
-            <span class="lang-en">Signature cocktails and vibrant nights with our resident DJs.</span>
+        <div data-aos="fade-up" data-aos-delay="150" class="flex flex-col items-center text-center space-y-3 pt-6 md:pt-0 px-4">
+          <span class="text-exotik-sunset text-3xl"><i class="fa-solid fa-fire-burner"></i></span>
+          <h4 class="font-display text-lg uppercase tracking-widest text-exotik-ocean font-bold">Grill</h4>
+          <p class="text-xs text-exotik-muted">
+            <span class="lang-fr">La fraîcheur absolue de l'océan, avec des poissons et fruits de mer grillés sous vos yeux au feu de bois.</span>
+            <span class="lang-en">Absolute ocean freshness, with seafood grilled right before your eyes over a wood fire.</span>
           </p>
         </div>
 
-        <div data-aos="fade-up" data-aos-delay="250" class="flex flex-col items-center text-center space-y-3">
-          <span class="text-yemanja-gold text-3xl"><i class="fa-solid fa-utensils"></i></span>
-          <h4 class="font-display text-sm uppercase tracking-[0.15em] text-yemanja-green font-bold">
-            <span class="lang-fr">Cuisine Fusion</span><span class="lang-en">Fusion Cuisine</span>
-          </h4>
-          <p class="text-[11px] text-yemanja-muted max-w-[200px]">
-            <span class="lang-fr">Ceviches, viandes d'exception, pizzas artisanales et saveurs du monde.</span>
-            <span class="lang-en">Ceviches, premium meats, artisanal pizzas, and global flavors.</span>
-          </p>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="350" class="flex flex-col items-center text-center space-y-3">
-          <span class="text-yemanja-gold text-3xl"><i class="fa-solid fa-location-dot"></i></span>
-          <h4 class="font-display text-sm uppercase tracking-[0.15em] text-yemanja-green font-bold">Corniche Almadies</h4>
-          <p class="text-[11px] text-yemanja-muted max-w-[200px]">
-            <span class="lang-fr">L'emplacement le plus exclusif pour admirer le coucher de soleil.</span>
-            <span class="lang-en">The most exclusive spot to watch the sunset in Dakar.</span>
+        <div data-aos="fade-up" data-aos-delay="250" class="flex flex-col items-center text-center space-y-3 pt-6 md:pt-0 px-4">
+          <span class="text-exotik-sunset text-3xl"><i class="fa-solid fa-compact-disc"></i></span>
+          <h4 class="font-display text-lg uppercase tracking-widest text-exotik-ocean font-bold">Chill</h4>
+          <p class="text-xs text-exotik-muted">
+            <span class="lang-fr">Une atmosphère décontractée en journée qui s'illumine au rythme des DJ sets à la nuit tombée.</span>
+            <span class="lang-en">A relaxed daytime atmosphere that lights up to the rhythm of DJ sets at nightfall.</span>
           </p>
         </div>
 
@@ -327,274 +283,334 @@
     </div>
   </section>
 
-  <!-- SECTION À PROPOS & GALERIE MOSAÏQUE -->
-  <section id="about" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+  <!-- SECTION: LE CONCEPT & L'AMBIANCE -->
+  <section id="concept" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
       
       <div data-aos="fade-right" data-aos-duration="900" class="space-y-6">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-yemanja-gold">
-          <span class="lang-fr">Le Cadre & La Table</span><span class="lang-en">Setting & Dining</span>
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-exotik-sunset">
+          <span class="lang-fr">À Propos</span><span class="lang-en">About Us</span>
         </span>
-        <h2 class="font-display text-3xl sm:text-5xl text-yemanja-green font-bold uppercase tracking-tight leading-tight">
-          <span class="lang-fr">Une Odyssée<br>Tropicale Chic</span>
-          <span class="lang-en">A Tropical<br>Chic Odyssey</span>
+        <h2 class="font-display text-3xl sm:text-5xl text-exotik-ocean font-bold uppercase tracking-tight leading-tight">
+          <span class="lang-fr">L'Esprit Exotik</span><span class="lang-en">The Exotik Spirit</span>
         </h2>
-        <div class="w-16 h-0.5 bg-yemanja-gold"></div>
+        <div class="w-16 h-0.5 bg-exotik-wood"></div>
         
-        <p class="text-yemanja-greenLight text-sm leading-relaxed font-light">
-          <span class="lang-fr">Situé sur la prestigieuse Corniche des Almadies, <strong class="font-semibold text-yemanja-green">Yemanjā</strong> est bien plus qu'un restaurant : c'est un véritable lieu de vie qui célèbre le culte du soleil, de la mer et de la fête.</span>
-          <span class="lang-en">Located on the prestigious Almadies Corniche, <strong class="font-semibold text-yemanja-green">Yemanjā</strong> is more than just a restaurant: it's a true lifestyle destination celebrating the cult of sun, sea, and celebration.</span>
+        <p class="text-exotik-text text-sm leading-relaxed">
+          <span class="lang-fr">Niché sur la prestigieuse Corniche des Almadies à Dakar, l'Exotik Beach est bien plus qu'un simple restaurant-plage : c'est une invitation au voyage et à la déconnexion.</span>
+          <span class="lang-en">Nestled on the prestigious Almadies Corniche in Dakar, Exotik Beach is more than just a beach restaurant: it's an invitation to travel and disconnect.</span>
         </p>
-        <p class="text-yemanja-greenLight text-sm leading-relaxed font-light">
-          <span class="lang-fr">Dans un décor inspiré des plus beaux beach clubs balinais, naviguez entre notre carte fusion raffinée mêlant inspirations méditerranéennes, sud-américaines et importations d'exception, et notre carte de mixologie créative.</span>
-          <span class="lang-en">In a setting inspired by the finest Balinese beach clubs, navigate between our refined fusion menu mixing Mediterranean, South American inspirations and exceptional imports, and our creative mixology menu.</span>
+        <p class="text-exotik-text text-sm leading-relaxed">
+          <span class="lang-fr">Dans un décor bohème et soigné alliant bois flotté, touches tropicales et confort moderne, notre établissement vous accueille 7 jours sur 7 pour vivre des moments suspendus.</span>
+          <span class="lang-en">In a meticulous bohemian decor combining driftwood, tropical touches, and modern comfort, our establishment welcomes you 7 days a week to experience timeless moments.</span>
         </p>
-
-        <div class="pt-4 border-l-2 border-yemanja-gold pl-6 space-y-3">
-          <p class="font-display italic text-lg sm:text-xl text-yemanja-green leading-snug">
-            <span class="lang-fr">« D'un déjeuner ensoleillé face à l'océan jusqu'à l'effervescence de la nuit dakaroise. »</span>
-            <span class="lang-en">"From a sunny lunch facing the ocean to the excitement of the Dakar night."</span>
-          </p>
-        </div>
-
-        <div class="pt-4">
-          <button onclick="openMenuModal()" class="text-yemanja-gold hover:text-yemanja-green transition font-sans font-bold text-xs uppercase tracking-[0.15em] flex items-center gap-2">
-            <span class="lang-fr">Découvrir la carte culinaire</span>
-            <span class="lang-en">Discover our culinary menu</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
+        <p class="text-exotik-text text-sm leading-relaxed font-semibold text-exotik-wood">
+          <span class="lang-fr">Que ce soit pour un déjeuner d'affaires rafraîchissant, un cocktail créatif devant le plus beau coucher de soleil de la capitale, ou un dîner festif sous les étoiles, l'Exotik Beach s'adapte à toutes vos envies.</span>
+          <span class="lang-en">Whether for a refreshing business lunch, a creative cocktail facing the capital's most beautiful sunset, or a festive dinner under the stars, Exotik Beach adapts to all your desires.</span>
+        </p>
       </div>
 
-      <!-- GALERIE MOSAÏQUE 4 IMAGES -->
-      <div data-aos="fade-left" data-aos-duration="900" class="relative grid grid-cols-2 gap-3 sm:gap-5 z-10">
+      <!-- GALERIE MOSAÏQUE (ID GALERIE) -->
+      <div id="galerie" data-aos="fade-left" data-aos-duration="900" class="relative grid grid-cols-2 gap-3 sm:gap-5 z-10">
         <div class="space-y-3 sm:space-y-5 mt-8 sm:mt-12">
-          <div class="rounded-t-full overflow-hidden border border-yemanja-gold/30 shadow-lg aspect-[4/5] group bg-yemanja-sandDark">
-            <img src="ambiance.jpg" alt="Ambiance Yemanjā" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="rounded-t-full overflow-hidden border-2 border-exotik-wood/20 shadow-lg aspect-[4/5] group bg-exotik-sandDark">
+            <img src="ambiance.jpg" alt="Ambiance Exotik Beach" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
           </div>
-          <div class="rounded-sm overflow-hidden border border-yemanja-green/10 shadow-lg aspect-square group bg-yemanja-sandDark">
-            <img src="plat-1.jpg" alt="Plat Signature Yemanjā" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="rounded-sm overflow-hidden border-2 border-exotik-ocean/10 shadow-lg aspect-square group bg-exotik-sandDark">
+            <img src="plat-1.jpg" alt="Plat Signature Exotik" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
           </div>
         </div>
         <div class="space-y-3 sm:space-y-5">
-          <div class="rounded-sm overflow-hidden border border-yemanja-green/10 shadow-lg aspect-square group bg-yemanja-sandDark">
-            <img src="plat-2.jpg" alt="Cocktail Yemanjā" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="rounded-sm overflow-hidden border-2 border-exotik-ocean/10 shadow-lg aspect-square group bg-exotik-sandDark">
+            <img src="plat-2.jpg" alt="Cocktail Exotik Beach" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
           </div>
-          <div class="rounded-b-full overflow-hidden border border-yemanja-gold/30 shadow-lg aspect-[4/5] group bg-yemanja-sandDark">
-            <img src="ambiance-2.jpg" alt="Décor Yemanjā" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="rounded-b-full overflow-hidden border-2 border-exotik-wood/20 shadow-lg aspect-[4/5] group bg-exotik-sandDark">
+            <img src="ambiance-2.jpg" alt="Décor Exotik Beach" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
           </div>
         </div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-yemanja-gold rounded-full opacity-10 blur-3xl -z-10"></div>
+        <!-- Cercle de fond -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-exotik-sunset rounded-full opacity-10 blur-3xl -z-10"></div>
+        
+        <!-- Tag Instagram -->
+        <div class="absolute -bottom-6 right-0 bg-white px-4 py-2 shadow-lg border border-exotik-wood/20 rounded-sm z-20">
+          <p class="text-[10px] font-bold text-exotik-ocean tracking-widest uppercase"><i class="fa-brands fa-instagram text-exotik-sunset mr-1"></i> #ExotikBeachDakar</p>
+        </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- SECTION: LA CARTE & FORMULES -->
+  <section id="carte" class="py-24 bg-exotik-ocean text-white border-y border-exotik-wood/30 relative overflow-hidden">
+    <!-- Texture subtile -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-14" data-aos="fade-up">
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-exotik-sunset">
+          <span class="lang-fr">Rendez-vous Gourmands</span><span class="lang-en">Gourmet Moments</span>
+        </span>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold uppercase tracking-tight mt-2 mb-4">
+          <span class="lang-fr">Nos Saveurs & Formules</span><span class="lang-en">Our Flavors & Menus</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-white/80 max-w-2xl mx-auto font-light">
+          <span class="lang-fr">Des produits frais, une passion pour le goût et des propositions pour tous les moments de la journée.</span>
+          <span class="lang-en">Fresh products, a passion for taste, and offerings for every moment of the day.</span>
+        </p>
+        <div class="w-16 h-0.5 bg-exotik-sunset mx-auto mt-6"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Carte 1 -->
+        <div data-aos="fade-up" data-aos-delay="100" class="bg-white/5 border border-white/10 hover:border-exotik-sunset/50 transition-colors p-8 rounded-sm text-center">
+          <i class="fa-solid fa-fish text-3xl text-exotik-wood mb-4"></i>
+          <h3 class="font-display text-xl font-bold uppercase tracking-wider mb-3">
+            <span class="lang-fr">Le Menu à la Carte</span><span class="lang-en">A La Carte Menu</span>
+          </h3>
+          <p class="text-sm text-white/70 mb-6 leading-relaxed">
+            <span class="lang-fr">Poissons frais du jour, viandes sélectionnées avec soin et notre incontournable <strong>Burger Exotik</strong>.</span>
+            <span class="lang-en">Fresh catch of the day, carefully selected meats, and our unmissable <strong>Exotik Burger</strong>.</span>
+          </p>
+        </div>
+
+        <!-- Carte 2 -->
+        <div data-aos="fade-up" data-aos-delay="200" class="bg-white/5 border border-exotik-sunset/40 hover:border-exotik-sunset transition-colors p-8 rounded-sm text-center relative transform md:-translate-y-4 shadow-2xl">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-exotik-sunset text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-sm whitespace-nowrap">
+            <span class="lang-fr">Tous les jours</span><span class="lang-en">Every Day</span>
+          </div>
+          <i class="fa-solid fa-martini-glass-citrus text-3xl text-exotik-sunset mb-4 mt-2"></i>
+          <h3 class="font-display text-xl font-bold uppercase tracking-wider mb-3">
+            <span class="lang-fr">L'Apéro Sunset</span><span class="lang-en">Sunset Aperitif</span>
+          </h3>
+          <p class="text-sm text-white/70 mb-6 leading-relaxed">
+            <span class="lang-fr">Le spot parfait pour finir la journée. Une sélection de tapas créatives et de cocktails signatures.</span>
+            <span class="lang-en">The perfect spot to end the day. A selection of creative tapas and signature cocktails.</span>
+          </p>
+          <p class="font-display font-bold text-exotik-wood text-lg">
+            <span class="lang-fr">À partir de 5 000 FCFA</span><span class="lang-en">From 5 000 FCFA</span>
+          </p>
+        </div>
+
+        <!-- Carte 3 -->
+        <div data-aos="fade-up" data-aos-delay="300" class="bg-white/5 border border-white/10 hover:border-exotik-sunset/50 transition-colors p-8 rounded-sm text-center relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-exotik-wood text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-sm whitespace-nowrap">
+            <span class="lang-fr">Samedi & Dimanche</span><span class="lang-en">Saturday & Sunday</span>
+          </div>
+          <i class="fa-solid fa-mug-hot text-3xl text-exotik-wood mb-4 mt-2"></i>
+          <h3 class="font-display text-xl font-bold uppercase tracking-wider mb-3">
+            <span class="lang-fr">Le Brunch du Week-end</span><span class="lang-en">Weekend Brunch</span>
+          </h3>
+          <p class="text-sm text-white/70 mb-6 leading-relaxed">
+            <span class="lang-fr">Une formule gourmande, généreuse et conviviale (11h à 16h) pour célébrer le week-end en douceur au bruit des vagues.</span>
+            <span class="lang-en">A generous and convivial gourmet formula (11am to 4pm) to gently celebrate the weekend to the sound of the waves.</span>
+          </p>
+          <p class="font-display font-bold text-exotik-wood text-lg">15 000 FCFA</p>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-14" data-aos="fade-up">
+        <!-- Bouton PDF tel que demandé dans le cahier des charges -->
+        <a href="menu-exotik-beach.pdf" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 border border-exotik-wood text-exotik-wood hover:bg-exotik-wood hover:text-white transition-all font-sans font-bold text-xs uppercase tracking-widest rounded-sm">
+          <i class="fa-regular fa-file-pdf text-lg"></i>
+          <span class="lang-fr">Télécharger le Menu Complet (PDF)</span>
+          <span class="lang-en">Download Full Menu (PDF)</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: ÉVÉNEMENTS & PRIVATISATION -->
+  <section id="evenements" class="py-20 bg-exotik-sandDark border-b border-exotik-wood/10 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+        
+        <div class="w-full md:w-1/2" data-aos="fade-right">
+          <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-exotik-sunset">
+            <span class="lang-fr">Événements</span><span class="lang-en">Events</span>
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl text-exotik-ocean font-bold uppercase tracking-tight mt-2 mb-6">
+            <span class="lang-fr">Vivez l'Expérience Exotik</span><span class="lang-en">Live the Exotik Experience</span>
+          </h2>
+          
+          <div class="space-y-6 text-sm text-exotik-text">
+            <div>
+              <h4 class="font-bold text-exotik-wood uppercase tracking-wider mb-2"><i class="fa-solid fa-music mr-2"></i> <span class="lang-fr">Programmation</span><span class="lang-en">Line-up</span></h4>
+              <p>
+                <span class="lang-fr">Chaque week-end, la terrasse s'anime. Suivez notre programmation de DJ sets exclusifs, de soirées thématiques et de concerts de musique live pour enflammer vos nuits dakaroises.</span>
+                <span class="lang-en">Every weekend, the terrace comes alive. Follow our line-up of exclusive DJ sets, theme nights, and live music concerts to ignite your Dakar nights.</span>
+              </p>
+            </div>
+            
+            <div class="border-t border-exotik-wood/20 pt-6">
+              <h4 class="font-bold text-exotik-wood uppercase tracking-wider mb-2"><i class="fa-solid fa-champagne-glasses mr-2"></i> <span class="lang-fr">Privatisation (BtoB / BtoC)</span><span class="lang-en">Privatization</span></h4>
+              <p>
+                <span class="lang-fr">Anniversaire, Afterwork, Dîner d'entreprise ou Lancement de produit ? Privatisez notre espace face à la mer. Notre équipe crée pour vous un événement sur-mesure (buffet, programmation musicale, décoration).</span>
+                <span class="lang-en">Birthday, Afterwork, Corporate Dinner, or Product Launch? Privatize our space facing the sea. Our team creates a tailor-made event for you.</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <a href="https://wa.me/221771525858?text=Bonjour%20Exotik%20Beach,%20je%20souhaite%20un%20devis%20pour%20une%20privatisation" target="_blank" class="inline-block px-8 py-3 bg-exotik-ocean text-white hover:bg-exotik-oceanLight transition-all font-sans font-bold text-[10px] uppercase tracking-widest rounded-sm shadow-md">
+              <span class="lang-fr">Demander un Devis de Privatisation</span>
+              <span class="lang-en">Request a Privatization Quote</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/2" data-aos="fade-left">
+          <div class="aspect-video w-full rounded-sm overflow-hidden shadow-2xl border-4 border-white relative group">
+            <!-- Remplacer par une photo/vidéo d'événement -->
+            <img src="slide-3.jpg" alt="Evénement Exotik Beach" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-exotik-ocean/20"></div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
   <!-- MODULE DE RÉSERVATION INTERACTIF -->
-  <section id="reservation" class="py-24 bg-yemanja-green text-yemanja-sand w-full overflow-hidden relative">
-    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
-
+  <section id="reservation" class="py-24 bg-exotik-sand w-full overflow-hidden relative border-b border-exotik-wood/10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10" data-aos="fade-up">
       
-      <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-yemanja-gold">
-        <span class="lang-fr">L'Expérience commence ici</span><span class="lang-en">The Experience begins here</span>
+      <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-exotik-sunset">
+        <span class="lang-fr">Réserver</span><span class="lang-en">Booking</span>
       </span>
-      <h2 class="font-display text-3xl sm:text-5xl font-bold uppercase tracking-tight mt-2 mb-4">
+      <h2 class="font-display text-3xl sm:text-5xl text-exotik-ocean font-bold uppercase tracking-tight mt-2 mb-4">
         <span class="lang-fr">Réserver Une Table</span><span class="lang-en">Book A Table</span>
       </h2>
-      <p class="text-xs sm:text-sm text-yemanja-sand/70 max-w-lg mx-auto mb-10 font-light">
-        <span class="lang-fr">Sélectionnez vos critères. Vous serez redirigé vers notre conciergerie WhatsApp pour confirmer votre table en VIP.</span>
-        <span class="lang-en">Select your preferences. You will be redirected to our WhatsApp concierge to confirm your VIP table.</span>
-      </p>
 
-      <div class="bg-yemanja-greenLight/50 backdrop-blur-md border border-yemanja-gold/20 p-6 sm:p-8 rounded-sm max-w-3xl mx-auto shadow-2xl relative">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-6">
+      <div class="bg-white border border-exotik-wood/20 p-6 sm:p-8 rounded-sm max-w-3xl mx-auto shadow-xl relative mt-10">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           
           <div class="text-left">
-            <label class="block text-[10px] uppercase tracking-widest text-yemanja-gold mb-2 font-semibold">Date</label>
-            <input type="date" id="res-date" class="w-full bg-yemanja-green border border-yemanja-sand/20 text-yemanja-sand text-xs px-4 py-3.5 rounded-sm focus:border-yemanja-gold focus:outline-none transition">
+            <label class="block text-[10px] uppercase tracking-widest text-exotik-wood mb-2 font-bold"><span class="lang-fr">Date</span><span class="lang-en">Date</span></label>
+            <input type="date" id="res-date" class="w-full bg-exotik-sand border border-exotik-wood/20 text-exotik-text text-xs px-3 py-3 rounded-sm focus:border-exotik-sunset focus:outline-none transition">
           </div>
 
           <div class="text-left lang-fr">
-            <label class="block text-[10px] uppercase tracking-widest text-yemanja-gold mb-2 font-semibold">Heure</label>
-            <select id="res-time-fr" class="w-full bg-yemanja-green border border-yemanja-sand/20 text-yemanja-sand text-xs px-4 py-3.5 rounded-sm focus:border-yemanja-gold focus:outline-none transition appearance-none">
+            <label class="block text-[10px] uppercase tracking-widest text-exotik-wood mb-2 font-bold">Heure</label>
+            <select id="res-time-fr" class="w-full bg-exotik-sand border border-exotik-wood/20 text-exotik-text text-xs px-3 py-3 rounded-sm focus:border-exotik-sunset focus:outline-none transition appearance-none">
               <option value="12:00">12:00 - Déjeuner</option>
               <option value="14:00">14:00 - Déjeuner</option>
-              <option value="18:30">18:30 - Sunset / Tapas</option>
-              <option value="20:30" selected>20:30 - Dîner</option>
-              <option value="22:00">22:00 - Dîner & Lounge</option>
+              <option value="18:30" selected>18:30 - Apéro Sunset</option>
+              <option value="20:30">20:30 - Dîner</option>
+              <option value="22:00">22:00 - Soirée / DJ</option>
             </select>
           </div>
           <div class="text-left lang-en">
-            <label class="block text-[10px] uppercase tracking-widest text-yemanja-gold mb-2 font-semibold">Time</label>
-            <select id="res-time-en" class="w-full bg-yemanja-green border border-yemanja-sand/20 text-yemanja-sand text-xs px-4 py-3.5 rounded-sm focus:border-yemanja-gold focus:outline-none transition appearance-none">
+            <label class="block text-[10px] uppercase tracking-widest text-exotik-wood mb-2 font-bold">Time</label>
+            <select id="res-time-en" class="w-full bg-exotik-sand border border-exotik-wood/20 text-exotik-text text-xs px-3 py-3 rounded-sm focus:border-exotik-sunset focus:outline-none transition appearance-none">
               <option value="12:00">12:00 - Lunch</option>
               <option value="14:00">14:00 - Lunch</option>
-              <option value="18:30">18:30 - Sunset / Tapas</option>
-              <option value="20:30" selected>20:30 - Dinner</option>
-              <option value="22:00">22:00 - Dinner & Lounge</option>
+              <option value="18:30" selected>18:30 - Sunset Aperitif</option>
+              <option value="20:30">20:30 - Dinner</option>
+              <option value="22:00">22:00 - Night / DJ</option>
             </select>
           </div>
 
           <div class="text-left lang-fr">
-            <label class="block text-[10px] uppercase tracking-widest text-yemanja-gold mb-2 font-semibold">Convives</label>
-            <select id="res-guests-fr" class="w-full bg-yemanja-green border border-yemanja-sand/20 text-yemanja-sand text-xs px-4 py-3.5 rounded-sm focus:border-yemanja-gold focus:outline-none transition appearance-none">
+            <label class="block text-[10px] uppercase tracking-widest text-exotik-wood mb-2 font-bold">Convives</label>
+            <select id="res-guests-fr" class="w-full bg-exotik-sand border border-exotik-wood/20 text-exotik-text text-xs px-3 py-3 rounded-sm focus:border-exotik-sunset focus:outline-none transition appearance-none">
               <option value="2 Personnes" selected>2 Personnes</option>
               <option value="4 Personnes">4 Personnes</option>
               <option value="6 Personnes">6 Personnes</option>
-              <option value="8+ Personnes">Groupe / Événement</option>
+              <option value="Groupe">Groupe (Nous contacter)</option>
             </select>
           </div>
           <div class="text-left lang-en">
-            <label class="block text-[10px] uppercase tracking-widest text-yemanja-gold mb-2 font-semibold">Guests</label>
-            <select id="res-guests-en" class="w-full bg-yemanja-green border border-yemanja-sand/20 text-yemanja-sand text-xs px-4 py-3.5 rounded-sm focus:border-yemanja-gold focus:outline-none transition appearance-none">
+            <label class="block text-[10px] uppercase tracking-widest text-exotik-wood mb-2 font-bold">Guests</label>
+            <select id="res-guests-en" class="w-full bg-exotik-sand border border-exotik-wood/20 text-exotik-text text-xs px-3 py-3 rounded-sm focus:border-exotik-sunset focus:outline-none transition appearance-none">
               <option value="2 People" selected>2 People</option>
               <option value="4 People">4 People</option>
               <option value="6 People">6 People</option>
-              <option value="Group">Group / Event</option>
+              <option value="Group">Group (Contact us)</option>
+            </select>
+          </div>
+
+          <!-- NOUVEAU CHAMP : ZONE SOUHAITÉE -->
+          <div class="text-left lang-fr">
+            <label class="block text-[10px] uppercase tracking-widest text-exotik-wood mb-2 font-bold">Zone</label>
+            <select id="res-zone-fr" class="w-full bg-exotik-sand border border-exotik-wood/20 text-exotik-text text-xs px-3 py-3 rounded-sm focus:border-exotik-sunset focus:outline-none transition appearance-none">
+              <option value="Terrasse Bord de Mer" selected>Terrasse Bord de Mer</option>
+              <option value="Lounge Intérieur">Lounge Intérieur</option>
+            </select>
+          </div>
+          <div class="text-left lang-en">
+            <label class="block text-[10px] uppercase tracking-widest text-exotik-wood mb-2 font-bold">Zone</label>
+            <select id="res-zone-en" class="w-full bg-exotik-sand border border-exotik-wood/20 text-exotik-text text-xs px-3 py-3 rounded-sm focus:border-exotik-sunset focus:outline-none transition appearance-none">
+              <option value="Seaside Terrace" selected>Seaside Terrace</option>
+              <option value="Indoor Lounge">Indoor Lounge</option>
             </select>
           </div>
 
         </div>
 
-        <div id="res-feedback" class="hidden text-xs font-bold text-yemanja-gold mb-4 bg-yemanja-gold/10 py-3 rounded-sm border border-yemanja-gold/20 transition-all duration-300">
+        <div id="res-feedback" class="hidden text-xs font-bold text-exotik-sunset mb-4 bg-exotik-sunset/10 py-3 rounded-sm border border-exotik-sunset/20 transition-all duration-300">
           <i class="fa-solid fa-circle-notch fa-spin mr-2"></i> 
-          <span class="lang-fr">Connexion à la conciergerie WhatsApp...</span>
-          <span class="lang-en">Connecting to WhatsApp concierge...</span>
+          <span class="lang-fr">Connexion à WhatsApp...</span>
+          <span class="lang-en">Connecting to WhatsApp...</span>
         </div>
 
-        <button id="btn-submit-res" class="w-full py-4 bg-yemanja-gold hover:bg-yemanja-goldHover text-yemanja-green font-sans font-bold text-xs uppercase tracking-[0.2em] transition duration-300 rounded-sm shadow-lg flex items-center justify-center gap-2">
-          <span class="lang-fr">Finaliser la réservation</span>
-          <span class="lang-en">Complete reservation</span>
+        <button id="btn-submit-res" class="w-full py-4 bg-exotik-sunset hover:bg-exotik-wood text-white font-sans font-bold text-xs uppercase tracking-[0.2em] transition duration-300 rounded-sm shadow-lg flex items-center justify-center gap-2">
+          <span class="lang-fr">Envoyer la demande</span>
+          <span class="lang-en">Send Request</span>
           <i class="fa-brands fa-whatsapp text-sm"></i>
         </button>
-        <p class="text-[9px] text-yemanja-sand/50 mt-4 uppercase tracking-widest">
-          <span class="lang-fr">Tenue correcte exigée. La direction se réserve le droit d'entrée.</span>
-          <span class="lang-en">Smart casual dress code required. Management reserves the right of admission.</span>
+        
+        <!-- Note du cahier des charges -->
+        <p class="text-[10px] text-exotik-muted mt-4 border-t border-exotik-wood/10 pt-4 font-medium">
+          <span class="lang-fr"><i class="fa-solid fa-circle-info text-exotik-sunset mr-1"></i> Pour les tables en première ligne face à l'océan lors du coucher de soleil, nous vous conseillons de réserver 48h à l'avance.</span>
+          <span class="lang-en"><i class="fa-solid fa-circle-info text-exotik-sunset mr-1"></i> For front-row tables facing the ocean during sunset, we advise booking 48 hours in advance.</span>
         </p>
       </div>
 
     </div>
   </section>
 
-  <!-- PREUVE SOCIALE (AVIS) -->
-  <section id="social" class="py-20 bg-yemanja-sandDark border-t border-yemanja-green/10 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14" data-aos="fade-up">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-yemanja-gold">
-          <span class="lang-fr">Réputation</span><span class="lang-en">Reputation</span>
-        </span>
-        <h2 class="font-display text-3xl sm:text-4xl text-yemanja-green font-bold uppercase tracking-tight mt-2">
-          <span class="lang-fr">Ce que disent nos clients</span><span class="lang-en">What our clients say</span>
-        </h2>
-        <div class="w-16 h-0.5 bg-yemanja-gold mx-auto mt-4 mb-8"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-        <div data-aos="fade-up" data-aos-delay="100" class="bg-yemanja-sand border border-yemanja-green/10 p-8 rounded-sm shadow-sm relative">
-          <div class="text-yemanja-gold text-xs flex gap-1 mb-5">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="font-display italic text-yemanja-green text-lg mb-6 leading-snug">
-            <span class="lang-fr">« Le spot incontournable des Almadies. Le Tomahawk est divin, et l'ambiance au coucher du soleil est magique. »</span>
-            <span class="lang-en">"The must-visit spot in Almadies. The Tomahawk is divine, and the sunset atmosphere is magical."</span>
-          </p>
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-yemanja-greenLight text-yemanja-sand flex items-center justify-center font-display font-bold text-xs">M</div>
-            <div>
-              <p class="text-yemanja-green text-[11px] font-bold uppercase tracking-wider">Marie C.</p>
-              <p class="text-[9px] text-yemanja-muted uppercase tracking-widest">Google Local Guide</p>
-            </div>
-          </div>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="200" class="bg-yemanja-sand border border-yemanja-green/10 p-8 rounded-sm shadow-sm relative transform md:-translate-y-4">
-          <div class="text-yemanja-gold text-xs flex gap-1 mb-5">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="font-display italic text-yemanja-green text-lg mb-6 leading-snug">
-            <span class="lang-fr">« Entre cuisine fusion et atmosphère lounge chic, Yemanjā redéfinit les nuits dakaroises. Les cocktails sont excellents. »</span>
-            <span class="lang-en">"Between fusion cuisine and chic lounge atmosphere, Yemanjā redefines Dakar nights. The cocktails are excellent."</span>
-          </p>
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-yemanja-greenLight text-yemanja-sand flex items-center justify-center font-display font-bold text-xs">J</div>
-            <div>
-              <p class="text-yemanja-green text-[11px] font-bold uppercase tracking-wider">Julien B.</p>
-              <p class="text-[9px] text-yemanja-muted uppercase tracking-widest">Google Local Guide</p>
-            </div>
-          </div>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="300" class="bg-yemanja-sand border border-yemanja-green/10 p-8 rounded-sm shadow-sm relative">
-          <div class="text-yemanja-gold text-xs flex gap-1 mb-5">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="font-display italic text-yemanja-green text-lg mb-6 leading-snug">
-            <span class="lang-fr">« De l'Escale à Beyrouth aux viandes d'exception, tout est parfait. Le service est aux petits soins, et les DJ sets très sympas. »</span>
-            <span class="lang-en">"From the Beirut Stopover to the exceptional meats, everything is perfect. The service is attentive, and the DJ sets are great."</span>
-          </p>
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-yemanja-greenLight text-yemanja-sand flex items-center justify-center font-display font-bold text-xs">S</div>
-            <div>
-              <p class="text-yemanja-green text-[11px] font-bold uppercase tracking-wider">Saliou T.</p>
-              <p class="text-[9px] text-yemanja-muted uppercase tracking-widest">
-                <span class="lang-fr">Avis Client</span><span class="lang-en">Client Review</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center" data-aos="fade-up">
-        <a href="https://maps.app.goo.gl/2pkncGBwiCA7Sp4d9?g_st=ic" target="_blank" class="inline-block text-xs font-bold uppercase tracking-widest text-yemanja-gold hover:text-yemanja-green transition border-b border-yemanja-gold pb-1">
-          <span class="lang-fr">Voir nos avis sur Google Maps</span><span class="lang-en">See our reviews on Google Maps</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- HORAIRES, ACCÈS & MAP -->
-  <section id="contact" class="py-20 bg-yemanja-sand border-t border-yemanja-green/10 w-full overflow-hidden">
+  <section id="contact" class="py-20 bg-exotik-sandDark w-full overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         
         <div class="space-y-6" data-aos="fade-right">
-          <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-yemanja-gold">
+          <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-exotik-sunset">
             <span class="lang-fr">Nous Trouver</span><span class="lang-en">Find Us</span>
           </span>
-          <h2 class="font-display text-3xl sm:text-4xl text-yemanja-green font-bold uppercase">
+          <h2 class="font-display text-3xl sm:text-4xl text-exotik-ocean font-bold uppercase">
             <span class="lang-fr">Infos Pratiques</span><span class="lang-en">Practical Info</span>
           </h2>
-          <p class="text-sm text-yemanja-greenLight font-light">
-            <span class="lang-fr">Le restaurant & lounge vous accueille pour des moments d'exception face à la mer.</span>
-            <span class="lang-en">The restaurant & lounge welcomes you for exceptional moments facing the sea.</span>
-          </p>
 
-          <div class="bg-white border border-yemanja-green/10 rounded-sm p-6 space-y-3 text-xs shadow-sm">
-            <div class="flex justify-between py-2 border-b border-yemanja-green/5">
-              <span class="uppercase tracking-wider font-semibold text-yemanja-green"><span class="lang-fr">Lundi</span><span class="lang-en">Monday</span></span>
-              <span class="font-sans font-medium text-yemanja-muted"><span class="lang-fr">Fermé</span><span class="lang-en">Closed</span></span>
-            </div>
-            <div class="flex justify-between py-2 border-b border-yemanja-green/5">
-              <span class="uppercase tracking-wider font-semibold text-yemanja-green"><span class="lang-fr">Mardi au Dimanche</span><span class="lang-en">Tuesday to Sunday</span></span>
-              <span class="font-sans font-medium text-yemanja-gold">12:00 – 00:00</span>
+          <div class="bg-white border border-exotik-wood/20 rounded-sm p-6 space-y-3 text-xs shadow-sm">
+            <div class="flex justify-between py-2 border-b border-exotik-wood/10">
+              <span class="uppercase tracking-wider font-bold text-exotik-ocean">
+                <span class="lang-fr">Ouverture</span><span class="lang-en">Open</span>
+              </span>
+              <span class="font-sans font-medium text-exotik-text">
+                <span class="lang-fr">7 jours sur 7</span><span class="lang-en">7 days a week</span>
+              </span>
             </div>
             
-            <div class="flex justify-between py-2 pt-3">
-              <span class="uppercase tracking-wider font-semibold text-yemanja-green"><i class="fa-solid fa-location-dot mr-2 text-yemanja-gold"></i> <span class="lang-fr">Adresse</span><span class="lang-en">Address</span></span>
-              <a href="https://maps.app.goo.gl/2pkncGBwiCA7Sp4d9?g_st=ic" target="_blank" class="font-sans font-medium text-right text-yemanja-greenLight hover:text-yemanja-gold transition underline decoration-yemanja-gold/50 underline-offset-4 cursor-pointer">
+            <div class="flex justify-between py-2 pt-3 border-b border-exotik-wood/10 pb-3">
+              <span class="uppercase tracking-wider font-bold text-exotik-ocean"><i class="fa-solid fa-location-dot mr-2 text-exotik-sunset"></i> <span class="lang-fr">Adresse</span><span class="lang-en">Address</span></span>
+              <a href="https://maps.app.goo.gl/2pkncGBwiCA7Sp4d9?g_st=ic" target="_blank" class="font-sans font-medium text-right text-exotik-wood hover:text-exotik-sunset transition underline decoration-exotik-wood/50 underline-offset-4 cursor-pointer">
                 Corniche des Almadies<br>Dakar <span class="lang-fr">(Ouvrir le GPS)</span><span class="lang-en">(Open GPS)</span>
               </a>
             </div>
 
-            <div class="flex justify-between py-2">
-              <span class="uppercase tracking-wider font-semibold text-yemanja-green"><i class="fa-solid fa-phone mr-2 text-yemanja-gold"></i> <span class="lang-fr">Téléphone / WhatsApp</span><span class="lang-en">Phone / WhatsApp</span></span>
-              <span class="font-sans font-bold text-yemanja-greenLight">+221 77 635 65 15</span>
+            <div class="flex justify-between py-2 pt-3">
+              <span class="uppercase tracking-wider font-bold text-exotik-ocean"><i class="fa-solid fa-phone mr-2 text-exotik-sunset"></i> <span class="lang-fr">Contact / WhatsApp</span><span class="lang-en">Phone / WhatsApp</span></span>
+              <span class="font-sans font-bold text-exotik-text">+221 77 152 58 58</span>
             </div>
           </div>
         </div>
 
-        <div data-aos="fade-left" class="h-[350px] lg:h-full min-h-[300px] rounded-sm overflow-hidden border border-yemanja-green/10 shadow-lg p-1 bg-white">
+        <div data-aos="fade-left" class="h-[350px] lg:h-full min-h-[300px] rounded-sm overflow-hidden border-2 border-white shadow-lg">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15433.805213601556!2d-17.524956!3d14.743603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec1725514f05781%3A0xe5f9bce416c1f1f!2sAlmadies%2C%20Dakar%2C%20S%C3%A9n%C3%A9gal!5e0!3m2!1sfr!2s!4v1690000000000!5m2!1sfr!2s"
             width="100%" 
@@ -610,335 +626,33 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-yemanja-green text-yemanja-sand py-10 border-t border-yemanja-gold/20 w-full text-center">
+  <footer class="bg-exotik-ocean text-white py-10 w-full text-center">
     <div class="max-w-7xl mx-auto px-4">
-      <h3 class="font-display text-2xl tracking-[0.2em] uppercase mb-4 text-yemanja-gold">Yemanjā</h3>
+      <h3 class="font-display text-2xl tracking-[0.2em] uppercase mb-4 text-exotik-sand">Exotik Beach</h3>
       <div class="flex justify-center gap-4 mb-6">
-        <a href="https://instagram.com/yemanja.dkr" target="_blank" class="text-yemanja-sand hover:text-yemanja-gold transition text-xl"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://facebook.com/yemanja.dkr" target="_blank" class="text-yemanja-sand hover:text-yemanja-gold transition text-xl"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" target="_blank" class="text-white/70 hover:text-exotik-sunset transition text-xl"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" target="_blank" class="text-white/70 hover:text-exotik-sunset transition text-xl"><i class="fa-brands fa-facebook-f"></i></a>
       </div>
-      <p class="text-[10px] text-yemanja-sand/50 uppercase tracking-[0.2em]">
-        <span class="lang-fr">© 2026 Yemanjā Dakar • Restaurant, Lounge & Sunset Bar. Tous droits réservés.</span>
-        <span class="lang-en">© 2026 Yemanjā Dakar • Restaurant, Lounge & Sunset Bar. All rights reserved.</span>
-      </p>
+      <div class="text-[9px] text-white/50 uppercase tracking-[0.2em] space-y-2">
+        <p>
+          <span class="lang-fr">© 2026 Exotik Beach Dakar. Tous droits réservés.</span>
+          <span class="lang-en">© 2026 Exotik Beach Dakar. All rights reserved.</span>
+        </p>
+        <p>
+          <a href="#" class="hover:text-white transition"><span class="lang-fr">Mentions légales & Confidentialité</span><span class="lang-en">Legal & Privacy</span></a>
+        </p>
+      </div>
     </div>
   </footer>
 
   <!-- BOUTON WHATSAPP FLOTTANT -->
-  <a href="https://wa.me/221776356515?text=Bonjour%20Yemanjā,%20je%20souhaite%20r%C3%A9server%20une%20table" 
+  <a href="https://wa.me/221771525858?text=Bonjour%20Exotik%20Beach,%20je%20souhaite%20r%C3%A9server%20une%20table" 
      id="floating-wa"
      target="_blank" 
      aria-label="Réserver via WhatsApp"
      class="fixed bottom-6 right-6 z-30 bg-[#25D366] hover:bg-[#20ba5a] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl transition hover:scale-110 border border-white/20">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
-
-  <!-- ============================================================== -->
-  <!-- LA CARTE BILINGUE : FENÊTRE MODALE YEMANJA -->
-  <!-- ============================================================== -->
-  <div id="menu-modal" class="hidden-modal fixed inset-0 z-50 bg-yemanja-green/95 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-    <div class="modal-box bg-yemanja-sand border-2 border-yemanja-gold/30 w-full max-w-5xl rounded-sm p-6 sm:p-10 relative max-h-[92vh] overflow-y-auto shadow-[0_0_40px_rgba(0,0,0,0.5)]">
-      
-      <button onclick="closeMenuModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-yemanja-green/10 hover:bg-yemanja-gold text-yemanja-green hover:text-white flex items-center justify-center transition text-lg" aria-label="Fermer la carte">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <!-- En-tête Modale -->
-      <div class="text-center max-w-xl mx-auto mb-8 space-y-2">
-        <i class="fa-solid fa-anchor text-yemanja-gold text-xl mb-1"></i>
-        <h3 class="font-display text-3xl sm:text-4xl text-yemanja-green font-bold uppercase tracking-tight">
-          <span class="lang-fr">Carte Gastronomique</span><span class="lang-en">Gastronomic Menu</span>
-        </h3>
-        <p class="text-[10px] text-yemanja-gold font-bold tracking-widest mt-2 border border-yemanja-gold/30 inline-block px-3 py-1 rounded-sm">
-          <span class="lang-fr">Tous nos prix sont en FCFA</span><span class="lang-en">All our prices are in FCFA</span>
-        </p>
-        <div class="w-12 h-px bg-yemanja-gold mx-auto mt-4"></div>
-      </div>
-
-      <!-- Onglets modale (5 Onglets) -->
-      <div class="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 overflow-x-auto pb-4 mb-8 border-b border-yemanja-green/10 no-scrollbar">
-        <button data-tab="modal-tab-entrees" class="tab-btn active px-4 py-2 text-xs font-sans font-bold uppercase tracking-wider transition border-b-2 border-yemanja-green text-yemanja-green shrink-0">
-          <span class="lang-fr">Entrées & Copains</span><span class="lang-en">Starters & Sharing</span>
-        </button>
-        <button data-tab="modal-tab-plats" class="tab-btn px-4 py-2 text-xs font-sans font-bold uppercase tracking-wider transition border-b-2 border-transparent text-yemanja-muted hover:text-yemanja-green shrink-0">
-          <span class="lang-fr">Côté Mer & Terre</span><span class="lang-en">Sea & Land</span>
-        </button>
-        <button data-tab="modal-tab-italie" class="tab-btn px-4 py-2 text-xs font-sans font-bold uppercase tracking-wider transition border-b-2 border-transparent text-yemanja-muted hover:text-yemanja-green shrink-0">
-          Pizzas & Pasta
-        </button>
-        <button data-tab="modal-tab-desserts" class="tab-btn px-4 py-2 text-xs font-sans font-bold uppercase tracking-wider transition border-b-2 border-transparent text-yemanja-muted hover:text-yemanja-green shrink-0">
-          <span class="lang-fr">Douceurs</span><span class="lang-en">Desserts</span>
-        </button>
-        <button data-tab="modal-tab-bar" class="tab-btn px-4 py-2 text-xs font-sans font-bold uppercase tracking-wider transition border-b-2 border-transparent text-yemanja-muted hover:text-yemanja-green shrink-0">
-          Mixologie & Bar
-        </button>
-      </div>
-
-      <!-- Contenu 1 : ENTRÉES & COPAINS -->
-      <div id="modal-tab-entrees" class="tab-panel active">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
-          
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-              <span class="lang-fr">Entrées Marines & Végétales</span><span class="lang-en">Marine & Plant Starters</span>
-            </h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Ceviche de poisson</span><span class="lang-en">Fish Ceviche</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Lait de coco et fruit de la passion</span><span class="lang-en">Coconut milk and passion fruit</span></p>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Carpaccio de boeuf</span><span class="lang-en">Beef Carpaccio</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">11 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Câpres et parmesan</span><span class="lang-en">Capers and parmesan</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Carpaccio de poisson</span><span class="lang-en">Fish Carpaccio</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Gingembre et baies roses</span><span class="lang-en">Ginger and pink peppercorns</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Carpaccio de poulpe</span><span class="lang-en">Octopus Carpaccio</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 000</div></div>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Plateau d'huîtres (12 pcs)</span><span class="lang-en">Oyster Platter (12 pcs)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 000</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Burrata à la crème de framboise</span><span class="lang-en">Burrata with raspberry cream</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Grissini et tomates cerises</span><span class="lang-en">Grissini and cherry tomatoes</span></p>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Salade Thaï mango</span><span class="lang-en">Thai Mango Salad</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Mangues, gambas rolls, avocat</span><span class="lang-en">Mango, prawn rolls, avocado</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold">Sweet quinoa</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold">Salade César / Sweet Yé</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Aumônière de chèvre</span><span class="lang-en">Goat Cheese Pouch</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">11 000</div></div>
-            </div>
-          </div>
-
-          <div class="space-y-10">
-            <div>
-              <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-                <span class="lang-fr">Le Coin des Copains (Tapas)</span><span class="lang-en">Friends' Corner (Tapas)</span>
-              </h4>
-              <div class="space-y-4 text-xs font-sans text-yemanja-green">
-                <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Planche de fromages</span><span class="lang-en">Cheese Board</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">14 000</div></div>
-                
-                <div class="flex justify-between items-end"><div class="font-bold">Scampi fritti</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 000</div></div>
-                <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Calamars, poulpes, crevettes panés</span><span class="lang-en">Breaded calamari, octopus, shrimp</span></p>
-
-                <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Camembert rôti</span><span class="lang-en">Roasted Camembert</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 500</div></div>
-                <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Confiture de figues et toasts</span><span class="lang-en">Fig jam and toast</span></p>
-
-                <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Flûte norvégienne / sicilienne</span><span class="lang-en">Norwegian / Sicilian Flute</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 500 / 10 000</div></div>
-                <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Nems vietnamiens (5 pcs)</span><span class="lang-en">Vietnamese Nems (5 pcs)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">5 500</div></div>
-              </div>
-            </div>
-
-            <div>
-              <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-                <span class="lang-fr">Escale à Beyrouth</span><span class="lang-en">Stopover in Beirut</span>
-              </h4>
-              <div class="space-y-3 text-xs font-sans text-yemanja-green">
-                <div class="flex justify-between items-end"><div class="font-bold">Kibbeh frits</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">5 000</div></div>
-                <div class="flex justify-between items-end"><div class="font-bold">Houmous / Taboulé / Fattouche</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">5 500</div></div>
-                <div class="flex justify-between items-end"><div class="font-bold">Falafels</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">6 500</div></div>
-                <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Fatteh d'aubergine</span><span class="lang-en">Eggplant Fatteh</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 500</div></div>
-                <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Shrimp fatteh / Friture de sardines</span><span class="lang-en">Shrimp fatteh / Fried sardines</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">10 500 / 10 000</div></div>
-                <div class="flex justify-between items-end"><div class="font-bold">Chich Taouk</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">11 000</div></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Contenu 2 : CÔTÉ MER & TERRE -->
-      <div id="modal-tab-plats" class="tab-panel">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
-          
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-              <span class="lang-fr">Côté Mer</span><span class="lang-en">Sea Side</span>
-            </h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Langoustes Prestige à la braise</span><span class="lang-en">Charcoal Grilled Prestige Lobsters</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold text-sm">25 000</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Gambas à la provençale</span><span class="lang-en">Prawns Provencal</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">14 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Escapade de gambas grillées</span><span class="lang-en">Grilled Prawns Escapade</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">14 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Gambas au curry et ananas</span><span class="lang-en">Curry & Pineapple Prawns</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">14 000</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Filet de cabillaud</span><span class="lang-en">Cod Fillet</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Meunière ou poivre vert</span><span class="lang-en">Meunière or green pepper sauce</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Thiof braisé</span><span class="lang-en">Braised Thiof (Local Grouper)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">15 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Tourte aux fruits de mer</span><span class="lang-en">Seafood Pie</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">14 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Moules marinières</span><span class="lang-en">Marinières Mussels</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">14 000</div></div>
-            </div>
-
-            <h4 class="font-display text-sm text-yemanja-green font-bold uppercase tracking-widest mt-10 mb-3 border-b border-yemanja-gold/30 pb-2">
-              <span class="lang-fr">Accompagnements Inclus</span><span class="lang-en">Included Sides</span>
-            </h4>
-            <p class="text-xs text-yemanja-muted leading-relaxed">
-              <span class="lang-fr">Riz blanc, Légumes sautés, Tagliatelles, Pommes sautées, Frites, Alloco, Purée de pommes de terre, Frites de patate douce.</span>
-              <span class="lang-en">White rice, Sautéed vegetables, Tagliatelle, Sautéed potatoes, French fries, Alloco (Plantains), Mashed potatoes, Sweet potato fries.</span>
-            </p>
-          </div>
-
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-              <span class="lang-fr">Côté Terre & Viandes Importées</span><span class="lang-en">Land Side & Imported Meats</span>
-            </h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              
-              <div class="p-4 bg-yemanja-sandDark border border-yemanja-gold/20 rounded-sm mb-6">
-                <span class="text-[9px] uppercase tracking-widest text-yemanja-gold font-bold"><span class="lang-fr">Sélection Prestige</span><span class="lang-en">Prestige Selection</span></span>
-                <div class="flex justify-between items-end mt-2"><div class="font-bold text-sm">Tomahawk <span class="text-[10px] font-normal text-yemanja-muted"><span class="lang-fr">(Env. 1kg - Pour 2 personnes)</span><span class="lang-en">(Approx. 1kg - For 2)</span></span></div><div class="menu-dots"></div><div class="font-bold text-yemanja-gold text-base">65 000</div></div>
-                <div class="flex justify-between items-end mt-4"><div class="font-bold text-sm"><span class="lang-fr">Entrecôte d'Angus</span><span class="lang-en">Angus Ribeye</span></div><div class="menu-dots"></div><div class="font-bold text-yemanja-gold text-base">22 000</div></div>
-                <div class="flex justify-between items-end mt-4"><div class="font-bold text-sm"><span class="lang-fr">Côtelettes d'agneau braisées</span><span class="lang-en">Braised Lamb Chops</span></div><div class="menu-dots"></div><div class="font-bold text-yemanja-gold text-base">22 000</div></div>
-              </div>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Coeur de filet de boeuf, sauce vin</span><span class="lang-en">Beef Tenderloin Heart, wine sauce</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">15 000</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Médaillon de boeuf crème signature</span><span class="lang-en">Beef Medallion signature cream</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">14 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Champignons, poivre vert, bleu d'Auvergne</span><span class="lang-en">Mushrooms, green pepper, blue cheese</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Poulet grillé entier, marinades herbes</span><span class="lang-en">Whole Grilled Chicken, herb marinade</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">15 000</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Escalope de poulet crème champignons</span><span class="lang-en">Chicken Escalope mushroom cream</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Brochettes poulet gingembre miel</span><span class="lang-en">Chicken Skewers ginger & honey</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Brochettes de filet de boeuf épicées</span><span class="lang-en">Spicy Beef Fillet Skewers</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 500</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Bo Bun (Boeuf mariné)</span><span class="lang-en">Bo Bun (Marinated Beef)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 500</div></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Contenu 3 : PIZZAS & PASTA -->
-      <div id="modal-tab-italie" class="tab-panel">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
-          
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-              <span class="lang-fr">Pizzas Artisanales</span><span class="lang-en">Artisanal Pizzas</span>
-            </h4>
-            <div class="space-y-5 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold">Margherita</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-4 italic"><span class="lang-fr">Sauce tomate, mozzarella, olive noire, basilic</span><span class="lang-en">Tomato sauce, mozzarella, black olives, basil</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold">Regina</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-4 italic"><span class="lang-fr">Jambon blanc ou dinde, champignon</span><span class="lang-en">Ham or turkey, mushrooms</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Végétarienne</span><span class="lang-en">Vegetarian</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-4 italic"><span class="lang-fr">Champignon, artichaut, olive</span><span class="lang-en">Mushroom, artichoke, olives</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold">Pepperoni</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-4 italic"><span class="lang-fr">Chorizo, basilic, poivron</span><span class="lang-en">Chorizo, basil, bell peppers</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold">Tuna Pizza</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-4 italic"><span class="lang-fr">Thon, olive noire</span><span class="lang-en">Tuna, black olives</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold">Pizza del Mare</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-4 italic"><span class="lang-fr">Fruits de mer, basilic</span><span class="lang-en">Seafood, basil</span></p>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Dolce Vita (Pasta & Gnocchi)</h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Tagliatelles au saumon</span><span class="lang-en">Salmon Tagliatelle</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold">Gnocchi alfredo</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">11 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Crème fraiche, poulet, champignons</span><span class="lang-en">Fresh cream, chicken, mushrooms</span></p>
-
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Rigatoni citron, pesto et burrata</span><span class="lang-en">Rigatoni lemon, pesto & burrata</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">11 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Tagliatelles aux fruits de mer</span><span class="lang-en">Seafood Tagliatelle</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">11 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Penne aux brocolis, parmesan, pignons</span><span class="lang-en">Broccoli Penne, parmesan, pine nuts</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Pâtes carbonara (lardons/dinde)</span><span class="lang-en">Carbonara Pasta (bacon/turkey)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">9 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold">Penne all'arrabbiata</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold">Gnocchi au pesto</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">12 000</div></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Contenu 4 : DOUCEURS -->
-      <div id="modal-tab-desserts" class="tab-panel">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-          
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-              <span class="lang-fr">La Note Sucrée</span><span class="lang-en">Sweet Notes</span>
-            </h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Pavlova signature (fruits de saison)</span><span class="lang-en">Signature Pavlova (seasonal fruits)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Crème brûlée</span><span class="lang-en">Crème Brûlée</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Cookie au coeur coulant</span><span class="lang-en">Molten Core Cookie</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Tiramisu / Café gourmand</span><span class="lang-en">Tiramisu / Gourmand Coffee</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">L'incontournable pain perdu</span><span class="lang-en">Signature French Toast</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Coulant au chocolat / Mi-cuit caramel</span><span class="lang-en">Chocolate Fondant / Caramel Lava Cake</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Tarte fine aux pommes / Churros</span><span class="lang-en">Thin Apple Tart / Churros</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Assiette de fruits</span><span class="lang-en">Fruit Platter</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">6 500</div></div>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">
-              <span class="lang-fr">La Note Givrée</span><span class="lang-en">Frozen Notes</span>
-            </h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold">Profiteroles</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Choux, glace vanille, sauce chocolat, chantilly</span><span class="lang-en">Choux, vanilla ice cream, chocolate sauce, whipped cream</span></p>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Chocolat liégeois</span><span class="lang-en">Chocolate Liégeois</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Café liégeois</span><span class="lang-en">Coffee Liégeois</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 000</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Coupe tropique / Coupe cookies</span><span class="lang-en">Tropical Cup / Cookie Cup</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 500</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Coupe Brasilia</span><span class="lang-en">Brasilia Cup</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 500</div></div>
-              
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">La boule au choix</span><span class="lang-en">Ice Cream Scoop (Choice)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">2 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Suppléments (chantilly / chocolat)</span><span class="lang-en">Extras (whipped cream / chocolate)</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">2 000</div></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Contenu 5 : MIXOLOGIE & BAR -->
-      <div id="modal-tab-bar" class="tab-panel">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-          
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Cocktails Signatures</h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold">Yemanjā Sunset</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Rhum ambré, passion, citron vert, sirop d'hibiscus</span><span class="lang-en">Dark rum, passion fruit, lime, hibiscus syrup</span></p>
-              
-              <div class="flex justify-between items-end"><div class="font-bold">Almadies Breeze</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Gin, concombre, fleur de sureau, menthe fraîche</span><span class="lang-en">Gin, cucumber, elderflower, fresh mint</span></p>
-              
-              <div class="flex justify-between items-end"><div class="font-bold">Spicy Margarita</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">8 000</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Tequila, citron vert, sirop d'agave, piment doux</span><span class="lang-en">Tequila, lime, agave syrup, sweet chili</span></p>
-              
-              <div class="flex justify-between items-end"><div class="font-bold">Mojito Tropical</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">7 000</div></div>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="font-display text-lg text-yemanja-green font-bold uppercase tracking-widest mb-5 border-b border-yemanja-gold/30 pb-2">Mocktails & Softs</h4>
-            <div class="space-y-4 text-xs font-sans text-yemanja-green">
-              <div class="flex justify-between items-end"><div class="font-bold">Virgin Mojito (Passion / Fraise)</div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">5 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Jus Locaux</span><span class="lang-en">Local Juices</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">1 500</div></div>
-              <p class="text-[10px] text-yemanja-muted -mt-3 italic"><span class="lang-fr">Bissap, Gingembre, Goyave, Mangue</span><span class="lang-en">Hibiscus, Ginger, Guava, Mango</span></p>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Eau minérale 50cl / 1L</span><span class="lang-en">Mineral water 50cl / 1L</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">1 000 / 2 000</div></div>
-              <div class="flex justify-between items-end"><div class="font-bold"><span class="lang-fr">Sodas & Eau gazeuse</span><span class="lang-en">Sodas & Sparkling water</span></div><div class="menu-dots"></div><div class="font-semibold text-yemanja-gold">1 500</div></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <p class="text-[9px] uppercase tracking-widest text-yemanja-gold mt-10 text-center border-t border-yemanja-gold/20 pt-4">
-        <span class="lang-fr">Certains plats nécessitent un temps de préparation. Pour toute information sur les allergènes, veuillez consulter notre équipe.</span>
-        <span class="lang-en">Some dishes require preparation time. For allergen information, please consult our team.</span>
-      </p>
-
-    </div>
-  </div>
 
   <!-- AOS JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -953,30 +667,7 @@
       }, 1500); 
     });
 
-    // Modale
-    function openMenuModal() {
-      const modal = document.getElementById('menu-modal');
-      modal.classList.remove('hidden-modal');
-      modal.classList.add('active-modal');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenuModal() {
-      const modal = document.getElementById('menu-modal');
-      modal.classList.remove('active-modal');
-      modal.classList.add('hidden-modal');
-      document.body.style.overflow = '';
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenuModal();
-    });
-
-    document.getElementById('menu-modal').addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) closeMenuModal();
-    });
-
-    // Fonction de Changement de Langue
+    // TRADUCTION BILINGUE
     function setLang(lang) {
       document.documentElement.lang = lang;
       
@@ -984,50 +675,49 @@
       const btnsEN = document.querySelectorAll('.btn-lang-en');
       
       if(lang === 'fr') {
-        btnsFR.forEach(b => { b.classList.add('text-yemanja-gold'); b.classList.remove('text-yemanja-green/50', 'hover:text-yemanja-green'); });
-        btnsEN.forEach(b => { b.classList.remove('text-yemanja-gold'); b.classList.add('text-yemanja-green/50', 'hover:text-yemanja-green'); });
+        btnsFR.forEach(b => { b.classList.add('text-exotik-sunset'); b.classList.remove('text-exotik-ocean/50', 'hover:text-exotik-ocean'); });
+        btnsEN.forEach(b => { b.classList.remove('text-exotik-sunset'); b.classList.add('text-exotik-ocean/50', 'hover:text-exotik-ocean'); });
       } else {
-        btnsEN.forEach(b => { b.classList.add('text-yemanja-gold'); b.classList.remove('text-yemanja-green/50', 'hover:text-yemanja-green'); });
-        btnsFR.forEach(b => { b.classList.remove('text-yemanja-gold'); b.classList.add('text-yemanja-green/50', 'hover:text-yemanja-green'); });
+        btnsEN.forEach(b => { b.classList.add('text-exotik-sunset'); b.classList.remove('text-exotik-ocean/50', 'hover:text-exotik-ocean'); });
+        btnsFR.forEach(b => { b.classList.remove('text-exotik-sunset'); b.classList.add('text-exotik-ocean/50', 'hover:text-exotik-ocean'); });
       }
 
-      // Modifier dynamiquement le lien du bouton WhatsApp Flottant
       const waBtn = document.getElementById('floating-wa');
       if(waBtn) {
-        const msg = lang === 'fr' ? "Bonjour Yemanjā, je souhaite réserver une table" : "Hello Yemanjā, I would like to book a table";
-        waBtn.href = `https://wa.me/221776356515?text=${encodeURIComponent(msg)}`;
+        const msg = lang === 'fr' ? "Bonjour Exotik Beach, je souhaite réserver une table" : "Hello Exotik Beach, I would like to book a table";
+        waBtn.href = `https://wa.me/221771525858?text=${encodeURIComponent(msg)}`;
       }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // AOS Animation
+      // Init Animation
       if (typeof AOS !== 'undefined' && window.innerWidth > 640) {
         AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic', offset: 40 });
       } else if (typeof AOS !== 'undefined') {
         AOS.init({ once: true, offset: 0, duration: 400 });
       }
 
-      // Onglets Modale
-      const tabButtons = document.querySelectorAll('.tab-btn');
-      const tabPanels = document.querySelectorAll('.tab-panel');
+      // Curseur Desktop
+      const dot = document.getElementById('cursor-dot');
+      const circle = document.getElementById('cursor-circle');
 
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const targetId = button.getAttribute('data-tab');
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && dot && circle) {
+        window.addEventListener('mousemove', (e) => {
+          dot.style.left = e.clientX + 'px';
+          dot.style.top = e.clientY + 'px';
 
-          tabButtons.forEach(btn => {
-            btn.classList.remove('border-yemanja-green', 'text-yemanja-green');
-            btn.classList.add('border-transparent', 'text-yemanja-muted');
-          });
-
-          button.classList.remove('border-transparent', 'text-yemanja-muted');
-          button.classList.add('border-yemanja-green', 'text-yemanja-green');
-
-          tabPanels.forEach(panel => panel.classList.remove('active'));
-          const activePanel = document.getElementById(targetId);
-          if (activePanel) activePanel.classList.add('active');
+          circle.animate({
+            left: e.clientX + 'px',
+            top: e.clientY + 'px'
+          }, { duration: 300, fill: 'forwards' });
         });
-      });
+
+        const interactives = document.querySelectorAll('a, button, input, select, textarea');
+        interactives.forEach(el => {
+          el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+          el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+        });
+      }
 
       // Menu mobile
       const menuBtn = document.getElementById('menu-btn');
@@ -1045,25 +735,25 @@
         });
       }
 
-      // Réservation WhatsApp adaptée à la langue
+      // Réservation WhatsApp adaptée Exotik Beach (avec Zone)
       const submitResBtn = document.getElementById('btn-submit-res');
       if (submitResBtn) {
         submitResBtn.addEventListener('click', () => {
           const currentLang = document.documentElement.lang;
           const date = document.getElementById('res-date').value || (currentLang === 'fr' ? "prochainement" : "soon");
           
-          // Récupérer les valeurs des listes déroulantes actives
           const time = currentLang === 'fr' ? document.getElementById('res-time-fr').value : document.getElementById('res-time-en').value;
           const guests = currentLang === 'fr' ? document.getElementById('res-guests-fr').value : document.getElementById('res-guests-en').value;
+          const zone = currentLang === 'fr' ? document.getElementById('res-zone-fr').value : document.getElementById('res-zone-en').value;
 
           const msg = currentLang === 'fr' 
-            ? `Bonjour Yemanjā, je souhaite réserver une table en zone VIP pour ${guests} le ${date} à ${time}.`
-            : `Hello Yemanjā, I would like to book a VIP table for ${guests} on ${date} at ${time}.`;
+            ? `Bonjour Exotik Beach, je souhaite réserver une table en ${zone} pour ${guests} le ${date} à ${time}.`
+            : `Hello Exotik Beach, I would like to book a table in the ${zone} for ${guests} on ${date} at ${time}.`;
           
           const feedback = document.getElementById('res-feedback');
           if(feedback) feedback.classList.remove('hidden');
           
-          window.location.href = `https://wa.me/221776356515?text=${encodeURIComponent(msg)}`;
+          window.location.href = `https://wa.me/221771525858?text=${encodeURIComponent(msg)}`;
           
           setTimeout(() => {
             if(feedback) feedback.classList.add('hidden');
