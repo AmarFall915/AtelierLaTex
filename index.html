@@ -4,7 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>L'ATELIER LaTeX — Ingénierie Documentaire & Candidatures Haute Précision</title>
-  <meta name="description" content="Studio d'ingénierie de CV et Lettres de motivation compilés en LaTeX. 100% compatibles ATS pour emplois, concours administratifs et bourses internationales." />
+  <meta name="description" content="Transformez votre parcours en un dossier d'excellence (CV compilé en LaTeX + Lettre de motivation chirurgicale). 100% compatible ATS pour emplois, ministères, concours et bourses internationales." />
+
+  <!-- OpenGraph / Aperçu WhatsApp, LinkedIn & Réseaux Sociaux -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://marfall915.github.io/" />
+  <meta property="og:title" content="L'ATELIER LaTeX — Studio de CV & Lettres Haute Précision" />
+  <meta property="og:description" content="Ne laissez plus un modèle Canva éliminer votre candidature. Dossiers compilés en LaTeX, calibrés sur-mesure pour les ATS, banques, ministères et bourses d'études. Livraison < 24h." />
+  <meta name="theme-color" content="#0A0D14" />
+
+  <!-- Favicon SVG intégré (Monogramme TeX Noir & Or) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230A0D14'/%3E%3Ctext x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-weight='bold' font-size='44' fill='%23F9F8F4'%3E%5CTeX%3C/text%3E%3Ccircle cx='82' cy='22' r='7' fill='%2310B981'/%3E%3C/svg%3E" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,29 +68,36 @@
     .gold-gradient {
       background: linear-gradient(135deg, #C5A059 0%, #E2C686 50%, #A8843E 100%);
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: #F9F8F4; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
   </style>
 </head>
-<body class="antialiased selection:bg-emeraldImp selection:text-white w-full overflow-x-hidden">
+<body class="antialiased selection:bg-emeraldImp selection:text-white w-full overflow-x-hidden pb-20 sm:pb-0">
 
   <!-- TOPBAR -->
   <div class="w-full bg-carbon text-gray-200 text-[11px] sm:text-xs py-2.5 px-4 border-b border-white/10">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 sm:gap-2">
       <div class="flex items-center gap-2 font-mono leading-tight">
         <span class="inline-block w-2 h-2 rounded-full bg-emeraldLight animate-pulse shrink-0"></span>
-        <span>⚡ Délai actuel : <strong class="text-white">Livraison garantie sous 24h</strong> (Express 6h dispo)</span>
+        <span>⚡ Délai actuel : <strong class="text-white">Livraison garantie sous 24h</strong> (Option Express 6h dispo)</span>
       </div>
       <div class="flex items-center gap-2 font-mono text-[10px] sm:text-[11px] text-gray-400">
-        <span>🟢 Studio ouvert • Parité de pouvoir d'achat activée</span>
+        <span>🔒 Validation sur aperçu • Parité de pouvoir d'achat activée</span>
       </div>
     </div>
   </div>
 
-  <!-- STICKY NAVBAR (CORRIGÉE POUR MOBILE) -->
-  <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-paper/90 border-b border-gray-900/10 transition-all">
+  <!-- STICKY NAVBAR + MOBILE QUICK NAV -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-paper/95 border-b border-gray-900/10 transition-all">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
       <!-- Brand -->
       <a href="#" class="flex items-center gap-2.5 group min-w-0 shrink">
@@ -98,26 +115,36 @@
       </a>
 
       <!-- Nav Links (Desktop) -->
-      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-gray-700 shrink-0">
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-700 shrink-0">
         <a href="#simulateur" class="hover:text-emeraldImp transition">Diagnostic ATS</a>
-        <a href="#comparateur" class="hover:text-emeraldImp transition">Avant / Après</a>
-        <a href="#modeles" class="hover:text-emeraldImp transition">Modèles (4)</a>
+        <a href="#modeles" class="hover:text-emeraldImp transition">4 Architectures</a>
+        <a href="#resultats" class="hover:text-emeraldImp transition">Cas Réels</a>
         <a href="#tarifs" class="hover:text-emeraldImp transition">Tarifs & Zones</a>
-        <a href="#commander" class="hover:text-emeraldImp transition font-semibold text-carbon">Configurateur</a>
+        <a href="#commander" class="px-3.5 py-1.5 rounded-lg bg-carbon text-white hover:bg-emeraldImp transition font-semibold text-xs font-mono">
+          Commander →
+        </a>
       </nav>
 
-      <!-- Global Geo-Pricing Switcher (Compact on Mobile) -->
+      <!-- Global Geo-Pricing Switcher (Header version) -->
       <div class="flex items-center gap-1 bg-white p-1 rounded-full architect-border shadow-sm shrink-0">
-        <button onclick="setZone('AF')" data-zone-btn="AF" class="zone-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium transition flex items-center gap-1">
+        <button onclick="setZone('AF')" data-header-zone="AF" class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium transition flex items-center gap-1">
           <span>🇸🇳</span><span class="hidden sm:inline">Afrique</span><span>FCFA</span>
         </button>
-        <button onclick="setZone('EU')" data-zone-btn="EU" class="zone-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium transition flex items-center gap-1">
+        <button onclick="setZone('EU')" data-header-zone="EU" class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium transition flex items-center gap-1">
           <span>🇪🇺</span><span class="hidden sm:inline">Europe</span><span>€</span>
         </button>
-        <button onclick="setZone('INT')" data-zone-btn="INT" class="zone-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium transition flex items-center gap-1">
+        <button onclick="setZone('INT')" data-header-zone="INT" class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium transition flex items-center gap-1">
           <span>🌍</span><span class="hidden sm:inline">Inter.</span><span>$</span>
         </button>
       </div>
+    </div>
+
+    <!-- Barre de raccourcis Mobile uniquement -->
+    <div class="lg:hidden border-t border-gray-900/5 bg-white/70 px-3 py-2 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar text-xs font-mono">
+      <a href="#simulateur" class="px-2.5 py-1 rounded-md bg-paper architect-border text-gray-700 whitespace-nowrap">⚡ Test ATS</a>
+      <a href="#modeles" class="px-2.5 py-1 rounded-md bg-paper architect-border text-gray-700 whitespace-nowrap">📐 4 Modèles</a>
+      <a href="#tarifs" class="px-2.5 py-1 rounded-md bg-paper architect-border text-gray-700 whitespace-nowrap">💳 Tarifs</a>
+      <a href="#commander" class="px-3 py-1 rounded-md bg-emeraldImp text-white font-semibold whitespace-nowrap">Commander →</a>
     </div>
   </header>
 
@@ -143,14 +170,14 @@
 
           <!-- CTAs -->
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-            <a href="#commander" class="inline-flex items-center justify-center gap-3 bg-carbon hover:bg-emeraldImp text-white font-medium px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base text-center">
+            <a href="#commander" class="inline-flex items-center justify-center gap-3 bg-carbon hover:bg-emeraldImp text-white font-semibold px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base text-center">
               <span>Configurer mon dossier sur-mesure</span>
               <i data-lucide="arrow-right" class="w-4 h-4 shrink-0"></i>
             </a>
-            <a href="#simulateur" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-carbon architect-border font-medium px-6 py-4 rounded-xl transition-all text-sm sm:text-base text-center">
-              <i data-lucide="cpu" class="w-4 h-4 text-emeraldImp shrink-0"></i>
-              <span>Tester la lisibilité de mon CV actuel</span>
-            </a>
+            <button onclick="openFreeAuditWhatsApp()" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-emeraldImp/5 text-carbon architect-border font-medium px-5 py-4 rounded-xl transition-all text-sm sm:text-base text-center">
+              <i data-lucide="file-Search" class="w-4 h-4 text-emeraldImp shrink-0"></i>
+              <span>Audit gratuit de mon CV actuel (WhatsApp)</span>
+            </button>
           </div>
 
           <!-- Trust Metrics -->
@@ -164,8 +191,8 @@
               <span>Normes Harvard, ENA & Ministères</span>
             </div>
             <div class="flex items-center gap-2">
-              <i data-lucide="file-code" class="w-4 h-4 text-emeraldImp shrink-0"></i>
-              <span>PDF Vectoriel + Code .tex</span>
+              <i data-lucide="shield-check" class="w-4 h-4 text-emeraldImp shrink-0"></i>
+              <span>Validation sur maquette avant solde</span>
             </div>
           </div>
         </div>
@@ -179,7 +206,7 @@
                 <span class="w-2.5 h-2.5 rounded-full bg-red-500/80 shrink-0"></span>
                 <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80 shrink-0"></span>
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80 shrink-0"></span>
-                <span class="font-mono text-[11px] text-gray-400 ml-1 truncate">candidature.tex</span>
+                <span class="font-mono text-[11px] text-gray-400 ml-1 truncate">dossier_excellence.tex</span>
               </div>
               <div class="flex bg-gray-900 p-0.5 rounded-lg border border-gray-700 shrink-0">
                 <button onclick="toggleHeroView('pdf')" id="heroBtnPdf" class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-emeraldImp text-white transition">
@@ -204,7 +231,7 @@
                 <div class="text-center border-b-2 border-carbon pb-3">
                   <h3 class="text-lg sm:text-xl font-bold tracking-wide uppercase">Amadou Diallo</h3>
                   <p class="font-sans text-[10px] sm:text-[11px] text-gray-600 mt-1">
-                    Dakar / Paris • amadou.diallo@email.com • +221 77 000 00 00
+                    Dakar / Genève • amadou.diallo@email.com • +221 77 000 00 00
                   </p>
                 </div>
 
@@ -215,13 +242,13 @@
                   <div class="space-y-2.5 font-sans text-xs">
                     <div>
                       <div class="flex flex-col sm:flex-row sm:justify-between font-semibold text-carbon">
-                        <span>Ministère de l'Économie — Direction Prévision</span>
+                        <span>Ministère de l'Intérieur — Direction Territoriale</span>
                         <span class="font-mono text-[10px] text-gray-500">Oct. 2025 – Présent</span>
                       </div>
-                      <div class="italic text-gray-600 text-[11px] mb-1">Chargé d'études macroéconomiques • Dakar</div>
+                      <div class="italic text-gray-600 text-[11px] mb-1">Chargé d'études & coordination • Dakar</div>
                       <ul class="list-disc list-inside text-[11px] text-gray-700 space-y-0.5">
-                        <li>Modélisation budgétaire et rédaction de <strong>14 notes de synthèse</strong>.</li>
-                        <li>Optimisation du suivi des projets publics : délais réduits de <strong>32%</strong>.</li>
+                        <li>Rédaction de <strong>14 notes de synthèse</strong> et rapports d'aide à la décision.</li>
+                        <li>Optimisation du suivi des projets territoriaux : délais réduits de <strong>32%</strong>.</li>
                       </ul>
                     </div>
 
@@ -232,7 +259,7 @@
                       </div>
                       <div class="italic text-gray-600 text-[11px] mb-1">Analyste Junior • Genève / Hybride</div>
                       <ul class="list-disc list-inside text-[11px] text-gray-700 space-y-0.5">
-                        <li>Analyse financière de portefeuilles institutionnels évalués à <strong>18 M€</strong>.</li>
+                        <li>Évaluation budgétaire de programmes institutionnels de <strong>18 M€</strong>.</li>
                       </ul>
                     </div>
                   </div>
@@ -244,8 +271,8 @@
                   </h4>
                   <div class="font-sans text-xs flex flex-col sm:flex-row sm:justify-between">
                     <div>
-                      <span class="font-semibold">Master en Politiques Publiques & Finance</span>
-                      <p class="text-[11px] text-gray-600">Mention Très Bien • Boursier d'Excellence</p>
+                      <span class="font-semibold">Master en Droit Public & Administration</span>
+                      <p class="text-[11px] text-gray-600">Mention Très Bien • Lauréat Bourse d'Excellence</p>
                     </div>
                     <span class="font-mono text-[10px] text-gray-500">2023 – 2025</span>
                   </div>
@@ -268,9 +295,9 @@
 <span class="text-pink-400">\begin</span>{document}
 <span class="text-blue-400">\centerline</span>{<span class="text-pink-400">\Huge\bfseries</span> AMADOU DIALLO}
 <span class="text-pink-400">\section*</span>{Expérience Professionnelle}
-<span class="text-pink-400">\textbf</span>{Ministère de l'Économie} <span class="text-pink-400">\hfill</span> 2025\\
+<span class="text-pink-400">\textbf</span>{Ministère de l'Intérieur} <span class="text-pink-400">\hfill</span> 2025\\
 <span class="text-pink-400">\begin</span>{itemize}
-  <span class="text-pink-400">\item</span> Rédaction de <span class="text-pink-400">\textbf</span>{14 notes}.
+  <span class="text-pink-400">\item</span> Rédaction de <span class="text-pink-400">\textbf</span>{14 notes de synthèse}.
   <span class="text-pink-400">\item</span> Délais réduits de <span class="text-pink-400">\textbf</span>{+32\%}.
 <span class="text-pink-400">\end</span>{itemize}
 <span class="text-pink-400">\end</span>{document}</code></pre>
@@ -360,7 +387,6 @@
               <span class="text-xs font-mono text-gray-400">vs <strong class="text-emeraldLight">98%</strong> avec L'Atelier LaTeX</span>
             </div>
 
-            <!-- Progress bar -->
             <div class="w-full h-2.5 bg-gray-800 rounded-full overflow-hidden mb-6">
               <div id="atsProgressBar" class="h-full bg-red-500 transition-all duration-500" style="width: 28%"></div>
             </div>
@@ -371,11 +397,14 @@
             </div>
           </div>
 
-          <div class="pt-6 mt-6 border-t border-gray-800">
-            <a href="#commander" id="atsActionBtn" class="w-full inline-flex items-center justify-center gap-2 bg-emeraldImp hover:bg-emeraldLight hover:text-carbon text-white font-semibold py-3.5 px-5 rounded-xl transition text-xs sm:text-sm text-center">
-              <span>Corriger mon dossier avec l'architecture recommandée</span>
+          <div class="pt-6 mt-6 border-t border-gray-800 space-y-2.5">
+            <a href="#commander" class="w-full inline-flex items-center justify-center gap-2 bg-emeraldImp hover:bg-emeraldLight hover:text-carbon text-white font-semibold py-3.5 px-5 rounded-xl transition text-xs sm:text-sm text-center">
+              <span>Corriger mon dossier maintenant</span>
               <i data-lucide="arrow-right" class="w-4 h-4 shrink-0"></i>
             </a>
+            <button onclick="openFreeAuditWhatsApp()" class="w-full inline-flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-gray-300 border border-gray-700 font-mono py-2.5 px-4 rounded-xl transition text-xs">
+              <span>💬 Envoyer mon CV pour un diagnostic humain gratuit</span>
+            </button>
           </div>
         </div>
       </div>
@@ -422,7 +451,6 @@
             <span class="font-mono text-xs bg-red-50 text-red-700 px-2.5 py-1 rounded border border-red-200">Rejeté en 6 sec</span>
           </div>
 
-          <!-- Human Mode Bad -->
           <div id="badHumanView" class="space-y-4 text-xs text-gray-600">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-xl border border-dashed border-gray-300">
               <div class="sm:col-span-1 bg-slate-200 p-3 rounded space-y-2">
@@ -444,7 +472,6 @@
             </div>
           </div>
 
-          <!-- Robot Mode Bad -->
           <div id="badRobotView" class="hidden bg-red-950 text-red-200 p-4 sm:p-5 rounded-xl font-mono text-xs leading-relaxed overflow-x-auto">
 <pre class="whitespace-pre-wrap break-words"><code>[ATS_PARSER_LOG_ERROR : COLUMN_COLLISION]
 >> Lecture Ligne 1 : "CONTACT 2024-2025 Stage Finance"
@@ -468,7 +495,6 @@
             <span class="font-mono text-xs bg-emeraldImp/10 text-emeraldImp font-semibold px-2.5 py-1 rounded border border-emeraldImp/20">Top 3% Candidats</span>
           </div>
 
-          <!-- Human Mode Good -->
           <div id="goodHumanView" class="space-y-4">
             <div class="bg-paper p-4 sm:p-5 rounded-xl architect-border font-serif space-y-3">
               <div class="flex flex-wrap justify-between items-baseline gap-2 border-b border-carbon pb-2">
@@ -486,7 +512,6 @@
             </div>
           </div>
 
-          <!-- Robot Mode Good -->
           <div id="goodRobotView" class="hidden bg-carbon text-emeraldLight p-4 sm:p-5 rounded-xl font-mono text-xs leading-relaxed overflow-x-auto">
 <pre class="whitespace-pre-wrap break-words"><code>[ATS_PARSER_SUCCESS : 99.4% EXTRACTION]
 {
@@ -502,7 +527,7 @@
     </div>
   </section>
 
-  <!-- SECTION 5 : CATALOGUE DES 4 ARCHITECTURES LATEX SIGNATURE -->
+  <!-- SECTION 5 : CATALOGUE DES 4 ARCHITECTURES LATEX (VRAIES MINIATURES TYPOGRAPHIQUES) -->
   <section id="modeles" class="py-16 sm:py-20 bg-white border-y border-gray-900/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-14">
@@ -513,36 +538,37 @@
           Choisissez l'architecture calibrée pour <span class="italic font-normal">votre secteur.</span>
         </h2>
         <p class="text-gray-600 text-sm sm:text-base mt-3">
-          Chaque modèle est codé en LaTeX pur pour respecter les codes implicites de votre cible : banques à Genève, ministères et concours, comités de bourses internationales ou géants de la Tech.
+          Chaque modèle est codé en LaTeX pur pour respecter les codes implicites de votre cible : banques à Genève, ministères et concours (ENA), comités de bourses internationales ou géants de la Tech.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
         <!-- Model 1: Le Genève -->
         <div class="bg-paper rounded-2xl architect-border p-5 flex flex-col justify-between hover:shadow-xl transition group">
           <div>
-            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-3">
+            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-2">
               <span>ARCH-01</span>
               <span class="text-emeraldImp font-semibold">Finance & Corporate</span>
             </div>
             <h3 class="font-serif text-xl font-semibold text-carbon mb-1">Le Genève</h3>
             <p class="text-xs text-gray-600 mb-4">Banques d'affaires, Big 4, Cabinets de conseil, Multinationales.</p>
 
-            <div class="bg-white p-4 rounded-xl architect-border shadow-sm mb-5 space-y-2.5 group-hover:border-emeraldImp transition">
-              <div class="text-center border-b border-gray-800 pb-1.5">
-                <div class="h-2.5 w-24 bg-gray-900 mx-auto rounded-sm"></div>
-                <div class="h-1.5 w-36 bg-gray-400 mx-auto mt-1 rounded-sm"></div>
+            <!-- Vraie Miniature Typographique A4 -->
+            <div class="bg-white p-3.5 rounded-xl architect-border shadow-sm mb-5 text-[9px] leading-tight font-sans text-gray-800 space-y-2 group-hover:border-emeraldImp transition">
+              <div class="text-center border-b border-carbon pb-1.5">
+                <p class="font-serif font-bold text-[11px] uppercase tracking-wider text-carbon">Moussa Sylla, CFA</p>
+                <p class="text-[8px] text-gray-500">Genève / Dakar • Finance & Audit</p>
               </div>
-              <div class="space-y-1">
-                <div class="h-1.5 w-20 bg-emeraldImp rounded-sm"></div>
-                <div class="h-1 w-full bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-11/12 bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-4/5 bg-gray-200 rounded-sm"></div>
+              <div>
+                <p class="font-bold uppercase text-[8px] tracking-widest text-emeraldImp border-b border-gray-200 mb-1">Expérience Exécutive</p>
+                <div class="flex justify-between font-semibold text-[8.5px]"><span>Deloitte — Audit Financier</span><span>2024–2026</span></div>
+                <p class="text-[8px] text-gray-600">• Due diligence sur <strong>45 M€</strong> d'actifs.</p>
+                <p class="text-[8px] text-gray-600">• Modélisation DCF & reporting IFRS.</p>
               </div>
-              <div class="space-y-1 pt-1">
-                <div class="h-1.5 w-24 bg-emeraldImp rounded-sm"></div>
-                <div class="h-1 w-full bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-10/12 bg-gray-200 rounded-sm"></div>
+              <div>
+                <p class="font-bold uppercase text-[8px] tracking-widest text-emeraldImp border-b border-gray-200 mb-1">Formation</p>
+                <div class="flex justify-between font-semibold text-[8.5px]"><span>MSc Corporate Finance</span><span>Top 5%</span></div>
               </div>
             </div>
           </div>
@@ -550,7 +576,7 @@
           <div class="space-y-2">
             <button onclick="openModelModal('geneve')" class="w-full py-2.5 px-3 rounded-lg bg-white architect-border text-xs font-medium text-carbon hover:bg-gray-50 transition flex items-center justify-center gap-1.5">
               <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-              <span>Inspecter la structure</span>
+              <span>Inspecter l'aperçu A4</span>
             </button>
             <button onclick="selectModelAndScroll('Le Genève (Corporate & Finance)')" class="w-full py-2.5 px-3 rounded-lg bg-carbon text-white text-xs font-medium hover:bg-emeraldImp transition">
               Sélectionner ce modèle
@@ -561,27 +587,31 @@
         <!-- Model 2: L'Institutionnel -->
         <div class="bg-paper rounded-2xl architect-border p-5 flex flex-col justify-between hover:shadow-xl transition group">
           <div>
-            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-3">
+            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-2">
               <span>ARCH-02</span>
               <span class="text-emeraldImp font-semibold">État & Diplomatie</span>
             </div>
             <h3 class="font-serif text-xl font-semibold text-carbon mb-1">L'Institutionnel</h3>
             <p class="text-xs text-gray-600 mb-4">Ministères, Concours (ENA, Magistrature), ONU, Banque Mondiale, ONG.</p>
 
-            <div class="bg-white p-4 rounded-xl architect-border shadow-sm mb-5 space-y-2.5 group-hover:border-emeraldImp transition">
-              <div class="border-b-2 border-double border-gray-800 pb-1.5 flex justify-between items-end">
-                <div class="h-2.5 w-24 bg-gray-900 rounded-sm"></div>
-                <div class="h-2 w-12 bg-goldBrushed/60 rounded-sm"></div>
+            <!-- Vraie Miniature Typographique A4 -->
+            <div class="bg-white p-3.5 rounded-xl architect-border shadow-sm mb-5 text-[9px] leading-tight font-serif text-gray-800 space-y-2 group-hover:border-emeraldImp transition">
+              <div class="border-b-2 border-double border-carbon pb-1.5 flex justify-between items-end">
+                <div>
+                  <p class="font-bold text-[10.5px] uppercase text-carbon">Fatou Ndiaye</p>
+                  <p class="font-sans text-[7.5px] text-gray-500">Administration Territoriale & Droit Public</p>
+                </div>
+                <span class="font-mono text-[7.5px] bg-amber-50 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200">État / ONU</span>
               </div>
-              <div class="space-y-1">
-                <div class="h-1.5 w-28 bg-gray-800 mx-auto rounded-sm"></div>
-                <div class="h-1 w-full bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-11/12 bg-gray-200 rounded-sm"></div>
+              <div class="font-sans">
+                <p class="font-serif font-bold uppercase text-center text-[8px] tracking-widest bg-gray-100 py-0.5 mb-1">Parcours Ministériel</p>
+                <div class="flex justify-between font-semibold text-[8.5px]"><span>Ministère de l'Intérieur</span><span>2025–2026</span></div>
+                <p class="text-[8px] text-gray-600">• Rédaction de <strong>18 arrêtés</strong> et notes techniques.</p>
+                <p class="text-[8px] text-gray-600">• Coordination des collectivités territoriales.</p>
               </div>
-              <div class="space-y-1 pt-1">
-                <div class="h-1.5 w-28 bg-gray-800 mx-auto rounded-sm"></div>
-                <div class="h-1 w-full bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-9/12 bg-gray-200 rounded-sm"></div>
+              <div class="font-sans">
+                <p class="font-serif font-bold uppercase text-center text-[8px] tracking-widest bg-gray-100 py-0.5 mb-1">Concours & Diplômes</p>
+                <div class="flex justify-between font-semibold text-[8.5px]"><span>Master Droit Public • Admissible ENA</span><span>2026</span></div>
               </div>
             </div>
           </div>
@@ -589,7 +619,7 @@
           <div class="space-y-2">
             <button onclick="openModelModal('institutionnel')" class="w-full py-2.5 px-3 rounded-lg bg-white architect-border text-xs font-medium text-carbon hover:bg-gray-50 transition flex items-center justify-center gap-1.5">
               <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-              <span>Inspecter la structure</span>
+              <span>Inspecter l'aperçu A4</span>
             </button>
             <button onclick="selectModelAndScroll('L\'Institutionnel (État, Concours & ONU)')" class="w-full py-2.5 px-3 rounded-lg bg-carbon text-white text-xs font-medium hover:bg-emeraldImp transition">
               Sélectionner ce modèle
@@ -600,27 +630,28 @@
         <!-- Model 3: L'Académique -->
         <div class="bg-paper rounded-2xl architect-border p-5 flex flex-col justify-between hover:shadow-xl transition group">
           <div>
-            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-3">
+            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-2">
               <span>ARCH-03</span>
               <span class="text-emeraldImp font-semibold">Bourses & Masters</span>
             </div>
             <h3 class="font-serif text-xl font-semibold text-carbon mb-1">L'Académique</h3>
             <p class="text-xs text-gray-600 mb-4">Bourses internationales (Suisse, Qatar, Eiffel, Fulbright, Canada), Masters/PhD.</p>
 
-            <div class="bg-white p-4 rounded-xl architect-border shadow-sm mb-5 space-y-2.5 group-hover:border-emeraldImp transition">
-              <div class="pb-1.5 border-b border-gray-400">
-                <div class="h-2.5 w-28 bg-gray-900 rounded-sm"></div>
-                <div class="h-1.5 w-40 bg-gray-400 mt-1 rounded-sm"></div>
+            <!-- Vraie Miniature Typographique A4 -->
+            <div class="bg-white p-3.5 rounded-xl architect-border shadow-sm mb-5 text-[9px] leading-tight font-sans text-gray-800 space-y-2 group-hover:border-emeraldImp transition">
+              <div class="border-b border-gray-400 pb-1.5">
+                <p class="font-serif font-bold text-[10.5px] text-carbon">Ibrahima Fall — Curriculum Vitae</p>
+                <p class="text-[7.5px] text-gray-500">Candidate: Swiss Government Excellence Scholarship / Doha Institute</p>
               </div>
-              <div class="space-y-1">
-                <div class="h-1.5 w-24 bg-emeraldImp rounded-sm"></div>
-                <div class="h-1 w-full bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-5/6 bg-gray-200 rounded-sm"></div>
+              <div>
+                <p class="font-bold uppercase text-[8px] text-emeraldImp mb-0.5">Education & Academic Honors</p>
+                <div class="flex justify-between font-semibold text-[8.5px]"><span>M.A. International Relations</span><span>GPA 3.9/4.0</span></div>
+                <p class="text-[8px] text-gray-600">• Valedictorian (Major de promotion) • Dean's List.</p>
               </div>
-              <div class="space-y-1 pt-1">
-                <div class="h-1.5 w-32 bg-emeraldImp rounded-sm"></div>
-                <div class="h-1 w-full bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-4/5 bg-gray-200 rounded-sm"></div>
+              <div>
+                <p class="font-bold uppercase text-[8px] text-emeraldImp mb-0.5">Research & Publications</p>
+                <p class="text-[8px] text-gray-600">• <em>"Public Governance in West Africa"</em> (2026).</p>
+                <p class="text-[8px] text-gray-600">• Bilingual: French (Native), English (IELTS 8.0).</p>
               </div>
             </div>
           </div>
@@ -628,7 +659,7 @@
           <div class="space-y-2">
             <button onclick="openModelModal('academique')" class="w-full py-2.5 px-3 rounded-lg bg-white architect-border text-xs font-medium text-carbon hover:bg-gray-50 transition flex items-center justify-center gap-1.5">
               <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-              <span>Inspecter la structure</span>
+              <span>Inspecter l'aperçu A4</span>
             </button>
             <button onclick="selectModelAndScroll('L\'Académique (Bourses & Masters)')" class="w-full py-2.5 px-3 rounded-lg bg-carbon text-white text-xs font-medium hover:bg-emeraldImp transition">
               Sélectionner ce modèle
@@ -639,27 +670,30 @@
         <!-- Model 4: L'Ingénieur -->
         <div class="bg-paper rounded-2xl architect-border p-5 flex flex-col justify-between hover:shadow-xl transition group">
           <div>
-            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-3">
+            <div class="flex items-center justify-between font-mono text-[11px] text-gray-500 mb-2">
               <span>ARCH-04</span>
               <span class="text-emeraldImp font-semibold">Tech, Data & IT</span>
             </div>
             <h3 class="font-serif text-xl font-semibold text-carbon mb-1">L'Ingénieur</h3>
             <p class="text-xs text-gray-600 mb-4">Développement logiciel, Data Science, IA, Cybersécurité, Génie Civil.</p>
 
-            <div class="bg-white p-4 rounded-xl architect-border shadow-sm mb-5 space-y-2.5 group-hover:border-emeraldImp transition">
-              <div class="flex justify-between items-center border-b border-gray-800 pb-1.5">
-                <div class="h-2.5 w-24 bg-gray-900 rounded-sm"></div>
-                <div class="h-2 w-16 bg-emeraldImp/40 rounded-sm"></div>
+            <!-- Vraie Miniature Typographique A4 -->
+            <div class="bg-white p-3.5 rounded-xl architect-border shadow-sm mb-5 text-[9px] leading-tight font-sans text-gray-800 space-y-2 group-hover:border-emeraldImp transition">
+              <div class="flex justify-between items-center border-b border-carbon pb-1.5">
+                <div>
+                  <p class="font-mono font-bold text-[10px] text-carbon">CHEIKH DIOP</p>
+                  <p class="text-[7.5px] text-gray-500">Full-Stack & Data Engineer</p>
+                </div>
+                <span class="font-mono text-[7.5px] text-emeraldImp">github.com/cdiop</span>
               </div>
-              <div class="grid grid-cols-3 gap-1 pt-0.5">
-                <div class="h-2 bg-gray-200 rounded-sm"></div>
-                <div class="h-2 bg-gray-200 rounded-sm"></div>
-                <div class="h-2 bg-gray-200 rounded-sm"></div>
+              <div>
+                <p class="font-mono font-bold uppercase text-[7.5px] text-carbon bg-gray-100 px-1 py-0.5 mb-1">Technical Stack</p>
+                <p class="text-[8px] text-gray-600"><strong>Code:</strong> Python, TypeScript, SQL, Docker, AWS, LaTeX</p>
               </div>
-              <div class="space-y-1 pt-1">
-                <div class="h-1.5 w-20 bg-gray-900 rounded-sm"></div>
-                <div class="h-1 w-full bg-gray-200 rounded-sm"></div>
-                <div class="h-1 w-11/12 bg-gray-200 rounded-sm"></div>
+              <div>
+                <p class="font-mono font-bold uppercase text-[7.5px] text-carbon bg-gray-100 px-1 py-0.5 mb-1">Engineering Experience</p>
+                <p class="text-[8px] text-gray-600">• Déploiement d'une API SaaS : latence réduite de <strong>45%</strong>.</p>
+                <p class="text-[8px] text-gray-600">• Automatisation CI/CD sur GitHub Actions.</p>
               </div>
             </div>
           </div>
@@ -667,11 +701,91 @@
           <div class="space-y-2">
             <button onclick="openModelModal('ingenieur')" class="w-full py-2.5 px-3 rounded-lg bg-white architect-border text-xs font-medium text-carbon hover:bg-gray-50 transition flex items-center justify-center gap-1.5">
               <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-              <span>Inspecter la structure</span>
+              <span>Inspecter l'aperçu A4</span>
             </button>
             <button onclick="selectModelAndScroll('L\'Ingénieur (Tech, Data & Sciences)')" class="w-full py-2.5 px-3 rounded-lg bg-carbon text-white text-xs font-medium hover:bg-emeraldImp transition">
               Sélectionner ce modèle
             </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION NOUVELLE : PREUVE SOCIALE & ÉTUDES DE CAS RÉELS -->
+  <section id="resultats" class="py-16 sm:py-20 bg-paper border-b border-gray-900/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="font-mono text-xs uppercase tracking-widest text-emeraldImp block mb-2">
+          [ DOSSIERS CALIBRÉS & RÉSULTATS ]
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-carbon">
+          Trois exemples concrets de <span class="italic font-normal">transformations documentaires.</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Cas 1 -->
+        <div class="bg-white rounded-2xl architect-border p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs mb-4">
+              <span class="bg-emeraldImp/10 text-emeraldImp font-semibold px-2.5 py-1 rounded">Bourses Suisse & Qatar</span>
+              <span class="text-gray-400">Modèle : L'Académique</span>
+            </div>
+            <h3 class="font-serif text-lg font-semibold text-carbon mb-2">
+              Admission Master & Bourse sans frais de dossier
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed mb-4">
+              <strong>Avant :</strong> CV Canva sur 2 pages mal structuré + lettre générique.<br>
+              <strong>Intervention :</strong> Refonte sous LaTeX en anglais académique, mise en valeur du mémoire de recherche et rédaction d'un <em>Statement of Purpose</em> chirurgical de 850 mots.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-gray-100 flex items-center justify-between font-mono text-xs">
+            <span class="text-gray-500">Délai : 18 heures</span>
+            <span class="text-emeraldImp font-bold">✓ Dossier présélectionné</span>
+          </div>
+        </div>
+
+        <!-- Cas 2 -->
+        <div class="bg-white rounded-2xl architect-border p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs mb-4">
+              <span class="bg-amber-500/10 text-amber-800 font-semibold px-2.5 py-1 rounded">Ministère & Concours</span>
+              <span class="text-gray-400">Modèle : L'Institutionnel</span>
+            </div>
+            <h3 class="font-serif text-lg font-semibold text-carbon mb-2">
+               Administration Centrale & Organisations Internationales
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed mb-4">
+              <strong>Avant :</strong> CV Word austère ne mettant pas en valeur les notes de synthèse et les responsabilités territoriales.<br>
+              <strong>Intervention :</strong> Hiérarchisation statutaire sous LaTeX + lettre de motivation au ton protocolaire exact.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-gray-100 flex items-center justify-between font-mono text-xs">
+            <span class="text-gray-500">Délai : 12 heures</span>
+            <span class="text-emeraldImp font-bold">✓ Entretien obtenu</span>
+          </div>
+        </div>
+
+        <!-- Cas 3 -->
+        <div class="bg-white rounded-2xl architect-border p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between font-mono text-xs mb-4">
+              <span class="bg-blue-500/10 text-blue-800 font-semibold px-2.5 py-1 rounded">Banque & Audit (Europe/Dakar)</span>
+              <span class="text-gray-400">Modèle : Le Genève</span>
+            </div>
+            <h3 class="font-serif text-lg font-semibold text-carbon mb-2">
+              Cabinet Big 4 & Analyste Financier
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed mb-4">
+              <strong>Avant :</strong> 35 candidatures envoyées sans réponse à cause d'un modèle à 2 colonnes illisible sur Workday.<br>
+              <strong>Intervention :</strong> Passage au modèle monocolonne <em>Le Genève</em> avec quantification des KPIs selon la méthode STAR.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-gray-100 flex items-center justify-between font-mono text-xs">
+            <span class="text-gray-500">Score ATS : 29% → 97%</span>
+            <span class="text-emeraldImp font-bold">✓ 3 entretiens en 10j</span>
           </div>
         </div>
       </div>
@@ -692,15 +806,15 @@
           Sélectionnez votre zone géographique pour afficher les tarifs ajustés au pouvoir d'achat local et les moyens de paiement adaptés.
         </p>
 
-        <!-- Prominent Zone Switcher -->
-        <div class="mt-6 inline-flex flex-wrap justify-center gap-1.5 sm:gap-2 bg-white p-2 rounded-2xl architect-border shadow-sm max-w-full">
-          <button onclick="setZone('AF')" data-zone-btn="AF" class="zone-btn px-3 py-2 rounded-xl text-xs font-mono font-medium transition flex items-center gap-1.5">
+        <!-- Prominent Zone Switcher (Large buttons) -->
+        <div class="mt-6 inline-flex flex-wrap justify-center gap-2 bg-white p-2 rounded-2xl architect-border shadow-sm max-w-full">
+          <button onclick="setZone('AF')" data-pricing-zone="AF" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-medium transition flex items-center gap-2">
             <span>🇸🇳 Sénégal & UEMOA (FCFA)</span>
           </button>
-          <button onclick="setZone('EU')" data-zone-btn="EU" class="zone-btn px-3 py-2 rounded-xl text-xs font-mono font-medium transition flex items-center gap-1.5">
+          <button onclick="setZone('EU')" data-pricing-zone="EU" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-medium transition flex items-center gap-2">
             <span>🇪🇺 Zone Europe (EUR €)</span>
           </button>
-          <button onclick="setZone('INT')" data-zone-btn="INT" class="zone-btn px-3 py-2 rounded-xl text-xs font-mono font-medium transition flex items-center gap-1.5">
+          <button onclick="setZone('INT')" data-pricing-zone="INT" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-medium transition flex items-center gap-2">
             <span>🌍 USA, Canada, Suisse, Golfe ($)</span>
           </button>
         </div>
@@ -951,7 +1065,6 @@
             </div>
 
             <div class="space-y-3">
-              <!-- Addon 1: Express 6h -->
               <label class="flex items-center justify-between gap-3 p-4 bg-white rounded-xl architect-border cursor-pointer hover:border-emeraldImp transition">
                 <div class="flex items-start sm:items-center gap-3">
                   <input type="checkbox" id="addonExpress" onchange="updateUI()" class="w-4 h-4 accent-emeraldImp rounded mt-1 sm:mt-0 shrink-0" />
@@ -963,7 +1076,6 @@
                 <span id="priceAddonExpress" class="font-mono text-xs font-semibold text-emeraldImp shrink-0">+3 000 FCFA</span>
               </label>
 
-              <!-- Addon 2: Version Bilingue -->
               <label class="flex items-center justify-between gap-3 p-4 bg-white rounded-xl architect-border cursor-pointer hover:border-emeraldImp transition">
                 <div class="flex items-start sm:items-center gap-3">
                   <input type="checkbox" id="addonBilingue" onchange="updateUI()" class="w-4 h-4 accent-emeraldImp rounded mt-1 sm:mt-0 shrink-0" />
@@ -975,7 +1087,6 @@
                 <span id="priceAddonBilingue" class="font-mono text-xs font-semibold text-emeraldImp shrink-0">+4 000 FCFA</span>
               </label>
 
-              <!-- Addon 3: Code Source .tex -->
               <label class="flex items-center justify-between gap-3 p-4 bg-white rounded-xl architect-border cursor-pointer hover:border-emeraldImp transition">
                 <div class="flex items-start sm:items-center gap-3">
                   <input type="checkbox" id="addonSourceTex" onchange="updateUI()" class="w-4 h-4 accent-emeraldImp rounded mt-1 sm:mt-0 shrink-0" />
@@ -987,7 +1098,6 @@
                 <span id="priceAddonSourceTex" class="font-mono text-xs font-semibold text-emeraldImp shrink-0">+2 500 FCFA</span>
               </label>
 
-              <!-- Addon 4: Extra Letter -->
               <label class="flex items-center justify-between gap-3 p-4 bg-white rounded-xl architect-border cursor-pointer hover:border-emeraldImp transition">
                 <div class="flex items-start sm:items-center gap-3">
                   <input type="checkbox" id="addonExtraLetter" onchange="updateUI()" class="w-4 h-4 accent-emeraldImp rounded mt-1 sm:mt-0 shrink-0" />
@@ -1032,7 +1142,7 @@
 
             <div>
               <label class="block text-xs font-mono uppercase text-gray-600 mb-2">Intitulé ou lien de l'offre / bourse visée</label>
-              <input type="text" id="formTargetLink" placeholder="Ex: Lien LinkedIn de l'offre, Bourse d'excellence Confédération Suisse, Stage Ministère..." class="w-full bg-white architect-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emeraldImp" />
+              <input type="text" id="formTargetLink" placeholder="Ex: Lien LinkedIn de l'offre, Bourse Confédération Suisse, Stage Ministère..." class="w-full bg-white architect-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emeraldImp" />
             </div>
 
             <div>
@@ -1128,13 +1238,22 @@
             <div class="flex items-baseline justify-between gap-2">
               <div>
                 <span class="font-mono text-xs uppercase text-gray-400 block">Total à régler</span>
-                <span class="text-[11px] text-gray-400">Livraison PDF HD + Garantie satisfaction</span>
+                <span class="text-[11px] text-gray-400">Livraison PDF HD + Retouches incluses</span>
               </div>
               <span id="receiptTotalPrice" class="font-mono text-2xl sm:text-3xl font-bold text-emeraldLight shrink-0">10 000 FCFA</span>
             </div>
 
+            <!-- Garantie Zéro Risque Badge -->
+            <div class="bg-emeraldImp/20 border border-emeraldLight/30 rounded-xl p-3.5 text-xs text-gray-200 flex items-start gap-2.5">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emeraldLight shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-white block">Garantie Zéro Risque :</strong>
+                <span>Vous validez l'aperçu compilé de votre dossier avant la livraison finale (acompte de 50% au lancement ou règlement à la validation).</span>
+              </div>
+            </div>
+
             <!-- Action Buttons -->
-            <div class="space-y-3 pt-2">
+            <div class="space-y-3 pt-1">
               <button onclick="submitOrderWhatsApp()" class="w-full py-4 px-5 rounded-xl bg-emeraldLight hover:bg-white text-carbon font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg">
                 <span>Transmettre ma commande sur WhatsApp</span>
                 <i data-lucide="send" class="w-4 h-4 shrink-0"></i>
@@ -1262,6 +1381,17 @@
     </div>
   </footer>
 
+  <!-- FLOATING WHATSAPP FREE AUDIT WIDGET (CHEVAL DE TROIE) -->
+  <div class="fixed bottom-4 right-4 z-40">
+    <button onclick="openFreeAuditWhatsApp()" class="bg-carbon hover:bg-emeraldImp text-white px-4 py-3 rounded-full shadow-2xl border border-emeraldLight/50 flex items-center gap-2.5 transition group">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldLight opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emeraldLight"></span>
+      </span>
+      <span class="font-mono text-xs font-semibold">Audit CV Gratuit (WhatsApp)</span>
+    </button>
+  </div>
+
   <!-- MODAL FOR INSPECTING THE 4 LATEX MODELS -->
   <div id="modelModal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden a4-shadow border border-gray-200">
@@ -1296,7 +1426,7 @@
   </div>
 
   <!-- TOAST NOTIFICATION -->
-  <div id="toastNotification" class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 z-50 hidden bg-carbon text-white px-5 py-3.5 rounded-xl shadow-2xl border border-emeraldLight flex items-center gap-3 font-mono text-xs">
+  <div id="toastNotification" class="fixed bottom-20 right-4 left-4 sm:left-auto sm:right-6 z-50 hidden bg-carbon text-white px-5 py-3.5 rounded-xl shadow-2xl border border-emeraldLight flex items-center gap-3 font-mono text-xs">
     <i data-lucide="check-circle" class="w-4 h-4 text-emeraldLight shrink-0"></i>
     <span id="toastMessage">Bon de commande copié dans le presse-papiers !</span>
   </div>
@@ -1304,7 +1434,7 @@
   <!-- APPLICATION JAVASCRIPT -->
   <script>
     const CONFIG = {
-      whatsappNumber: "221770000000", // <-- Remplacez par votre numéro WhatsApp sans '+'
+      whatsappNumber: "221770000000", // <-- Remplace par ton numéro WhatsApp sans '+'
       pricing: {
         AF: {
           label: "🇸🇳 Zone Afrique (FCFA)",
@@ -1580,12 +1710,21 @@
     function updateUI() {
       const z = CONFIG.pricing[STATE.zone];
 
-      // Conserve le padding compact sur mobile pour éviter tout débordement
-      document.querySelectorAll(".zone-btn").forEach(btn => {
-        if (btn.dataset.zoneBtn === STATE.zone) {
-          btn.className = "zone-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-semibold bg-carbon text-white shadow transition flex items-center gap-1";
+      // 1. Style séparé pour les boutons du Header (compact)
+      document.querySelectorAll("[data-header-zone]").forEach(btn => {
+        if (btn.dataset.headerZone === STATE.zone) {
+          btn.className = "px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-semibold bg-carbon text-white shadow transition flex items-center gap-1";
         } else {
-          btn.className = "zone-btn px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium text-gray-600 hover:text-carbon transition flex items-center gap-1";
+          btn.className = "px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono font-medium text-gray-600 hover:text-carbon transition flex items-center gap-1";
+        }
+      });
+
+      // 2. Style séparé pour les grands boutons de la section Tarifs
+      document.querySelectorAll("[data-pricing-zone]").forEach(btn => {
+        if (btn.dataset.pricingZone === STATE.zone) {
+          btn.className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-semibold bg-carbon text-white shadow-md transition flex items-center gap-2";
+        } else {
+          btn.className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-medium text-gray-600 hover:text-carbon transition flex items-center gap-2";
         }
       });
 
@@ -1670,6 +1809,19 @@
       document.getElementById("receiptTotalPrice").textContent = formatPrice(total);
       STATE.currentTotalFormatted = formatPrice(total);
       STATE.activeAddonsList = activeAddons;
+    }
+
+    // Fonction "Cheval de Troie" : Audit Gratuit sur WhatsApp
+    function openFreeAuditWhatsApp() {
+      const msg = [
+        `Bonjour *L'ATELIER LaTeX* 👋,`,
+        `Je souhaite bénéficier d'un *diagnostic gratuit de mon CV actuel* (lisibilité ATS & structure).`,
+        ``,
+        `📍 Ma zone : ${CONFIG.pricing[STATE.zone].label}`,
+        `Je vous joins mon CV actuel ci-dessous :`
+      ].join("\n");
+      const waUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, "_blank");
     }
 
     function buildOrderSummaryText() {
