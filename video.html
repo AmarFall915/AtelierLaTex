@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Spot Vidéo — L'Atelier LaTeX</title>
+  <title>Spot Vidéo Studio — L'Atelier LaTeX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -72,27 +72,38 @@
 </head>
 <body class="relative">
 
-  <!-- ÉCRAN DE LANCEMENT -->
+  <!-- Lecteur Audio HTML5 (Capturé en qualité numérique interne par l'iPhone) -->
+  <audio id="voiceTrack" preload="auto" playsinline></audio>
+
+  <!-- ÉCRAN DE CONFIGURATION AVANT ENREGISTREMENT -->
   <div id="launchScreen" class="fixed inset-0 z-50 bg-carbon text-white flex flex-col items-center justify-center p-6 text-center">
-    <span class="font-mono text-xs text-emeraldLight bg-emeraldImp/30 border border-emeraldLight/30 px-3 py-1 rounded-full mb-4">
-      AUDIO iOS DÉBLOQUÉ + SOUS-TITRES
+    <span class="font-mono text-xs text-emeraldLight bg-emeraldImp/30 border border-emeraldLight/30 px-3 py-1 rounded-full mb-3">
+      STUDIO VIDÉO HD • VOIX HUMAINE
     </span>
-    <h1 class="font-serif text-3xl mb-2">Spot Publicitaire — L’Atelier LaTeX</h1>
-    
-    <div class="bg-amber-500/10 border border-amber-400/30 text-amber-200 rounded-xl p-3 text-xs max-w-xs mb-5 text-left space-y-1">
-      <p class="font-bold text-amber-300">⚠️ Important sur iPhone :</p>
-      <p>1. <strong>Désactivez le mode Silencieux</strong> de l'iPhone et montez le volume au maximum.</p>
-      <p>2. Dans l'enregistrement d'écran iOS, maintenez le bouton appuyé et <strong>activez le Micro</strong> pour capter la voix.</p>
-    </div>
+    <h1 class="font-serif text-3xl mb-2">L’Atelier LaTeX</h1>
+    <p class="text-xs text-gray-400 max-w-xs mb-5 leading-relaxed">
+      Importez votre fichier voix (MP3 ElevenLabs ou mémo vocal iPhone) : la vidéo synchronisera automatiquement ses animations sur la durée de votre voix.
+    </p>
 
     <div class="space-y-3 w-full max-w-xs">
-      <button onclick="testVoiceNow()" class="w-full py-2.5 px-4 rounded-xl bg-white/10 text-emeraldLight border border-emeraldLight/40 font-mono text-xs active:scale-95 transition">
-        🔈 Tester le son de mon iPhone d'abord
-      </button>
-      <button onclick="initVideo(true)" class="w-full py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-bold text-sm shadow-xl active:scale-95 transition">
-        ▶️ Lancer la vidéo avec Voix-Off
+      <!-- Bouton d'importation du fichier audio -->
+      <label class="w-full py-3.5 px-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-dashed border-emeraldLight/60 text-emeraldLight font-mono text-xs flex items-center justify-center gap-2 cursor-pointer transition">
+        <span id="fileLabelText">📂 1. Importer ma voix (MP3 / M4A)</span>
+        <input type="file" id="audioFileInput" accept="audio/*,video/mp4" class="hidden" onchange="handleAudioUpload(this)" />
+      </label>
+
+      <!-- Option Musique de fond douce -->
+      <label class="flex items-center justify-center gap-2 text-xs text-gray-300 font-mono py-1 cursor-pointer">
+        <input type="checkbox" id="bgMusicToggle" checked class="accent-emeraldLight rounded" />
+        <span>Ajouter un fond musical doux + sons de clic</span>
+      </label>
+
+      <!-- Bouton Lancer -->
+      <button onclick="startRecordingSequence()" class="w-full py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-bold text-sm shadow-xl active:scale-95 transition">
+        ▶️ 2. Lancer la vidéo (Décompte 3s)
       </button>
     </div>
+
     <div id="countdownDisplay" class="hidden font-mono text-6xl font-bold text-emeraldLight mt-6">3</div>
   </div>
 
@@ -307,23 +318,24 @@
 
   <script>
     let audioCtx = null;
-    let selectedFrenchVoice = null;
+    let hasCustomAudio = false;
+    let customDurationMs = 22000; // Durée par défaut (22s), s'adapte automatiquement à la durée du MP3 !
 
-    // Préchargement des voix iOS (Thomas / Amélie / Marie)
-    function loadVoices() {
-      if (!('speechSynthesis' in window)) return;
-      const voices = window.speechSynthesis.getVoices();
-      selectedFrenchVoice =
-        voices.find(v => v.lang === 'fr-FR' && (v.name.includes('Thomas') || v.name.includes('Amélie') || v.name.includes('Enhanced'))) ||
-        voices.find(v => v.lang.startsWith('fr')) ||
-        null;
-    }
-    if ('speechSynthesis' in window) {
-      loadVoices();
-      window.speechSynthesis.onvoiceschanged = loadVoices;
+    function handleAudioUpload(input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      const audioEl = document.getElementById('voiceTrack');
+      audioEl.src = url;
+      audioEl.onloadedmetadata = () => {
+        if (audioEl.duration && isFinite(audioEl.duration)) {
+          customDurationMs = Math.max(12000, Math.round(audioEl.duration * 1000));
+        }
+      };
+      hasCustomAudio = true;
+      document.getElementById('fileLabelText').textContent = "✅ Voix chargée : " + file.name.slice(0, 22);
     }
 
-    // Générateur d'effets sonores (Bip clic & Accord musical de transition)
     function initAudioContext() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -334,8 +346,36 @@
       }
     }
 
+    // Fond musical doux (Accords Ambient Luxury) + Sons d'interface
+    function startAmbientPad(durationMs) {
+      if (!audioCtx || !document.getElementById('bgMusicToggle').checked) return;
+      const chords = [
+        [220.0, 261.63, 329.63], // Am
+        [174.61, 220.0, 261.63], // F
+        [130.81, 196.0, 246.94], // C/G
+        [164.81, 196.0, 246.94]  // Em
+      ];
+      let stepTime = durationMs / chords.length / 1000;
+      chords.forEach((notes, idx) => {
+        const start = audioCtx.currentTime + idx * stepTime;
+        notes.forEach(freq => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, start);
+          gain.gain.setValueAtTime(0.001, start);
+          gain.gain.linearRampToValueAtTime(0.025, start + 0.8);
+          gain.gain.linearRampToValueAtTime(0.001, start + stepTime);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(start);
+          osc.stop(start + stepTime);
+        });
+      });
+    }
+
     function playSoundEffect(type = 'tap') {
-      if (!audioCtx) return;
+      if (!audioCtx || !document.getElementById('bgMusicToggle').checked) return;
       const now = audioCtx.currentTime;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -345,102 +385,21 @@
       if (type === 'tap') {
         osc.type = 'sine';
         osc.frequency.setValueAtTime(520, now);
-        osc.frequency.exponentialRampToValueAtTime(180, now + 0.08);
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.frequency.exponentialRampToValueAtTime(180, now + 0.07);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
         osc.start(now);
-        osc.stop(now + 0.09);
+        osc.stop(now + 0.08);
       } else if (type === 'chime') {
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(440, now);
         osc.frequency.setValueAtTime(659.25, now + 0.12);
-        gain.gain.setValueAtTime(0.15, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
         osc.start(now);
-        osc.stop(now + 0.46);
+        osc.stop(now + 0.42);
       }
     }
-
-    // Fonction de parole compatible iOS (SANS speechSynthesis.cancel() qui bloque Safari)
-    function speakIOS(text) {
-      if (!('speechSynthesis' in window)) return;
-      loadVoices();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'fr-FR';
-      if (selectedFrenchVoice) utter.voice = selectedFrenchVoice;
-      utter.rate = 1.05;
-      utter.pitch = 1.0;
-      utter.volume = 1.0;
-      window.speechSynthesis.speak(utter);
-    }
-
-    // Bouton de test sonore direct
-    function testVoiceNow() {
-      initAudioContext();
-      playSoundEffect('chime');
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-      speakIOS("Le son de votre iPhone fonctionne parfaitement. Vous pouvez lancer la vidéo.");
-    }
-
-    const TIMELINE = [
-      {
-        time: 0,
-        subtitle: "Votre CV reste <span class='text-emeraldLight'>sans réponse</span> pour vos stages, emplois ou bourses ?",
-        voice: "Votre CV reste sans réponse pour vos stages, emplois ou bourses ?",
-        action: () => {
-          playSoundEffect('chime');
-          moveCursor(50, 30);
-        }
-      },
-      {
-        time: 4800,
-        subtitle: "Avec <span class='text-emeraldLight'>L’Atelier LaTeX</span>, passez au standard typographique professionnel.",
-        voice: "Avec L'Atelier LaTeX, passez au standard typographique professionnel.",
-        action: () => {
-          moveCursor(35, 58, true);
-          document.getElementById('cardModel2').classList.add('ring-2', 'ring-emeraldImp', 'scale-105');
-          setTimeout(() => {
-            playSoundEffect('tap');
-            document.getElementById('popPreviewModal').classList.remove('hidden');
-          }, 500);
-        }
-      },
-      {
-        time: 10000,
-        subtitle: "4 modèles sur-mesure : <span class='text-emeraldLight'>Finance, Administration, Bourses & Tech.</span>",
-        voice: "Quatre modèles sur-mesure : Finance, Administration, Bourses et Technologie.",
-        action: () => {
-          document.getElementById('popPreviewModal').classList.add('hidden');
-          scrollSite(-360);
-          moveCursor(50, 52, true);
-        }
-      },
-      {
-        time: 15000,
-        subtitle: "Tarifs accessibles dès <span class='text-emeraldLight'>5 000 FCFA</span> • CV + Lettre ciblée à <span class='text-emeraldLight'>10 000 FCFA</span>.",
-        voice: "Tarifs accessibles dès 5 000 Francs CFA, et Pack Stratégique à 10 000 Francs CFA.",
-        action: () => {
-          playSoundEffect('tap');
-          document.getElementById('packStratCard').classList.add('scale-105');
-          setTimeout(() => scrollSite(-640), 1200);
-          moveCursor(50, 74, true);
-        }
-      },
-      {
-        time: 20500,
-        subtitle: "Configurez en 2 minutes et <span class='text-emeraldLight'>commandez directement sur WhatsApp !</span>",
-        voice: "Configurez en deux minutes et commandez directement sur WhatsApp !",
-        action: () => {
-          const btn = document.getElementById('simWhatsappBtn');
-          btn.classList.add('scale-95', 'bg-white');
-          playSoundEffect('chime');
-          setTimeout(() => {
-            document.getElementById('whatsappEndScreen').classList.remove('hidden');
-            document.getElementById('touchCursor').classList.add('hidden');
-          }, 900);
-        }
-      }
-    ];
 
     function moveCursor(leftPct, topPct, tap = false) {
       const c = document.getElementById('touchCursor');
@@ -459,18 +418,23 @@
       document.getElementById('simulatedSite').style.transform = `translateY(${yPx}px)`;
     }
 
-    function initVideo(withVoice) {
-      // DÉVERROUILLAGE IMMÉDIAT DANS L'ÉVÉNEMENT CLICK (Obligatoire sur iOS Safari)
+    function startRecordingSequence() {
       initAudioContext();
-      playSoundEffect('tap');
-      if (withVoice && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        speakIOS("Trois. Deux. Un.");
+      const audioEl = document.getElementById('voiceTrack');
+
+      // Déverrouillage iOS du lecteur <audio> dès le clic
+      if (hasCustomAudio) {
+        audioEl.play().then(() => {
+          audioEl.pause();
+          audioEl.currentTime = 0;
+        }).catch(() => {});
       }
 
       const countEl = document.getElementById('countdownDisplay');
       countEl.classList.remove('hidden');
       let c = 3;
+      playSoundEffect('tap');
+
       const timer = setInterval(() => {
         c--;
         if (c > 0) {
@@ -481,27 +445,88 @@
           document.getElementById('launchScreen').classList.add('hidden');
           document.getElementById('touchCursor').classList.remove('hidden');
           document.getElementById('subtitleBox').classList.remove('hidden');
-          runShow(withVoice);
+          runSynchronizedShow();
         }
       }, 1000);
     }
 
-    function runShow(withVoice) {
-      const totalDuration = 25000;
+    function runSynchronizedShow() {
+      const D = customDurationMs;
+      const audioEl = document.getElementById('voiceTrack');
+
+      if (hasCustomAudio) {
+        audioEl.currentTime = 0;
+        audioEl.play();
+      }
+      startAmbientPad(D + 2000);
+
+      // Les 5 scènes s'adaptent proportionnellement à la durée exacte de ta voix !
+      const scenes = [
+        {
+          at: 0,
+          subtitle: "Votre CV reste <span class='text-emeraldLight'>sans réponse</span> pour vos stages, emplois ou bourses ?",
+          action: () => {
+            playSoundEffect('chime');
+            moveCursor(50, 30);
+          }
+        },
+        {
+          at: Math.round(D * 0.22),
+          subtitle: "Avec <span class='text-emeraldLight'>L’Atelier LaTeX</span>, passez au standard typographique professionnel.",
+          action: () => {
+            moveCursor(35, 58, true);
+            document.getElementById('cardModel2').classList.add('ring-2', 'ring-emeraldImp', 'scale-105');
+            setTimeout(() => {
+              document.getElementById('popPreviewModal').classList.remove('hidden');
+            }, 500);
+          }
+        },
+        {
+          at: Math.round(D * 0.44),
+          subtitle: "4 modèles sur-mesure : <span class='text-emeraldLight'>Finance, Administration, Bourses & Tech.</span>",
+          action: () => {
+            document.getElementById('popPreviewModal').classList.add('hidden');
+            scrollSite(-360);
+            moveCursor(50, 52, true);
+          }
+        },
+        {
+          at: Math.round(D * 0.66),
+          subtitle: "Dès <span class='text-emeraldLight'>5 000 FCFA</span> • Pack Stratégique (CV + Lettre) à <span class='text-emeraldLight'>10 000 FCFA</span>.",
+          action: () => {
+            document.getElementById('packStratCard').classList.add('scale-105');
+            setTimeout(() => scrollSite(-640), 1000);
+            moveCursor(50, 74, true);
+          }
+        },
+        {
+          at: Math.round(D * 0.85),
+          subtitle: "Configurez en 2 minutes et <span class='text-emeraldLight'>commandez directement sur WhatsApp !</span>",
+          action: () => {
+            const btn = document.getElementById('simWhatsappBtn');
+            btn.classList.add('scale-95', 'bg-white');
+            playSoundEffect('chime');
+            setTimeout(() => {
+              document.getElementById('whatsappEndScreen').classList.remove('hidden');
+              document.getElementById('touchCursor').classList.add('hidden');
+            }, 800);
+          }
+        }
+      ];
+
       const bar = document.getElementById('vidProgress');
       let elapsed = 0;
       const pTimer = setInterval(() => {
         elapsed += 100;
-        bar.style.width = Math.min(100, (elapsed / totalDuration) * 100) + '%';
-        if (elapsed >= totalDuration) clearInterval(pTimer);
+        bar.style.width = Math.min(100, (elapsed / D) * 100) + '%';
+        if (elapsed >= D) clearInterval(pTimer);
       }, 100);
 
-      TIMELINE.forEach(step => {
+      scenes.forEach(s => {
         setTimeout(() => {
-          document.getElementById('subtitleText').innerHTML = step.subtitle;
-          if (withVoice) speakIOS(step.voice);
-          step.action();
-        }, step.time);
+          document.getElementById('subtitleText').innerHTML = s.subtitle;
+          s.action();
+        }, s.at);
       });
     }
   </script>
