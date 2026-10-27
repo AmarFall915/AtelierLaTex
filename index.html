@@ -1170,7 +1170,7 @@
         </button>
         <span class="text-gray-600">•</span>
         <a href="https://wa.me/221785400171" target="_blank" rel="noopener" class="text-gray-300 hover:text-emeraldLight transition">
-          Contact WhatsApp
+          Contact WhatsApp (+221 78 540 01 71)
         </a>
         <span class="text-gray-600">•</span>
         <span class="text-gray-500">© 2026</span>
@@ -1256,11 +1256,11 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- LOGIQUE JAVASCRIPT (EXCLUSIVEMENT FCFA / XOF + GESTION DES TIROIRS)   -->
+  <!-- LOGIQUE JAVASCRIPT (EXCLUSIVEMENT FCFA / XOF + NUMÉRO 221785400171)   -->
   <!-- ===================================================================== -->
   <script>
     const CONFIG = {
-      whatsappNumber: "221770000000", // <-- Numéro WhatsApp de réception
+      whatsappNumber: "221785400171", // <-- Ton numéro WhatsApp intégré
       currencyCode: "XOF",
       currencyLabel: "FCFA",
       packs: {
@@ -1588,20 +1588,33 @@
     }
 
     function submitOrderWhatsApp() {
-      const name = document.getElementById("clientName").value.trim();
-      const phone = document.getElementById("clientPhone").value.trim();
+      const nameInput = document.getElementById("clientName");
+      const phoneInput = document.getElementById("clientPhone");
       const errEl = document.getElementById("formErrorMsg");
 
+      const name = nameInput ? nameInput.value.trim() : "";
+      const phone = phoneInput ? phoneInput.value.trim() : "";
+
       if (!name || !phone) {
-        errEl.classList.remove("hidden");
-        document.getElementById("clientName").focus();
+        if (errEl) errEl.classList.remove("hidden");
+        if (!name && nameInput) {
+          nameInput.scrollIntoView({ behavior: "smooth", block: "center" });
+          nameInput.focus();
+        } else if (!phone && phoneInput) {
+          phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
+          phoneInput.focus();
+        }
         return;
       }
-      errEl.classList.add("hidden");
 
+      if (errEl) errEl.classList.add("hidden");
+
+      const cleanAdminPhone = CONFIG.whatsappNumber.replace(/[^0-9]/g, "");
       const message = buildOrderSummaryText();
-      const waUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
-      window.open(waUrl, "_blank");
+      const waUrl = `https://wa.me/${cleanAdminPhone}?text=${encodeURIComponent(message)}`;
+
+      // Redirection directe compatible iOS (Safari) et Android
+      window.location.href = waUrl;
     }
 
     function copyOrderSummary() {
