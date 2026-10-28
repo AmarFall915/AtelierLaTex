@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Commande Réelle WhatsApp — L'Atelier LaTeX</title>
+  <title>Studio Vidéo + Voix — L'Atelier LaTeX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -86,7 +86,6 @@
       border: 1.5px solid rgba(16, 185, 129, 0.6);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
     }
-    /* Animation d'ouverture du vrai PDF */
     #pdfModalViewer {
       opacity: 0;
       pointer-events: none;
@@ -102,19 +101,37 @@
 </head>
 <body class="relative">
 
-  <!-- ÉCRAN DE LANCEMENT AVANT ENREGISTREMENT -->
+  <!-- LECTEUR AUDIO INTÉGRÉ POUR LA VOIX-OFF -->
+  <audio id="voiceTrack" preload="auto" playsinline></audio>
+
+  <!-- ÉCRAN DE CONFIGURATION AVANT ENREGISTREMENT -->
   <div id="setupOverlay" class="fixed inset-0 z-50 bg-carbon text-white flex flex-col items-center justify-center p-6 text-center">
-    <span class="font-mono text-[11px] text-emeraldLight bg-emeraldImp/30 border border-emeraldLight/30 px-3 py-1 rounded-full mb-3">
-      SITE ➔ WHATSAPP ➔ OUVERTURE DU VRAI PDF
+    <span class="font-mono text-[10px] text-emeraldLight bg-emeraldImp/30 border border-emeraldLight/30 px-3 py-1 rounded-full mb-3">
+      STUDIO COMPLET : VOIX + WHATSAPP + VRAI PDF
     </span>
-    <h1 class="font-serif text-3xl mb-2">Démonstration Réelle</h1>
-    <p id="pdfStatusText" class="text-xs text-gray-400 max-w-xs mb-6 leading-relaxed">
-      Chargement du fichier <code class="text-emeraldLight">Cv_FATIMATA_SOW.pdf</code>...
+    <h1 class="font-serif text-3xl mb-2">Prêt à tourner</h1>
+    <p id="pdfStatusText" class="text-xs text-gray-400 max-w-xs mb-4 leading-relaxed">
+      Vérification du fichier PDF...
     </p>
 
-    <button onclick="startStory()" class="w-full max-w-xs py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-bold text-sm shadow-xl active:scale-95 transition">
-      ▶️ Lancer la vidéo (22 sec)
-    </button>
+    <div class="space-y-3 w-full max-w-xs">
+      <!-- Bouton pour charger la voix si elle n'est pas déjà sur GitHub sous le nom voix.mp3 -->
+      <label class="w-full py-3.5 px-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-dashed border-emeraldLight/60 text-emeraldLight font-mono text-xs flex items-center justify-center gap-2 cursor-pointer transition">
+        <span id="audioLabelText">🎙️ 1. Charger ma voix (ou auto via voix.mp3)</span>
+        <input type="file" id="audioInput" class="hidden" onchange="handleVoiceUpload(this)" />
+      </label>
+
+      <!-- Option effets sonores (clics + notifications WhatsApp) -->
+      <label class="flex items-center justify-center gap-2 text-xs text-gray-300 font-mono py-1 cursor-pointer">
+        <input type="checkbox" id="sfxToggle" checked class="accent-emeraldLight rounded" />
+        <span>Activer les bruitages (clics + pop WhatsApp)</span>
+      </label>
+
+      <!-- Bouton Lancer -->
+      <button onclick="startStory()" class="w-full py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-bold text-sm shadow-xl active:scale-95 transition">
+        ▶️ 2. Lancer la vidéo + Voix (Décompte 3s)
+      </button>
+    </div>
 
     <div id="countNum" class="hidden font-mono text-6xl font-bold text-emeraldLight mt-6">3</div>
   </div>
@@ -128,7 +145,7 @@
   </div>
 
   <!-- =================================================================== -->
-  <!-- ÉCRAN 1 : LA CLIENTE COMMANDE SUR LE SITE (0s - 5s)                 -->
+  <!-- ÉCRAN 1 : LA CLIENTE COMMANDE SUR LE SITE (0% - 19%)                -->
   <!-- =================================================================== -->
   <div id="stage1" class="stage-screen active bg-paper text-carbon p-4 pt-6 flex flex-col justify-between">
     <div>
@@ -182,7 +199,7 @@
   </div>
 
   <!-- =================================================================== -->
-  <!-- ÉCRAN 2 : BASCULE DIRECTE SUR WHATSAPP + ENVOI DU CV (5s - 22s)     -->
+  <!-- ÉCRAN 2 : BASCULE DIRECTE SUR WHATSAPP + ENVOI DU CV (19% - 100%)   -->
   <!-- =================================================================== -->
   <div id="stage2" class="stage-screen bg-[#0b141a] text-white flex flex-col justify-between p-3.5 pt-5 pb-24">
     
@@ -201,7 +218,7 @@
     <!-- Fil de discussion WhatsApp -->
     <div class="space-y-2 my-auto py-1">
       
-      <!-- 1. Message automatique envoyé depuis le site + Ancien CV -->
+      <!-- 1. Message automatique envoyé depuis le site -->
       <div id="msg1" class="wa-bubble ml-auto max-w-[85%] bg-[#005c4b] p-2.5 rounded-2xl rounded-tr-none text-[10.5px] font-mono space-y-0.5 shadow-md">
         <p class="font-bold text-emeraldLight">Bonjour L'Atelier LaTeX, commande en cours :</p>
         <p>📦 Pack : Pack Stratégique (10 000 FCFA)</p>
@@ -222,7 +239,7 @@
         </span>
       </div>
 
-      <!-- 3. Tu lui envoies son CV final en PDF dans WhatsApp -->
+      <!-- 3. Envoi du CV final en PDF dans WhatsApp -->
       <div id="msg3" class="wa-bubble mr-auto max-w-[86%] bg-[#202c33] p-2.5 rounded-2xl rounded-tl-none text-xs border border-emeraldLight/40 shadow-lg">
         <p class="font-bold text-emeraldLight text-[9.5px] font-mono mb-1">L’Atelier LaTeX</p>
         
@@ -249,10 +266,9 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- VISIONNEUSE PLEIN ÉCRAN QUI AFFICHE TON VRAI FICHIER PDF / IMAGE  -->
+    <!-- VISIONNEUSE PLEIN ÉCRAN QUI AFFICHE TON VRAI FICHIER PDF          -->
     <!-- ================================================================= -->
     <div id="pdfModalViewer" class="fixed inset-x-3 top-10 bottom-20 z-60 bg-[#111b21] rounded-2xl border-2 border-emeraldLight shadow-2xl flex flex-col overflow-hidden">
-      <!-- Barre supérieure de l'aperçu PDF -->
       <div class="bg-[#202c33] px-3.5 py-2 flex items-center justify-between border-b border-white/10">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-emeraldLight"></span>
@@ -261,13 +277,11 @@
         <span class="font-mono text-[9px] bg-emeraldImp text-white px-2 py-0.5 rounded">Rendu Réel 100%</span>
       </div>
 
-      <!-- Zone où s'affiche le vrai PDF (via Canvas PDF.js ou Image) -->
       <div class="flex-1 bg-gray-200 flex items-center justify-center p-2 overflow-hidden relative">
         <canvas id="realPdfCanvas" class="max-w-full max-h-full object-contain shadow-xl rounded bg-white"></canvas>
         <img id="realImageFallback" class="hidden max-w-full max-h-full object-contain shadow-xl rounded bg-white" alt="CV Final" />
       </div>
 
-      <!-- Bandeau bas avec le lien du site -->
       <div class="bg-paper text-carbon px-4 py-2.5 flex items-center justify-between">
         <div>
           <p class="font-serif font-bold text-xs leading-none">Commandez votre CV sur-mesure</p>
@@ -281,7 +295,7 @@
 
   </div>
 
-  <!-- SOUS-TITRES DYNAMIQUES TIKTOK / LINKEDIN -->
+  <!-- SOUS-TITRES DYNAMIQUES CALÉS SUR LA VOIX -->
   <div class="fixed bottom-4 inset-x-4 z-70 flex justify-center pointer-events-none">
     <div id="captionBox" class="caption-pill px-4 py-2.5 rounded-2xl text-center max-w-sm w-full hidden">
       <p id="captionText" class="text-white font-extrabold text-xs sm:text-sm leading-snug"></p>
@@ -290,23 +304,39 @@
 
   <script>
     // =====================================================================
-    // 👉 LIGNE DE CODE OÙ METTRE LE NOM DE TON VRAI CV (PDF OU IMAGE) :
+    // 👉 VOS 2 FICHIERS SUR GITHUB (PDF + VOIX) :
     // =====================================================================
     const FICHIER_CV_PREUVE = "Cv_FATIMATA_SOW.pdf";
+    const FICHIER_VOIX      = "voix.mp3";
     // =====================================================================
 
-    // Configuration de PDF.js pour lire et afficher le vrai PDF sur iPhone
+    let audioCtx = null;
+    let voiceReady = false;
+    let totalDurationMs = 22000; // S'adapte automatiquement à la durée de ta voix
+
     if (window.pdfjsLib) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
     }
 
-    async function preloadRealCV() {
+    // 1. Préchargement du vrai PDF et de la voix (si voix.mp3 est sur GitHub)
+    async function initStudioAssets() {
       const statusEl = document.getElementById('pdfStatusText');
+      const audioEl = document.getElementById('voiceTrack');
       document.getElementById('waPdfName').textContent = FICHIER_CV_PREUVE;
       document.getElementById('viewerFileName').textContent = FICHIER_CV_PREUVE;
 
-      const isPdf = FICHIER_CV_PREUVE.toLowerCase().endsWith('.pdf');
+      // Tentative de chargement automatique de voix.mp3
+      audioEl.src = FICHIER_VOIX;
+      audioEl.onloadedmetadata = () => {
+        if (audioEl.duration && isFinite(audioEl.duration)) {
+          totalDurationMs = Math.max(15000, Math.round(audioEl.duration * 1000));
+          voiceReady = true;
+          document.getElementById('audioLabelText').textContent = "✅ Voix auto-chargée (" + Math.round(audioEl.duration) + "s)";
+        }
+      };
 
+      // Chargement du PDF
+      const isPdf = FICHIER_CV_PREUVE.toLowerCase().endsWith('.pdf');
       try {
         if (isPdf && window.pdfjsLib) {
           const loadingTask = pdfjsLib.getDocument(FICHIER_CV_PREUVE);
@@ -315,27 +345,80 @@
 
           const canvas = document.getElementById('realPdfCanvas');
           const context = canvas.getContext('2d');
-          const viewport = page.getViewport({ scale: 2.2 }); // Haute Définition Retina
+          const viewport = page.getViewport({ scale: 2.2 });
 
           canvas.height = viewport.height;
           canvas.width = viewport.width;
 
           await page.render({ canvasContext: context, viewport: viewport }).promise;
-          statusEl.innerHTML = "✅ Fichier <strong class='text-emeraldLight'>" + FICHIER_CV_PREUVE + "</strong> chargé et prêt !";
+          statusEl.innerHTML = "✅ PDF <strong class='text-emeraldLight'>" + FICHIER_CV_PREUVE + "</strong> prêt à l'affichage !";
         } else {
-          // Si tu mets une image (.png / .jpg) au lieu d'un .pdf
           const img = document.getElementById('realImageFallback');
           img.src = FICHIER_CV_PREUVE;
           img.classList.remove('hidden');
           document.getElementById('realPdfCanvas').classList.add('hidden');
-          statusEl.innerHTML = "✅ Image <strong class='text-emeraldLight'>" + FICHIER_CV_PREUVE + "</strong> chargée et prête !";
+          statusEl.innerHTML = "✅ Image <strong class='text-emeraldLight'>" + FICHIER_CV_PREUVE + "</strong> prête !";
         }
       } catch (err) {
-        statusEl.innerHTML = "⚠️ Assurez-vous d'avoir bien ajouté <strong>" + FICHIER_CV_PREUVE + "</strong> sur votre GitHub au même endroit que <code>video.html</code>.";
+        statusEl.innerHTML = "⚠️ Ajoutez <strong>" + FICHIER_CV_PREUVE + "</strong> dans votre dépôt GitHub.";
       }
     }
 
-    window.addEventListener('DOMContentLoaded', preloadRealCV);
+    window.addEventListener('DOMContentLoaded', initStudioAssets);
+
+    // 2. Si l'utilisateur choisit sa voix manuellement via le bouton
+    function handleVoiceUpload(input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      const audioEl = document.getElementById('voiceTrack');
+      audioEl.src = url;
+      audioEl.onloadedmetadata = () => {
+        if (audioEl.duration && isFinite(audioEl.duration)) {
+          totalDurationMs = Math.max(15000, Math.round(audioEl.duration * 1000));
+        }
+      };
+      voiceReady = true;
+      document.getElementById('audioLabelText').textContent = "✅ Voix chargée : " + file.name.slice(0, 18);
+    }
+
+    // 3. Petits bruitages (Clic + Notification WhatsApp)
+    function initAudioEngine() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSfx(type) {
+      if (!audioCtx || !document.getElementById('sfxToggle').checked) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'tap') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(500, now);
+        osc.frequency.exponentialRampToValueAtTime(170, now + 0.06);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+        osc.start(now);
+        osc.stop(now + 0.07);
+      } else if (type === 'pop') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(587.33, now);
+        osc.frequency.setValueAtTime(880, now + 0.08);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        osc.start(now);
+        osc.stop(now + 0.26);
+      }
+    }
 
     function setStage(stageId) {
       document.querySelectorAll('.stage-screen').forEach(el => el.classList.remove('active'));
@@ -349,19 +432,33 @@
       if (tap) {
         setTimeout(() => {
           c.classList.add('tap');
+          playSfx('tap');
           setTimeout(() => c.classList.remove('tap'), 200);
         }, 500);
       }
     }
 
     function startStory() {
+      initAudioEngine();
+      const audioEl = document.getElementById('voiceTrack');
+
+      // Déverrouillage audio iOS Safari pendant le clic
+      audioEl.play().then(() => {
+        audioEl.pause();
+        audioEl.currentTime = 0;
+        voiceReady = true;
+      }).catch(() => {});
+
       const countEl = document.getElementById('countNum');
       countEl.classList.remove('hidden');
       let c = 3;
+      playSfx('tap');
+
       const timer = setInterval(() => {
         c--;
         if (c > 0) {
           countEl.textContent = c;
+          playSfx('tap');
         } else {
           clearInterval(timer);
           document.getElementById('setupOverlay').classList.add('hidden');
@@ -373,53 +470,62 @@
     }
 
     function playStoryTimeline() {
-      const total = 22000;
+      const D = totalDurationMs;
+      const audioEl = document.getElementById('voiceTrack');
+
+      // Lancement de la voix-off
+      if (voiceReady) {
+        audioEl.currentTime = 0;
+        audioEl.play().catch(() => {});
+      }
+
       const bar = document.getElementById('topProgress');
       let elapsed = 0;
       const pInt = setInterval(() => {
         elapsed += 100;
-        bar.style.width = Math.min(100, (elapsed / total) * 100) + '%';
-        if (elapsed >= total) clearInterval(pInt);
+        bar.style.width = Math.min(100, (elapsed / D) * 100) + '%';
+        if (elapsed >= D) clearInterval(pInt);
       }, 100);
 
+      // Les étapes suivent proportionnellement la durée de ta voix
       const steps = [
-        // 1. La cliente est sur le site et clique sur Commander via WhatsApp
+        // 0% : Site web & clic sur Commander
         {
           at: 0,
-          caption: "1️⃣ La cliente configure sa commande sur le site et clique sur <span class='text-emeraldLight'>Commander</span>...",
+          caption: "Marre de galérer sur ton CV ? Cette cliente choisit son pack et clique sur <span class='text-emeraldLight'>Commander</span>...",
           run: () => {
             setStage('stage1');
             moveCursor(50, 68, true);
             setTimeout(() => {
               document.getElementById('btnOrderSite').classList.add('scale-95', 'bg-white');
-            }, 2600);
+            }, Math.round(D * 0.12));
           }
         },
-        // 2. Bascule directe sur WhatsApp : court échange
+        // 19% : Bascule WhatsApp
         {
-          at: 4200,
-          caption: "2️⃣ Bascule directe sur <span class='text-emeraldLight'>WhatsApp</span> : elle nous envoie ses informations.",
+          at: Math.round(D * 0.19),
+          caption: "Hop, ça bascule direct sur <span class='text-emeraldLight'>WhatsApp</span> ! Elle nous envoie ses infos et on s'occupe de tout.",
           run: () => {
             document.getElementById('touchCursor').classList.add('hidden');
             setStage('stage2');
-            setTimeout(() => document.getElementById('msg1').classList.add('show'), 300);
-            setTimeout(() => document.getElementById('msg2').classList.add('show'), 2000);
+            setTimeout(() => { document.getElementById('msg1').classList.add('show'); playSfx('pop'); }, 250);
+            setTimeout(() => { document.getElementById('msg2').classList.add('show'); playSfx('pop'); }, 1800);
           }
         },
-        // 3. Quelques heures plus tard : envoi du CV final sur WhatsApp
+        // 42% : Livraison du PDF dans la discussion WhatsApp
         {
-          at: 9200,
-          caption: "3️⃣ Nous réalisons son CV et lui envoyons le <span class='text-emeraldLight'>PDF final</span> sur WhatsApp !",
+          at: Math.round(D * 0.42),
+          caption: "Quelques heures plus tard... bim, on lui livre son <span class='text-emeraldLight'>nouveau CV LaTeX</span> dans la discussion !",
           run: () => {
             document.getElementById('msgTime').classList.add('show');
-            setTimeout(() => document.getElementById('msg3').classList.add('show'), 700);
-            setTimeout(() => document.getElementById('msg4').classList.add('show'), 2200);
+            setTimeout(() => { document.getElementById('msg3').classList.add('show'); playSfx('pop'); }, 600);
+            setTimeout(() => { document.getElementById('msg4').classList.add('show'); playSfx('pop'); }, 2000);
           }
         },
-        // 4. Clic sur le PDF dans WhatsApp et ouverture du vrai CV de Fatimata Sow
+        // 62% : Ouverture du vrai PDF en plein écran
         {
-          at: 13200,
-          caption: "4️⃣ Aperçu réel du <span class='text-emeraldLight'>CV final livré</span> : propre, structuré et sur 1 page ! 🔥",
+          at: Math.round(D * 0.62),
+          caption: "Regarde cette pépite : tout tient sur <span class='text-emeraldLight'>une seule page ultra-propre</span>. Clique sur le lien, à ton tour ! 🔥",
           run: () => {
             const c = document.getElementById('touchCursor');
             c.classList.remove('hidden');
@@ -429,6 +535,7 @@
             }, 550);
             setTimeout(() => {
               c.classList.add('hidden');
+              playSfx('pop');
               document.getElementById('pdfModalViewer').classList.add('open');
             }, 1000);
           }
