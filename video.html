@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Démonstration Client — L'Atelier LaTeX</title>
+  <title>Démonstration Client (Anonymisée) — L'Atelier LaTeX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -89,6 +89,23 @@
     #cvPaperCard.zoom-in {
       transform: scale(1.06) translateY(-4px);
     }
+    /* Effet de masquage / floutage confidentiel */
+    .redacted-bar {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.25);
+      color: transparent;
+      border-radius: 3px;
+      padding: 0 4px;
+      filter: blur(1.5px);
+      user-select: none;
+    }
+    .redacted-dark {
+      display: inline-block;
+      background: #cbd5e1;
+      border-radius: 4px;
+      height: 10px;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body class="relative">
@@ -96,12 +113,11 @@
   <!-- ÉCRAN DE DÉMARRAGE (AVANT ENREGISTREMENT) -->
   <div id="setupOverlay" class="fixed inset-0 z-50 bg-carbon text-white flex flex-col items-center justify-center p-6 text-center">
     <span class="font-mono text-[11px] text-emeraldLight bg-emeraldImp/30 border border-emeraldLight/30 px-3 py-1 rounded-full mb-3">
-      PREUVE RÉELLE INTÉGRÉE : CV FATIMATA SOW
+      🔒 DONNÉES CLIENTE 100% MASQUÉES & ANONYMISÉES
     </span>
     <h1 class="font-serif text-3xl mb-2">Scénario Client Complet</h1>
     <p class="text-xs text-gray-400 max-w-xs mb-6 leading-relaxed">
-      1. Lancez l'enregistrement d'écran de votre iPhone.<br>
-      2. Appuyez sur le bouton ci-dessous : toute la commande et la livraison du vrai CV s'animent automatiquement.
+      Le nom, la photo, le numéro et l'adresse sont entièrement masqués pour respecter la confidentialité de la cliente.
     </p>
 
     <button onclick="startStory()" class="w-full max-w-xs py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-bold text-sm shadow-xl active:scale-95 transition">
@@ -143,7 +159,7 @@
       <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-3">
         <div class="flex justify-between items-center border-b border-gray-100 pb-2">
           <span class="font-serif font-bold text-sm">Configurateur de Dossier</span>
-          <span class="font-mono text-[10px] text-emeraldImp font-bold">Commande en direct</span>
+          <span class="font-mono text-[10px] text-emeraldImp font-bold">🔒 Anonymisé</span>
         </div>
 
         <div class="grid grid-cols-2 gap-2 text-xs">
@@ -160,7 +176,7 @@
         <div class="bg-paper p-2.5 rounded-xl border border-gray-200 flex justify-between items-center text-xs">
           <div>
             <span class="text-[9px] font-mono text-gray-500 block">CLIENTE & DOMAINE</span>
-            <span class="font-semibold text-carbon">Fatimata Sow — Cybersécurité & GRC</span>
+            <span class="font-semibold text-carbon">🔒 [Nom Masqué] — Cybersécurité & GRC</span>
           </div>
           <span class="font-mono text-[10px] bg-emeraldImp/10 text-emeraldImp px-2 py-0.5 rounded font-bold">Wave / OM</span>
         </div>
@@ -194,7 +210,7 @@
           <p class="text-[10px] text-emeraldLight font-mono">● En ligne</p>
         </div>
       </div>
-      <span class="font-mono text-[9px] bg-white/10 px-2 py-1 rounded text-gray-300">WhatsApp</span>
+      <span class="font-mono text-[9px] bg-white/10 px-2 py-1 rounded text-gray-300">🔒 Confidentiel</span>
     </div>
 
     <div class="space-y-2.5 my-auto py-2">
@@ -202,7 +218,8 @@
       <div id="msg1" class="wa-bubble ml-auto max-w-[88%] bg-[#005c4b] p-3 rounded-2xl rounded-tr-none text-[10.5px] font-mono space-y-1 shadow-md border border-emeraldLight/20">
         <p class="font-bold text-emeraldLight">Bonjour L'Atelier LaTeX, commande en cours :</p>
         <p>🔖 REF : #TEX-2026-418</p>
-        <p>👤 Nom : Fatimata Sow</p>
+        <p>👤 Nom : <span class="bg-white/20 px-2 py-0.5 rounded text-transparent select-none blur-[2px]">Cliente Anonyme</span></p>
+        <p>📱 Tel : <span class="bg-white/20 px-2 py-0.5 rounded text-transparent select-none blur-[2px]">+33 6 00 00 00</span></p>
         <p>🎯 Poste : Gouvernance, Risques & Conformité Cyber</p>
         <p>📐 Modèle : 04 — L'Ingénieur (Tech & Cyber)</p>
       </div>
@@ -212,7 +229,7 @@
         <div class="bg-black/25 p-2 rounded-xl flex items-center gap-2 mb-1">
           <span class="bg-amber-500 text-carbon font-mono text-[9px] font-bold px-1.5 py-1 rounded">ANCIEN</span>
           <div class="truncate">
-            <p class="font-semibold text-[11px] truncate">Brouillon_Parcours_Fatimata.docx</p>
+            <p class="font-semibold text-[11px] truncate">Ancien_CV_Parcours_Cyber.docx</p>
             <p class="text-[9px] text-gray-300">Expériences AG2R, Coris Bank, ISM Dakar</p>
           </div>
         </div>
@@ -222,7 +239,7 @@
       <!-- Message 3 -->
       <div id="msg3" class="wa-bubble mr-auto max-w-[86%] bg-[#202c33] p-3 rounded-2xl rounded-tl-none text-xs border border-white/10 shadow-md">
         <p class="font-bold text-emeraldLight text-[10px] font-mono mb-0.5">L’Atelier LaTeX</p>
-        <p class="text-[11px] leading-snug">Parfait Fatimata ! ✅ Nous structurons vos expériences (AG2R La Mondiale, Coris Bank) et vos compétences (DORA, EBIOS RM, ISO 27001) sous LaTeX.</p>
+        <p class="text-[11px] leading-snug">Bien reçu ! ✅ Vos données personnelles restent 100% confidentielles. Nous compilons votre dossier sous LaTeX tout de suite.</p>
       </div>
     </div>
   </div>
@@ -234,11 +251,11 @@
     <span class="font-mono text-[10px] text-emeraldLight border border-emeraldLight/30 bg-emeraldImp/20 px-3 py-1 rounded-full mb-3">
       ⚙️ COMPILATION LATEX EN COURS
     </span>
-    <h3 class="font-serif text-2xl mb-4 text-center">Création de <span class="italic text-emeraldLight">Cv_FATIMATA_SOW.pdf</span></h3>
+    <h3 class="font-serif text-2xl mb-4 text-center">Création du <span class="italic text-emeraldLight">CV_Final_LaTeX.pdf</span></h3>
 
     <div class="w-full max-w-xs bg-[#111827] border border-gray-800 rounded-2xl p-4 font-mono text-[10px] text-gray-300 space-y-1.5 shadow-2xl">
       <p class="text-pink-400">\documentclass[10pt,a4paper]{ateliercv}</p>
-      <p class="text-emeraldLight">\name{FATIMATA SOW}</p>
+      <p class="text-emeraldLight">\name{[NOM DE LA CLIENTE MASQUÉ]}</p>
       <p class="text-amber-300">\role{Gouvernance, Risques et Conformité Cyber}</p>
       <p class="text-gray-400">% Structuration des blocs clés :</p>
       <p class="pl-2 text-white">✓ AG2R LA MONDIALE (DORA, IA Act, CRA)</p>
@@ -246,14 +263,14 @@
       <p class="pl-2 text-white">✓ Ynov Campus • Groupe ISM Dakar</p>
       <p class="pl-2 text-white">✓ Projets EBIOS RM & OpenCTI</p>
       <div class="pt-2 border-t border-gray-800 flex justify-between items-center text-emeraldLight font-bold">
-        <span>Output : Cv_FATIMATA_SOW.pdf</span>
+        <span>Output : CV_Final_LaTeX_HD.pdf</span>
         <span>100% HD ✓</span>
       </div>
     </div>
   </div>
 
   <!-- =================================================================== -->
-  <!-- ÉTAPE 4 : LIVRAISON & PREUVE DU VRAI CV DE FATIMATA SOW (15.5s-24s) -->
+  <!-- ÉTAPE 4 : LIVRAISON & PREUVE DU CV ANONYMISÉ (15.5s - 24s)          -->
   <!-- =================================================================== -->
   <div id="stage4" class="stage-screen bg-[#0b141a] text-white p-3 pt-4 pb-24 flex flex-col justify-between">
     
@@ -261,27 +278,39 @@
     <div class="bg-[#202c33] px-3 py-2 rounded-xl border border-emeraldLight/40 shadow-lg flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="bg-emeraldLight text-carbon font-mono font-bold text-[9px] px-2 py-0.5 rounded">PDF LIVRÉ</span>
-        <p class="font-bold text-[11px] text-white">📎 Cv_FATIMATA_SOW.pdf envoyé sur WhatsApp ✅</p>
+        <p class="font-bold text-[11px] text-white">📎 CV_Final_LaTeX_HD.pdf (Anonymisé) ✅</p>
       </div>
     </div>
 
-    <!-- REPRODUCTION EXACTE DU VRAI CV DE FATIMATA SOW -->
+    <!-- REPRODUCTION EXACTE DU CV AVEC NOM, PHOTO, TEL & ADRESSE CACHÉS -->
     <div class="my-auto flex justify-center items-center py-1">
       <div id="cvPaperCard" class="w-full max-w-[335px] bg-white text-gray-800 rounded-lg shadow-2xl overflow-hidden border-2 border-emeraldLight grid grid-cols-12 text-[6.3px] leading-[1.22]">
         
-        <!-- COLONNE GAUCHE BLEU-ARDOISE (Identique au PDF) -->
+        <!-- COLONNE GAUCHE BLEU-ARDOISE (Avec Photo, Tel, Email & Adresse cachés) -->
         <div class="col-span-4 bg-cvSlate text-white p-2.5 space-y-2 flex flex-col justify-between">
           <div class="space-y-2">
-            <!-- Avatar circulaire -->
-            <div class="w-11 h-11 rounded-full bg-[#3A5A70] border-2 border-white mx-auto flex items-center justify-center font-serif font-bold text-xs text-amber-200 shadow">
-              FS
+            
+            <!-- Photo cachée (Cercle flouté avec cadenas) -->
+            <div class="w-11 h-11 rounded-full bg-[#3A5A70] border-2 border-white/80 mx-auto flex flex-col items-center justify-center shadow relative overflow-hidden">
+              <div class="w-6 h-6 rounded-full bg-white/30 blur-[2px]"></div>
+              <span class="absolute text-[6px] font-mono bg-black/50 px-1 rounded text-white">PHOTO</span>
             </div>
 
-            <!-- Contact -->
+            <!-- Contact (Téléphone, Email et Adresse cachés comme sur le PDF) -->
             <div>
               <p class="font-bold uppercase tracking-wider text-[6.5px] border-b border-white/40 pb-0.5 mb-1">Contact</p>
-              <p class="text-[5.8px] text-gray-100">📞 Téléphone | ✉️ Email</p>
-              <p class="text-[5.8px] text-gray-100">📍 Fontenay-aux-Roses (Île-de-France)</p>
+              <p class="text-[5.8px] text-gray-100 flex items-center justify-between">
+                <span><strong>Téléphone :</strong></span>
+                <span class="redacted-bar">00 00 00 00</span>
+              </p>
+              <p class="text-[5.8px] text-gray-100 flex items-center justify-between mt-0.5">
+                <span><strong>Email :</strong></span>
+                <span class="redacted-bar">xxxx@xxxx.fr</span>
+              </p>
+              <p class="text-[5.8px] text-gray-100 flex items-center justify-between mt-0.5">
+                <span><strong>Adresse :</strong></span>
+                <span class="redacted-bar">Adresse Masquée</span>
+              </p>
             </div>
 
             <!-- Compétences -->
@@ -317,12 +346,16 @@
           </div>
         </div>
 
-        <!-- COLONNE DROITE PRINCIPALE (Identique au PDF) -->
+        <!-- COLONNE DROITE PRINCIPALE (Avec le Nom masqué en haut comme sur ton PDF) -->
         <div class="col-span-8 p-2.5 space-y-1.5 bg-white">
-          <!-- En-tête Nom & Titre -->
+          
+          <!-- En-tête : Nom caché par un cache blanc/gris + Titre du poste visible -->
           <div class="border-b border-cvSlate/30 pb-1">
-            <h4 class="font-extrabold text-[11px] tracking-tight text-cvDark uppercase leading-none">FATIMATA SOW</h4>
-            <p class="font-bold text-[7.2px] text-cvSlate mt-0.5">Gouvernance, Risques et Conformité Cyber</p>
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="redacted-dark w-28"></span>
+              <span class="font-mono text-[5px] text-gray-400 uppercase">[Nom masqué]</span>
+            </div>
+            <p class="font-bold text-[7.2px] text-cvSlate">Gouvernance, Risques et Conformité Cyber</p>
           </div>
 
           <!-- Profil Professionnel -->
@@ -464,7 +497,7 @@
         },
         {
           at: 6000,
-          caption: "2️⃣ Elle nous transmet son parcours en <span class='text-emeraldLight'>Cybersécurité & GRC</span>.",
+          caption: "2️⃣ Elle nous transmet son parcours en <span class='text-emeraldLight'>toute confidentialité</span>.",
           run: () => {
             document.getElementById('touchCursor').classList.add('hidden');
             setStage('stage2');
