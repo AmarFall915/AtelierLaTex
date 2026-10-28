@@ -107,7 +107,7 @@
   <!-- ÉCRAN DE CONFIGURATION AVANT ENREGISTREMENT -->
   <div id="setupOverlay" class="fixed inset-0 z-50 bg-carbon text-white flex flex-col items-center justify-center p-6 text-center">
     <span class="font-mono text-[10px] text-emeraldLight bg-emeraldImp/30 border border-emeraldLight/30 px-3 py-1 rounded-full mb-3">
-      STUDIO COMPLET : VOIX + WHATSAPP + VRAI PDF
+      🔒 NOM DU FICHIER 100% ANONYMISÉ
     </span>
     <h1 class="font-serif text-3xl mb-2">Prêt à tourner</h1>
     <p id="pdfStatusText" class="text-xs text-gray-400 max-w-xs mb-4 leading-relaxed">
@@ -115,19 +115,16 @@
     </p>
 
     <div class="space-y-3 w-full max-w-xs">
-      <!-- Bouton pour charger la voix si elle n'est pas déjà sur GitHub sous le nom voix.mp3 -->
       <label class="w-full py-3.5 px-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-dashed border-emeraldLight/60 text-emeraldLight font-mono text-xs flex items-center justify-center gap-2 cursor-pointer transition">
         <span id="audioLabelText">🎙️ 1. Charger ma voix (ou auto via voix.mp3)</span>
         <input type="file" id="audioInput" class="hidden" onchange="handleVoiceUpload(this)" />
       </label>
 
-      <!-- Option effets sonores (clics + notifications WhatsApp) -->
       <label class="flex items-center justify-center gap-2 text-xs text-gray-300 font-mono py-1 cursor-pointer">
         <input type="checkbox" id="sfxToggle" checked class="accent-emeraldLight rounded" />
         <span>Activer les bruitages (clics + pop WhatsApp)</span>
       </label>
 
-      <!-- Bouton Lancer -->
       <button onclick="startStory()" class="w-full py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-bold text-sm shadow-xl active:scale-95 transition">
         ▶️ 2. Lancer la vidéo + Voix (Décompte 3s)
       </button>
@@ -149,7 +146,6 @@
   <!-- =================================================================== -->
   <div id="stage1" class="stage-screen active bg-paper text-carbon p-4 pt-6 flex flex-col justify-between">
     <div>
-      <!-- Header du site -->
       <div class="flex items-center justify-between border-b border-gray-200 pb-3 mb-4">
         <div class="flex items-center gap-2">
           <span class="font-mono text-[10px] bg-carbon text-white px-2 py-1 rounded">\LaTeX</span>
@@ -163,7 +159,6 @@
         <h2 class="font-serif text-2xl mt-1.5 leading-tight">Configurateur de <span class="italic text-emeraldImp">Dossier</span></h2>
       </div>
 
-      <!-- Formulaire rempli par la cliente -->
       <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-3">
         <div>
           <label class="text-[9px] font-mono uppercase text-gray-500 block mb-1">1. Votre Formule</label>
@@ -180,7 +175,6 @@
           </div>
         </div>
 
-        <!-- Récapitulatif & Bouton WhatsApp -->
         <div class="bg-carbon text-white rounded-2xl p-4 space-y-3 shadow-xl mt-2">
           <div class="flex justify-between items-center border-b border-gray-800 pb-2.5">
             <div>
@@ -203,7 +197,6 @@
   <!-- =================================================================== -->
   <div id="stage2" class="stage-screen bg-[#0b141a] text-white flex flex-col justify-between p-3.5 pt-5 pb-24">
     
-    <!-- En-tête WhatsApp -->
     <div class="bg-[#202c33] p-3 rounded-2xl flex items-center justify-between border border-white/10 shadow-md">
       <div class="flex items-center gap-2.5">
         <div class="w-9 h-9 rounded-full bg-emeraldImp flex items-center justify-center font-serif font-bold text-xs">\TeX</div>
@@ -215,10 +208,8 @@
       <span class="font-mono text-[9px] bg-white/10 px-2 py-1 rounded text-gray-300">WhatsApp</span>
     </div>
 
-    <!-- Fil de discussion WhatsApp -->
     <div class="space-y-2 my-auto py-1">
       
-      <!-- 1. Message automatique envoyé depuis le site -->
       <div id="msg1" class="wa-bubble ml-auto max-w-[85%] bg-[#005c4b] p-2.5 rounded-2xl rounded-tr-none text-[10.5px] font-mono space-y-0.5 shadow-md">
         <p class="font-bold text-emeraldLight">Bonjour L'Atelier LaTeX, commande en cours :</p>
         <p>📦 Pack : Pack Stratégique (10 000 FCFA)</p>
@@ -226,29 +217,26 @@
         <p class="font-sans text-[11px] text-white pt-1">Je vous joins mes infos actuelles pour la refonte 🙏</p>
       </div>
 
-      <!-- 2. Réponse immédiate de L'Atelier LaTeX -->
       <div id="msg2" class="wa-bubble mr-auto max-w-[82%] bg-[#202c33] p-2.5 rounded-2xl rounded-tl-none text-[11px] border border-white/10 shadow-md">
         <p class="font-bold text-emeraldLight text-[9.5px] font-mono">L’Atelier LaTeX</p>
         <p>Bien reçu ! ✅ Paiement Wave validé. Je restructure et compile votre CV sous LaTeX et je vous l'envoie.</p>
       </div>
 
-      <!-- Indicateur temporel -->
       <div id="msgTime" class="wa-bubble flex justify-center py-0.5">
         <span class="bg-[#182229] text-gray-300 font-mono text-[9.5px] px-3 py-1 rounded-full border border-white/10">
           ⏳ Quelques heures plus tard...
         </span>
       </div>
 
-      <!-- 3. Envoi du CV final en PDF dans WhatsApp -->
+      <!-- 3. Envoi du CV final avec NOM ANONYME dans WhatsApp -->
       <div id="msg3" class="wa-bubble mr-auto max-w-[86%] bg-[#202c33] p-2.5 rounded-2xl rounded-tl-none text-xs border border-emeraldLight/40 shadow-lg">
         <p class="font-bold text-emeraldLight text-[9.5px] font-mono mb-1">L’Atelier LaTeX</p>
         
-        <!-- Pièce jointe PDF cliquable dans WhatsApp -->
         <div id="pdfAttachmentBubble" class="bg-[#111b21] p-2.5 rounded-xl flex items-center justify-between gap-2 border border-white/10 mb-1.5 transition-transform">
           <div class="flex items-center gap-2.5 min-w-0">
             <span class="bg-red-500 text-white font-mono text-[10px] font-bold px-2 py-1.5 rounded-lg shrink-0">PDF</span>
             <div class="truncate">
-              <p id="waPdfName" class="font-bold text-[11px] text-white truncate">Cv_FATIMATA_SOW.pdf</p>
+              <p id="waPdfName" class="font-bold text-[11px] text-white truncate">CV_Final_LaTeX_HD.pdf</p>
               <p class="text-[9.5px] text-emeraldLight font-mono">1 page • Compilé en Haute Définition</p>
             </div>
           </div>
@@ -258,7 +246,6 @@
         <p class="text-[11px]">Voici votre CV finalisé ! Tout tient sur 1 page A4 nette et structurée 📄✨</p>
       </div>
 
-      <!-- 4. Réponse de la cliente -->
       <div id="msg4" class="wa-bubble ml-auto max-w-[78%] bg-[#005c4b] p-2.5 rounded-2xl rounded-tr-none text-[11px] shadow-md">
         <p>Incroyable la qualité ! Merci beaucoup, c'est super propre 🙏🔥</p>
       </div>
@@ -266,13 +253,13 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- VISIONNEUSE PLEIN ÉCRAN QUI AFFICHE TON VRAI FICHIER PDF          -->
+    <!-- VISIONNEUSE PLEIN ÉCRAN QUI AFFICHE LE VRAI PDF AVEC NOM ANONYME  -->
     <!-- ================================================================= -->
     <div id="pdfModalViewer" class="fixed inset-x-3 top-10 bottom-20 z-60 bg-[#111b21] rounded-2xl border-2 border-emeraldLight shadow-2xl flex flex-col overflow-hidden">
       <div class="bg-[#202c33] px-3.5 py-2 flex items-center justify-between border-b border-white/10">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-emeraldLight"></span>
-          <span id="viewerFileName" class="font-mono text-[10.5px] font-bold text-white">Cv_FATIMATA_SOW.pdf</span>
+          <span id="viewerFileName" class="font-mono text-[10.5px] font-bold text-white">CV_Final_LaTeX_HD.pdf</span>
         </div>
         <span class="font-mono text-[9px] bg-emeraldImp text-white px-2 py-0.5 rounded">Rendu Réel 100%</span>
       </div>
@@ -304,28 +291,29 @@
 
   <script>
     // =====================================================================
-    // 👉 VOS 2 FICHIERS SUR GITHUB (PDF + VOIX) :
+    // 👉 CONFIGURATION DU FICHIER ET DU NOM ANONYME AFFICHÉ :
     // =====================================================================
-    const FICHIER_CV_PREUVE = "Cv_FATIMATA_SOW.pdf";
-    const FICHIER_VOIX      = "voix.mp3";
+    const FICHIER_CV_PREUVE   = "Cv_FATIMATA_SOW.pdf";   // Le fichier réel sur ton GitHub
+    const NOM_AFFICHE_ANONYME = "CV_Final_LaTeX_HD.pdf"; // Le nom anonyme visible à l'écran
+    const FICHIER_VOIX        = "voix.mp3";
     // =====================================================================
 
     let audioCtx = null;
     let voiceReady = false;
-    let totalDurationMs = 22000; // S'adapte automatiquement à la durée de ta voix
+    let totalDurationMs = 22000;
 
     if (window.pdfjsLib) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
     }
 
-    // 1. Préchargement du vrai PDF et de la voix (si voix.mp3 est sur GitHub)
     async function initStudioAssets() {
       const statusEl = document.getElementById('pdfStatusText');
       const audioEl = document.getElementById('voiceTrack');
-      document.getElementById('waPdfName').textContent = FICHIER_CV_PREUVE;
-      document.getElementById('viewerFileName').textContent = FICHIER_CV_PREUVE;
+      
+      // On affiche uniquement le nom anonyme à l'écran
+      document.getElementById('waPdfName').textContent = NOM_AFFICHE_ANONYME;
+      document.getElementById('viewerFileName').textContent = NOM_AFFICHE_ANONYME;
 
-      // Tentative de chargement automatique de voix.mp3
       audioEl.src = FICHIER_VOIX;
       audioEl.onloadedmetadata = () => {
         if (audioEl.duration && isFinite(audioEl.duration)) {
@@ -335,7 +323,6 @@
         }
       };
 
-      // Chargement du PDF
       const isPdf = FICHIER_CV_PREUVE.toLowerCase().endsWith('.pdf');
       try {
         if (isPdf && window.pdfjsLib) {
@@ -351,22 +338,21 @@
           canvas.width = viewport.width;
 
           await page.render({ canvasContext: context, viewport: viewport }).promise;
-          statusEl.innerHTML = "✅ PDF <strong class='text-emeraldLight'>" + FICHIER_CV_PREUVE + "</strong> prêt à l'affichage !";
+          statusEl.innerHTML = "✅ Document <strong class='text-emeraldLight'>" + NOM_AFFICHE_ANONYME + "</strong> prêt à l'affichage !";
         } else {
           const img = document.getElementById('realImageFallback');
           img.src = FICHIER_CV_PREUVE;
           img.classList.remove('hidden');
           document.getElementById('realPdfCanvas').classList.add('hidden');
-          statusEl.innerHTML = "✅ Image <strong class='text-emeraldLight'>" + FICHIER_CV_PREUVE + "</strong> prête !";
+          statusEl.innerHTML = "✅ Document <strong class='text-emeraldLight'>" + NOM_AFFICHE_ANONYME + "</strong> prêt !";
         }
       } catch (err) {
-        statusEl.innerHTML = "⚠️ Ajoutez <strong>" + FICHIER_CV_PREUVE + "</strong> dans votre dépôt GitHub.";
+        statusEl.innerHTML = "⚠️ Fichier PDF introuvable sur GitHub.";
       }
     }
 
     window.addEventListener('DOMContentLoaded', initStudioAssets);
 
-    // 2. Si l'utilisateur choisit sa voix manuellement via le bouton
     function handleVoiceUpload(input) {
       const file = input.files && input.files[0];
       if (!file) return;
@@ -382,7 +368,6 @@
       document.getElementById('audioLabelText').textContent = "✅ Voix chargée : " + file.name.slice(0, 18);
     }
 
-    // 3. Petits bruitages (Clic + Notification WhatsApp)
     function initAudioEngine() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -442,7 +427,6 @@
       initAudioEngine();
       const audioEl = document.getElementById('voiceTrack');
 
-      // Déverrouillage audio iOS Safari pendant le clic
       audioEl.play().then(() => {
         audioEl.pause();
         audioEl.currentTime = 0;
@@ -473,7 +457,6 @@
       const D = totalDurationMs;
       const audioEl = document.getElementById('voiceTrack');
 
-      // Lancement de la voix-off
       if (voiceReady) {
         audioEl.currentTime = 0;
         audioEl.play().catch(() => {});
@@ -487,9 +470,7 @@
         if (elapsed >= D) clearInterval(pInt);
       }, 100);
 
-      // Les étapes suivent proportionnellement la durée de ta voix
       const steps = [
-        // 0% : Site web & clic sur Commander
         {
           at: 0,
           caption: "Marre de galérer sur ton CV ? Cette cliente choisit son pack et clique sur <span class='text-emeraldLight'>Commander</span>...",
@@ -501,7 +482,6 @@
             }, Math.round(D * 0.12));
           }
         },
-        // 19% : Bascule WhatsApp
         {
           at: Math.round(D * 0.19),
           caption: "Hop, ça bascule direct sur <span class='text-emeraldLight'>WhatsApp</span> ! Elle nous envoie ses infos et on s'occupe de tout.",
@@ -512,7 +492,6 @@
             setTimeout(() => { document.getElementById('msg2').classList.add('show'); playSfx('pop'); }, 1800);
           }
         },
-        // 42% : Livraison du PDF dans la discussion WhatsApp
         {
           at: Math.round(D * 0.42),
           caption: "Quelques heures plus tard... bim, on lui livre son <span class='text-emeraldLight'>nouveau CV LaTeX</span> dans la discussion !",
@@ -522,7 +501,6 @@
             setTimeout(() => { document.getElementById('msg4').classList.add('show'); playSfx('pop'); }, 2000);
           }
         },
-        // 62% : Ouverture du vrai PDF en plein écran
         {
           at: Math.round(D * 0.62),
           caption: "Regarde cette pépite : tout tient sur <span class='text-emeraldLight'>une seule page ultra-propre</span>. Clique sur le lien, à ton tour ! 🔥",
