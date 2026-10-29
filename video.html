@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Studio Vidéo + Voix — L'Atelier LaTeX</title>
+  <title>Meme Transition 00:07.11 — L'Atelier LaTeX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Librairie PDF.js pour afficher le vrai fichier PDF directement sur iPhone -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
     tailwind.config = {
@@ -36,495 +35,424 @@
       width: 100vw;
       height: 100dvh;
       overflow: hidden;
-      background: #0A0D14;
+      background: #1c1c1e;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .stage-screen {
+
+    /* Simulation exacte du App Switcher iOS (Photos à 00:07.11) */
+    #iosPhotosWrapper {
       position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #2c2c2e 0%, #000000 100%);
+      transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #iosCard {
+      width: 78vw;
+      height: 74dvh;
+      border-radius: 34px;
+      overflow: hidden;
+      position: relative;
+      background: #0A0D14;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85);
+      transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #iosCard.fullscreen {
+      width: 100vw;
+      height: 100dvh;
+      border-radius: 0px;
+    }
+    #iosHeaderPill {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    #iosHeaderPill.hide-pill {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+
+    /* Scènes internes */
+    .scene {
+      position: absolute;
       inset: 0;
       opacity: 0;
       pointer-events: none;
-      transform: translateX(100%);
-      transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: scale(1.08);
+      transition: opacity 0.28s ease, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .stage-screen.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(0);
-    }
-    #stage1.stage-screen {
-      transform: translateX(0);
-    }
-    #touchCursor {
-      position: fixed;
-      width: 36px;
-      height: 36px;
-      border-radius: 9999px;
-      background: rgba(16, 185, 129, 0.35);
-      border: 2.5px solid #10B981;
-      box-shadow: 0 0 22px rgba(16, 185, 129, 0.9);
-      pointer-events: none;
-      z-index: 80;
-      transform: translate(-50%, -50%) scale(1);
-      transition: top 0.55s cubic-bezier(0.22, 1, 0.36, 1), left 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.18s ease;
-    }
-    #touchCursor.tap {
-      transform: translate(-50%, -50%) scale(0.65);
-      background: rgba(16, 185, 129, 0.95);
-    }
-    .wa-bubble {
-      opacity: 0;
-      transform: translateY(12px) scale(0.96);
-      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .wa-bubble.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    .caption-pill {
-      background: rgba(10, 13, 20, 0.94);
-      border: 1.5px solid rgba(16, 185, 129, 0.6);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
-    }
-    #pdfModalViewer {
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(0.88);
-      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #pdfModalViewer.open {
+    .scene.active {
       opacity: 1;
       pointer-events: auto;
       transform: scale(1);
     }
+
+    /* Effets de zoom "Beat Drop / Speed-Ramp" comme les villas dans la vidéo */
+    @keyframes beatPulse {
+      0% { transform: scale(1); }
+      35% { transform: scale(1.07) rotate(-0.5deg); }
+      100% { transform: scale(1); }
+    }
+    .beat-hit {
+      animation: beatPulse 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Caméra qui zoome sur les parties du vrai CV (effet "Still going...") */
+    #cvCameraRig {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+    .zoom-full { transform: scale(1) translate(0%, 0%); }
+    .zoom-top-right { transform: scale(1.75) translate(-16%, 20%); }
+    .zoom-left-skills { transform: scale(1.85) translate(20%, 8%); }
+    .zoom-bottom-edu { transform: scale(1.75) translate(-14%, -22%); }
+
+    /* Tampon humoristique */
+    .stamp-rejected {
+      transform: rotate(-14deg) scale(0);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .stamp-rejected.slam {
+      transform: rotate(-14deg) scale(1);
+    }
+
+    .meme-caption {
+      background: rgba(10, 13, 20, 0.94);
+      border: 2px solid #10B981;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+    }
   </style>
 </head>
-<body class="relative">
+<body>
 
-  <!-- LECTEUR AUDIO INTÉGRÉ POUR LA VOIX-OFF -->
-  <audio id="voiceTrack" preload="auto" playsinline></audio>
-
-  <!-- ÉCRAN DE CONFIGURATION AVANT ENREGISTREMENT -->
+  <!-- ÉCRAN DE LANCEMENT AVANT ENREGISTREMENT D'ÉCRAN -->
   <div id="setupOverlay" class="fixed inset-0 z-50 bg-carbon text-white flex flex-col items-center justify-center p-6 text-center">
     <span class="font-mono text-[10px] text-emeraldLight bg-emeraldImp/30 border border-emeraldLight/30 px-3 py-1 rounded-full mb-3">
-      🔒 NOM DU FICHIER 100% ANONYMISÉ
+      🔥 RACCORD EXACT À 00:07,11 (MEME VOITURE + CALCULATRICE)
     </span>
-    <h1 class="font-serif text-3xl mb-2">Prêt à tourner</h1>
-    <p id="pdfStatusText" class="text-xs text-gray-400 max-w-xs mb-4 leading-relaxed">
-      Vérification du fichier PDF...
+    <h1 class="font-serif text-3xl mb-2">Mode Meme & Beat-Sync</h1>
+    <p id="pdfStatusText" class="text-xs text-gray-400 max-w-xs mb-6 leading-relaxed">
+      Chargement du CV anonymisé...
     </p>
 
-    <div class="space-y-3 w-full max-w-xs">
-      <label class="w-full py-3.5 px-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-dashed border-emeraldLight/60 text-emeraldLight font-mono text-xs flex items-center justify-center gap-2 cursor-pointer transition">
-        <span id="audioLabelText">🎙️ 1. Charger ma voix (ou auto via voix.mp3)</span>
-        <input type="file" id="audioInput" class="hidden" onchange="handleVoiceUpload(this)" />
-      </label>
-
-      <label class="flex items-center justify-center gap-2 text-xs text-gray-300 font-mono py-1 cursor-pointer">
-        <input type="checkbox" id="sfxToggle" checked class="accent-emeraldLight rounded" />
-        <span>Activer les bruitages (clics + pop WhatsApp)</span>
-      </label>
-
-      <button onclick="startStory()" class="w-full py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-bold text-sm shadow-xl active:scale-95 transition">
-        ▶️ 2. Lancer la vidéo + Voix (Décompte 3s)
-      </button>
-    </div>
+    <button onclick="startMemeVideo()" class="w-full max-w-xs py-4 px-5 rounded-2xl bg-emeraldLight text-carbon font-extrabold text-sm shadow-xl active:scale-95 transition">
+      ▶️ Lancer l'animation (Décompte 3s)
+    </button>
 
     <div id="countNum" class="hidden font-mono text-6xl font-bold text-emeraldLight mt-6">3</div>
   </div>
 
-  <!-- CURSEUR TACTILE SIMULÉ -->
-  <div id="touchCursor" class="hidden" style="top: 80%; left: 50%;"></div>
-
-  <!-- BARRE DE PROGRESSION -->
-  <div class="fixed top-0 left-0 right-0 h-1 bg-black/20 z-50">
-    <div id="topProgress" class="h-full bg-emeraldLight w-0 transition-all duration-100"></div>
-  </div>
-
-  <!-- =================================================================== -->
-  <!-- ÉCRAN 1 : LA CLIENTE COMMANDE SUR LE SITE (0% - 19%)                -->
-  <!-- =================================================================== -->
-  <div id="stage1" class="stage-screen active bg-paper text-carbon p-4 pt-6 flex flex-col justify-between">
-    <div>
-      <div class="flex items-center justify-between border-b border-gray-200 pb-3 mb-4">
-        <div class="flex items-center gap-2">
-          <span class="font-mono text-[10px] bg-carbon text-white px-2 py-1 rounded">\LaTeX</span>
-          <span class="font-serif text-lg font-bold">L’Atelier <span class="italic font-normal">LaTeX</span></span>
-        </div>
-        <span class="font-mono text-[10px] text-emeraldImp font-bold">marfall915.github.io</span>
-      </div>
-
-      <div class="text-center mb-4">
-        <span class="font-mono text-[9px] uppercase tracking-widest bg-emeraldImp/10 text-emeraldImp px-2.5 py-0.5 rounded-full font-bold">Sénégal & Diaspora</span>
-        <h2 class="font-serif text-2xl mt-1.5 leading-tight">Configurateur de <span class="italic text-emeraldImp">Dossier</span></h2>
-      </div>
-
-      <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-3">
-        <div>
-          <label class="text-[9px] font-mono uppercase text-gray-500 block mb-1">1. Votre Formule</label>
-          <div class="bg-paper px-3 py-2 rounded-xl border border-gray-200 text-xs font-bold text-carbon flex justify-between">
-            <span>Pack Stratégique (CV + Ciblage) ★</span>
-            <span class="font-mono text-emeraldImp">10 000 FCFA</span>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-mono uppercase text-gray-500 block mb-1">2. Domaine & Poste visé</label>
-          <div class="bg-paper px-3 py-2 rounded-xl border border-gray-200 text-xs font-semibold text-carbon">
-            Gouvernance, Risques et Conformité Cyber
-          </div>
-        </div>
-
-        <div class="bg-carbon text-white rounded-2xl p-4 space-y-3 shadow-xl mt-2">
-          <div class="flex justify-between items-center border-b border-gray-800 pb-2.5">
-            <div>
-              <span class="font-mono text-[9px] text-emeraldLight block">RÉCAPITULATIF #TEX-2026</span>
-              <span class="text-xs text-gray-300">Total net à régler</span>
-            </div>
-            <span class="font-mono text-xl font-bold text-emeraldLight">10 000 FCFA</span>
-          </div>
-
-          <div id="btnOrderSite" class="w-full py-3.5 rounded-xl bg-emeraldLight text-carbon font-bold text-xs text-center shadow-lg transition-transform">
-            Commander via WhatsApp →
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- =================================================================== -->
-  <!-- ÉCRAN 2 : BASCULE DIRECTE SUR WHATSAPP + ENVOI DU CV (19% - 100%)   -->
-  <!-- =================================================================== -->
-  <div id="stage2" class="stage-screen bg-[#0b141a] text-white flex flex-col justify-between p-3.5 pt-5 pb-24">
+  <!-- CADRE MULTITÂCHE IPHONE "PHOTOS" (COMME À 00:07,11 DANS LA VIDÉO) -->
+  <div id="iosPhotosWrapper">
     
-    <div class="bg-[#202c33] p-3 rounded-2xl flex items-center justify-between border border-white/10 shadow-md">
-      <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-full bg-emeraldImp flex items-center justify-center font-serif font-bold text-xs">\TeX</div>
-        <div>
-          <p class="font-bold text-xs">L’Atelier LaTeX (+221 78 540 01 71)</p>
-          <p class="text-[10px] text-emeraldLight font-mono">● En ligne</p>
-        </div>
+    <!-- En-tête "Photos" identique à iOS à 00:07,11 -->
+    <div id="iosHeaderPill" class="flex items-center gap-2 mb-3 w-[78vw] px-2">
+      <div class="w-7 h-7 rounded-lg bg-white flex items-center justify-center shadow">
+        <span class="text-sm">🌸</span>
       </div>
-      <span class="font-mono text-[9px] bg-white/10 px-2 py-1 rounded text-gray-300">WhatsApp</span>
+      <span class="text-white font-semibold text-base tracking-tight">Photos</span>
     </div>
 
-    <div class="space-y-2 my-auto py-1">
-      
-      <div id="msg1" class="wa-bubble ml-auto max-w-[85%] bg-[#005c4b] p-2.5 rounded-2xl rounded-tr-none text-[10.5px] font-mono space-y-0.5 shadow-md">
-        <p class="font-bold text-emeraldLight">Bonjour L'Atelier LaTeX, commande en cours :</p>
-        <p>📦 Pack : Pack Stratégique (10 000 FCFA)</p>
-        <p>🎯 Poste : Gouvernance, Risques & Conformité Cyber</p>
-        <p class="font-sans text-[11px] text-white pt-1">Je vous joins mes infos actuelles pour la refonte 🙏</p>
-      </div>
+    <!-- CARTE CENTRALE QUI S'OUVRE EN PLEIN ÉCRAN -->
+    <div id="iosCard">
 
-      <div id="msg2" class="wa-bubble mr-auto max-w-[82%] bg-[#202c33] p-2.5 rounded-2xl rounded-tl-none text-[11px] border border-white/10 shadow-md">
-        <p class="font-bold text-emeraldLight text-[9.5px] font-mono">L’Atelier LaTeX</p>
-        <p>Bien reçu ! ✅ Paiement Wave validé. Je restructure et compile votre CV sous LaTeX et je vous l'envoie.</p>
-      </div>
+      <!-- =============================================================== -->
+      <!-- SCÈNE 1 (00:07.11 - 00:11.0) : CLASH DU VIEUX CV WORD / CANVA    -->
+      <!-- =============================================================== -->
+      <div id="scene1" class="scene active bg-paper text-carbon p-4 flex flex-col justify-between">
+        <div class="bg-red-500 text-white font-extrabold text-[11px] px-3 py-1.5 rounded-xl text-center uppercase tracking-wider shadow">
+          💀 Ton vieux CV envoyé à 45 entreprises :
+        </div>
 
-      <div id="msgTime" class="wa-bubble flex justify-center py-0.5">
-        <span class="bg-[#182229] text-gray-300 font-mono text-[9.5px] px-3 py-1 rounded-full border border-white/10">
-          ⏳ Quelques heures plus tard...
-        </span>
-      </div>
-
-      <!-- 3. Envoi du CV final avec NOM ANONYME dans WhatsApp -->
-      <div id="msg3" class="wa-bubble mr-auto max-w-[86%] bg-[#202c33] p-2.5 rounded-2xl rounded-tl-none text-xs border border-emeraldLight/40 shadow-lg">
-        <p class="font-bold text-emeraldLight text-[9.5px] font-mono mb-1">L’Atelier LaTeX</p>
-        
-        <div id="pdfAttachmentBubble" class="bg-[#111b21] p-2.5 rounded-xl flex items-center justify-between gap-2 border border-white/10 mb-1.5 transition-transform">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="bg-red-500 text-white font-mono text-[10px] font-bold px-2 py-1.5 rounded-lg shrink-0">PDF</span>
-            <div class="truncate">
-              <p id="waPdfName" class="font-bold text-[11px] text-white truncate">CV_Final_LaTeX_HD.pdf</p>
-              <p class="text-[9.5px] text-emeraldLight font-mono">1 page • Compilé en Haute Définition</p>
+        <!-- Faux CV catastrophique et tout décalé -->
+        <div id="badCvBox" class="my-auto bg-white border-2 border-dashed border-red-400 rounded-xl p-3.5 shadow-lg relative overflow-hidden space-y-2">
+          <p class="font-serif text-lg font-bold text-red-600 translate-x-6 -rotate-2">CURRICULUM VITAE (Copie_Finale_v12.docx)</p>
+          <div class="grid grid-cols-2 gap-2 text-[10px]">
+            <div class="bg-yellow-100 p-2 rounded rotate-2">
+              <p class="font-bold">Compétences :</p>
+              <p>• Word : 97,4% 🟩🟩🟩</p>
+              <p>• Anglais : Moyen +</p>
+              <p>• Dynamique et motivé !!</p>
+            </div>
+            <div class="bg-pink-100 p-2 rounded -rotate-3 translate-y-2">
+              <p class="font-bold">Expérience :</p>
+              <p>Texte coupé à droite ➡️➡️➡️</p>
+              <p class="text-[8px] text-gray-500">Tableau décalé sur 3 pages...</p>
             </div>
           </div>
-          <span class="text-[10px] font-mono bg-white/10 px-2 py-1 rounded text-white shrink-0">Ouvrir</span>
+          <p class="text-[10px] font-mono text-gray-400 text-center pt-2">--- Page 2 sur 4 (vide) ---</p>
+
+          <!-- Gros tampon humoristique -->
+          <div id="rejectedStamp" class="stamp-rejected absolute inset-0 flex items-center justify-center bg-black/45">
+            <div class="border-4 border-red-500 bg-red-600 text-white font-extrabold text-lg px-4 py-2 rounded-xl shadow-2xl uppercase tracking-widest">
+              ❌ VU ET IGNORÉ PAR LE RH 😭
+            </div>
+          </div>
         </div>
 
-        <p class="text-[11px]">Voici votre CV finalisé ! Tout tient sur 1 page A4 nette et structurée 📄✨</p>
+        <div class="h-14"></div>
       </div>
 
-      <div id="msg4" class="wa-bubble ml-auto max-w-[78%] bg-[#005c4b] p-2.5 rounded-2xl rounded-tr-none text-[11px] shadow-md">
-        <p>Incroyable la qualité ! Merci beaucoup, c'est super propre 🙏🔥</p>
+      <!-- =============================================================== -->
+      <!-- SCÈNE 2 (00:11.0 - 00:15.5) : LE CODE DE TRICHE (LE SITE)        -->
+      <!-- =============================================================== -->
+      <div id="scene2" class="scene bg-carbon text-white p-4 pt-6 flex flex-col justify-between">
+        <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-[10px] bg-emeraldLight text-carbon font-bold px-2 py-1 rounded">\LaTeX</span>
+            <span class="font-serif text-lg font-bold">L’Atelier <span class="italic text-emeraldLight">LaTeX</span></span>
+          </div>
+          <span class="font-mono text-[10px] text-emeraldLight">marfall915.github.io</span>
+        </div>
+
+        <div id="siteCardBeat" class="my-auto bg-[#111827] border-2 border-emeraldLight rounded-3xl p-5 space-y-4 shadow-2xl">
+          <span class="bg-emeraldImp/40 text-emeraldLight font-mono text-[10px] font-bold px-3 py-1 rounded-full border border-emeraldLight/30">
+            ⚡ LE CODE DE TRICHE POUR TES CANDIDATURES
+          </span>
+          <h2 class="font-serif text-2xl leading-tight">
+            On détruit ton vieux CV Word et on le recompile sous <span class="text-emeraldLight italic">LaTeX.</span>
+          </h2>
+
+          <div class="grid grid-cols-2 gap-2.5 text-xs">
+            <div class="bg-black/40 p-3 rounded-2xl border border-white/10">
+              <span class="text-[9px] font-mono text-gray-400 block">FORMULE</span>
+              <span class="font-bold text-white">Pack Stratégique ★</span>
+            </div>
+            <div class="bg-black/40 p-3 rounded-2xl border border-white/10">
+              <span class="text-[9px] font-mono text-gray-400 block">LIVRAISON</span>
+              <span class="font-bold text-emeraldLight">Moins de 24h 🚀</span>
+            </div>
+          </div>
+
+          <div id="orderBtnPulse" class="w-full py-3.5 rounded-2xl bg-emeraldLight text-carbon font-extrabold text-xs text-center shadow-lg transition-transform">
+            📲 Commander en 1 clic sur WhatsApp →
+          </div>
+        </div>
+
+        <div class="h-14"></div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SCÈNE 3 (00:15.5 - 00:18.5) : ÉCHANGE WHATSAPP EXPRESS          -->
+      <!-- =============================================================== -->
+      <div id="scene3" class="scene bg-[#0b141a] text-white p-4 pt-6 flex flex-col justify-between">
+        <div class="bg-[#202c33] p-3 rounded-2xl flex items-center justify-between border border-white/10">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-full bg-emeraldImp flex items-center justify-center font-serif font-bold text-xs">\TeX</div>
+            <div>
+              <p class="font-bold text-xs">L’Atelier LaTeX (+221 78 540 01 71)</p>
+              <p class="text-[10px] text-emeraldLight font-mono">● En ligne</p>
+            </div>
+          </div>
+          <span class="font-mono text-[9px] bg-white/10 px-2 py-1 rounded">WhatsApp</span>
+        </div>
+
+        <div class="my-auto space-y-3">
+          <div class="ml-auto max-w-[85%] bg-[#005c4b] p-3 rounded-2xl rounded-tr-none text-xs shadow-lg">
+            <p class="font-bold text-emeraldLight font-mono text-[10px] mb-1">Commande #TEX-2026 validée</p>
+            <p>« Bro sauve-moi 😭 voici mon vieux CV, j'ai un entretien demain matin ! »</p>
+          </div>
+
+          <div class="mr-auto max-w-[85%] bg-[#202c33] p-3 rounded-2xl rounded-tl-none text-xs border border-emeraldLight/40 shadow-lg">
+            <p class="font-bold text-emeraldLight font-mono text-[10px] mb-1">L’Atelier LaTeX</p>
+            <p>« Bouge pas 😎 Paiement Wave reçu. On compile ton parcours sous LaTeX... TIENS LA PÉPITE 👇🔥 »</p>
+            <div class="mt-2 bg-[#111b21] p-2.5 rounded-xl flex items-center justify-between border border-emeraldLight/50">
+              <div class="flex items-center gap-2">
+                <span class="bg-red-500 text-white font-mono text-[10px] font-bold px-2 py-1 rounded">PDF</span>
+                <span class="font-mono text-[11px] font-bold text-white">CV_Final_LaTeX_HD.pdf</span>
+              </div>
+              <span class="text-[10px] font-mono bg-emeraldLight text-carbon font-bold px-2 py-0.5 rounded">100% HD</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="h-14"></div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SCÈNE 4 (00:18.5 - 00:34.0) : ZOOMS "STILL GOING" SUR LE VRAI CV -->
+      <!-- =============================================================== -->
+      <div id="scene4" class="scene bg-[#0A0D14] text-white p-3 pt-4 flex flex-col justify-between">
+        
+        <!-- Badge supérieur dynamique -->
+        <div class="bg-[#111827] px-3 py-2 rounded-xl border border-emeraldLight/40 flex items-center justify-between z-20">
+          <span class="font-mono text-[10px] text-emeraldLight font-bold">✨ RÉSULTAT RÉEL COMPILÉ EN LATEX</span>
+          <span class="font-mono text-[9px] bg-emeraldImp text-white px-2 py-0.5 rounded">CV_Final_LaTeX_HD.pdf</span>
+        </div>
+
+        <!-- Zone Caméra Speed-Ramp sur le vrai PDF -->
+        <div class="flex-1 my-2 rounded-2xl bg-gray-900 border-2 border-emeraldLight overflow-hidden flex items-center justify-center relative shadow-2xl">
+          <div id="cvCameraRig" class="zoom-full w-full h-full flex items-center justify-center p-1.5">
+            <canvas id="realPdfCanvas" class="max-w-full max-h-full object-contain rounded bg-white shadow-2xl"></canvas>
+          </div>
+        </div>
+
+        <!-- Call-To-Action Final (affiché au refrain final) -->
+        <div id="finalCtaBanner" class="bg-paper text-carbon p-3 rounded-2xl flex items-center justify-between px-4 shadow-2xl z-20 mb-14">
+          <div>
+            <p class="font-serif font-bold text-xs leading-none">À ton tour de briller :</p>
+            <p class="font-mono text-[11px] text-emeraldImp font-extrabold mt-0.5">👉 marfall915.github.io</p>
+          </div>
+          <span class="bg-carbon text-white font-mono text-[10px] font-bold px-3 py-1.5 rounded-xl">
+            +221 78 540 01 71
+          </span>
+        </div>
+
       </div>
 
     </div>
-
-    <!-- ================================================================= -->
-    <!-- VISIONNEUSE PLEIN ÉCRAN QUI AFFICHE LE VRAI PDF AVEC NOM ANONYME  -->
-    <!-- ================================================================= -->
-    <div id="pdfModalViewer" class="fixed inset-x-3 top-10 bottom-20 z-60 bg-[#111b21] rounded-2xl border-2 border-emeraldLight shadow-2xl flex flex-col overflow-hidden">
-      <div class="bg-[#202c33] px-3.5 py-2 flex items-center justify-between border-b border-white/10">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-emeraldLight"></span>
-          <span id="viewerFileName" class="font-mono text-[10.5px] font-bold text-white">CV_Final_LaTeX_HD.pdf</span>
-        </div>
-        <span class="font-mono text-[9px] bg-emeraldImp text-white px-2 py-0.5 rounded">Rendu Réel 100%</span>
-      </div>
-
-      <div class="flex-1 bg-gray-200 flex items-center justify-center p-2 overflow-hidden relative">
-        <canvas id="realPdfCanvas" class="max-w-full max-h-full object-contain shadow-xl rounded bg-white"></canvas>
-        <img id="realImageFallback" class="hidden max-w-full max-h-full object-contain shadow-xl rounded bg-white" alt="CV Final" />
-      </div>
-
-      <div class="bg-paper text-carbon px-4 py-2.5 flex items-center justify-between">
-        <div>
-          <p class="font-serif font-bold text-xs leading-none">Commandez votre CV sur-mesure</p>
-          <p class="font-mono text-[10px] text-emeraldImp font-bold mt-0.5">👉 marfall915.github.io</p>
-        </div>
-        <span class="bg-carbon text-white font-mono text-[10px] font-bold px-2.5 py-1 rounded-lg">
-          +221 78 540 01 71
-        </span>
-      </div>
-    </div>
-
   </div>
 
-  <!-- SOUS-TITRES DYNAMIQUES CALÉS SUR LA VOIX -->
-  <div class="fixed bottom-4 inset-x-4 z-70 flex justify-center pointer-events-none">
-    <div id="captionBox" class="caption-pill px-4 py-2.5 rounded-2xl text-center max-w-sm w-full hidden">
+  <!-- SOUS-TITRES HUMORISTIQUES EN BAS -->
+  <div class="fixed bottom-3 inset-x-3 z-40 flex justify-center pointer-events-none">
+    <div id="captionBox" class="meme-caption px-4 py-2.5 rounded-2xl text-center max-w-sm w-full hidden">
       <p id="captionText" class="text-white font-extrabold text-xs sm:text-sm leading-snug"></p>
     </div>
   </div>
 
   <script>
     // =====================================================================
-    // 👉 CONFIGURATION DU FICHIER ET DU NOM ANONYME AFFICHÉ :
+    // 👉 FICHIER PDF CHARGÉ EN COULISSES (NOM ANONYME À L'ÉCRAN) :
     // =====================================================================
-    const FICHIER_CV_PREUVE   = "Cv_FATIMATA_SOW.pdf";   // Le fichier réel sur ton GitHub
-    const NOM_AFFICHE_ANONYME = "CV_Final_LaTeX_HD.pdf"; // Le nom anonyme visible à l'écran
-    const FICHIER_VOIX        = "voix.mp3";
+    const FICHIER_CV_PREUVE = "Cv_FATIMATA_SOW.pdf";
     // =====================================================================
-
-    let audioCtx = null;
-    let voiceReady = false;
-    let totalDurationMs = 22000;
 
     if (window.pdfjsLib) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
     }
 
-    async function initStudioAssets() {
+    async function preloadRealPdf() {
       const statusEl = document.getElementById('pdfStatusText');
-      const audioEl = document.getElementById('voiceTrack');
-      
-      // On affiche uniquement le nom anonyme à l'écran
-      document.getElementById('waPdfName').textContent = NOM_AFFICHE_ANONYME;
-      document.getElementById('viewerFileName').textContent = NOM_AFFICHE_ANONYME;
-
-      audioEl.src = FICHIER_VOIX;
-      audioEl.onloadedmetadata = () => {
-        if (audioEl.duration && isFinite(audioEl.duration)) {
-          totalDurationMs = Math.max(15000, Math.round(audioEl.duration * 1000));
-          voiceReady = true;
-          document.getElementById('audioLabelText').textContent = "✅ Voix auto-chargée (" + Math.round(audioEl.duration) + "s)";
-        }
-      };
-
-      const isPdf = FICHIER_CV_PREUVE.toLowerCase().endsWith('.pdf');
       try {
-        if (isPdf && window.pdfjsLib) {
-          const loadingTask = pdfjsLib.getDocument(FICHIER_CV_PREUVE);
-          const pdf = await loadingTask.promise;
-          const page = await pdf.getPage(1);
+        const loadingTask = pdfjsLib.getDocument(FICHIER_CV_PREUVE);
+        const pdf = await loadingTask.promise;
+        const page = await pdf.getPage(1);
 
-          const canvas = document.getElementById('realPdfCanvas');
-          const context = canvas.getContext('2d');
-          const viewport = page.getViewport({ scale: 2.2 });
+        const canvas = document.getElementById('realPdfCanvas');
+        const context = canvas.getContext('2d');
+        const viewport = page.getViewport({ scale: 2.3 });
 
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
 
-          await page.render({ canvasContext: context, viewport: viewport }).promise;
-          statusEl.innerHTML = "✅ Document <strong class='text-emeraldLight'>" + NOM_AFFICHE_ANONYME + "</strong> prêt à l'affichage !";
-        } else {
-          const img = document.getElementById('realImageFallback');
-          img.src = FICHIER_CV_PREUVE;
-          img.classList.remove('hidden');
-          document.getElementById('realPdfCanvas').classList.add('hidden');
-          statusEl.innerHTML = "✅ Document <strong class='text-emeraldLight'>" + NOM_AFFICHE_ANONYME + "</strong> prêt !";
-        }
-      } catch (err) {
-        statusEl.innerHTML = "⚠️ Fichier PDF introuvable sur GitHub.";
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
+        statusEl.innerHTML = "✅ Vrai CV chargé (anonymisé sous <strong class='text-emeraldLight'>CV_Final_LaTeX_HD.pdf</strong>) !";
+      } catch (e) {
+        statusEl.innerHTML = "⚠️ Assurez-vous que <strong>" + FICHIER_CV_PREUVE + "</strong> est bien sur votre GitHub.";
       }
     }
 
-    window.addEventListener('DOMContentLoaded', initStudioAssets);
+    window.addEventListener('DOMContentLoaded', preloadRealPdf);
 
-    function handleVoiceUpload(input) {
-      const file = input.files && input.files[0];
-      if (!file) return;
-      const url = URL.createObjectURL(file);
-      const audioEl = document.getElementById('voiceTrack');
-      audioEl.src = url;
-      audioEl.onloadedmetadata = () => {
-        if (audioEl.duration && isFinite(audioEl.duration)) {
-          totalDurationMs = Math.max(15000, Math.round(audioEl.duration * 1000));
-        }
-      };
-      voiceReady = true;
-      document.getElementById('audioLabelText').textContent = "✅ Voix chargée : " + file.name.slice(0, 18);
+    function showScene(id) {
+      document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      target.classList.add('active', 'beat-hit');
+      setTimeout(() => target.classList.remove('beat-hit'), 450);
     }
 
-    function initAudioEngine() {
-      if (!audioCtx) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (AudioContextClass) audioCtx = new AudioContextClass();
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+    function setCaption(html) {
+      const box = document.getElementById('captionBox');
+      const txt = document.getElementById('captionText');
+      txt.innerHTML = html;
+      box.classList.remove('beat-hit');
+      void box.offsetWidth;
+      box.classList.add('beat-hit');
     }
 
-    function playSfx(type) {
-      if (!audioCtx || !document.getElementById('sfxToggle').checked) return;
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      if (type === 'tap') {
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(500, now);
-        osc.frequency.exponentialRampToValueAtTime(170, now + 0.06);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-        osc.start(now);
-        osc.stop(now + 0.07);
-      } else if (type === 'pop') {
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(587.33, now);
-        osc.frequency.setValueAtTime(880, now + 0.08);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-        osc.start(now);
-        osc.stop(now + 0.26);
-      }
-    }
-
-    function setStage(stageId) {
-      document.querySelectorAll('.stage-screen').forEach(el => el.classList.remove('active'));
-      document.getElementById(stageId).classList.add('active');
-    }
-
-    function moveCursor(leftPct, topPct, tap = false) {
-      const c = document.getElementById('touchCursor');
-      c.style.left = leftPct + '%';
-      c.style.top = topPct + '%';
-      if (tap) {
-        setTimeout(() => {
-          c.classList.add('tap');
-          playSfx('tap');
-          setTimeout(() => c.classList.remove('tap'), 200);
-        }, 500);
-      }
-    }
-
-    function startStory() {
-      initAudioEngine();
-      const audioEl = document.getElementById('voiceTrack');
-
-      audioEl.play().then(() => {
-        audioEl.pause();
-        audioEl.currentTime = 0;
-        voiceReady = true;
-      }).catch(() => {});
-
+    function startMemeVideo() {
       const countEl = document.getElementById('countNum');
       countEl.classList.remove('hidden');
       let c = 3;
-      playSfx('tap');
-
-      const timer = setInterval(() => {
+      const t = setInterval(() => {
         c--;
         if (c > 0) {
           countEl.textContent = c;
-          playSfx('tap');
         } else {
-          clearInterval(timer);
+          clearInterval(t);
           document.getElementById('setupOverlay').classList.add('hidden');
-          document.getElementById('touchCursor').classList.remove('hidden');
           document.getElementById('captionBox').classList.remove('hidden');
-          playStoryTimeline();
+          runMemeTimeline();
         }
       }, 1000);
     }
 
-    function playStoryTimeline() {
-      const D = totalDurationMs;
-      const audioEl = document.getElementById('voiceTrack');
+    // Timeline calée exactement sur les 27 secondes (de 00:07.11 à 00:34 de la vidéo originale)
+    function runMemeTimeline() {
+      const rig = document.getElementById('cvCameraRig');
 
-      if (voiceReady) {
-        audioEl.currentTime = 0;
-        audioEl.play().catch(() => {});
-      }
-
-      const bar = document.getElementById('topProgress');
-      let elapsed = 0;
-      const pInt = setInterval(() => {
-        elapsed += 100;
-        bar.style.width = Math.min(100, (elapsed / D) * 100) + '%';
-        if (elapsed >= D) clearInterval(pInt);
-      }, 100);
-
-      const steps = [
+      const timeline = [
+        // 0.0s (00:07.11 dans la vidéo) : Départ dans la fenêtre iOS Photos puis ouverture plein écran
         {
           at: 0,
-          caption: "Marre de galérer sur ton CV ? Cette cliente choisit son pack et clique sur <span class='text-emeraldLight'>Commander</span>...",
           run: () => {
-            setStage('stage1');
-            moveCursor(50, 68, true);
+            setCaption("POV : Le recruteur qui ouvre ton vieux CV Canva tout décalé 😭💀");
             setTimeout(() => {
-              document.getElementById('btnOrderSite').classList.add('scale-95', 'bg-white');
-            }, Math.round(D * 0.12));
+              document.getElementById('iosCard').classList.add('fullscreen');
+              document.getElementById('iosHeaderPill').classList.add('hide-pill');
+            }, 450);
+            setTimeout(() => {
+              document.getElementById('rejectedStamp').classList.add('slam');
+            }, 1700);
           }
         },
+        // 3.6s (00:10.7 dans la vidéo) : Arrivée de L'Atelier LaTeX
         {
-          at: Math.round(D * 0.19),
-          caption: "Hop, ça bascule direct sur <span class='text-emeraldLight'>WhatsApp</span> ! Elle nous envoie ses infos et on s'occupe de tout.",
+          at: 3600,
           run: () => {
-            document.getElementById('touchCursor').classList.add('hidden');
-            setStage('stage2');
-            setTimeout(() => { document.getElementById('msg1').classList.add('show'); playSfx('pop'); }, 250);
-            setTimeout(() => { document.getElementById('msg2').classList.add('show'); playSfx('pop'); }, 1800);
+            showScene('scene2');
+            setCaption("Heureusement t'as découvert le code de triche : <span class='text-emeraldLight'>L’Atelier LaTeX</span> 😎🔥");
+            setTimeout(() => {
+              document.getElementById('orderBtnPulse').classList.add('scale-95', 'bg-white');
+            }, 2600);
           }
         },
+        // 7.4s (00:14.5 dans la vidéo) : Bascule WhatsApp Express
         {
-          at: Math.round(D * 0.42),
-          caption: "Quelques heures plus tard... bim, on lui livre son <span class='text-emeraldLight'>nouveau CV LaTeX</span> dans la discussion !",
+          at: 7400,
           run: () => {
-            document.getElementById('msgTime').classList.add('show');
-            setTimeout(() => { document.getElementById('msg3').classList.add('show'); playSfx('pop'); }, 600);
-            setTimeout(() => { document.getElementById('msg4').classList.add('show'); playSfx('pop'); }, 2000);
+            showScene('scene3');
+            setCaption("Tu commandes sur le site ➔ tu nous envoies ton vieux CV sur <span class='text-emeraldLight'>WhatsApp</span> ⚡");
           }
         },
+        // 11.2s (00:18.3 dans la vidéo — Moment où le refrain "Still going..." accélère !)
         {
-          at: Math.round(D * 0.62),
-          caption: "Regarde cette pépite : tout tient sur <span class='text-emeraldLight'>une seule page ultra-propre</span>. Clique sur le lien, à ton tour ! 🔥",
+          at: 11200,
           run: () => {
-            const c = document.getElementById('touchCursor');
-            c.classList.remove('hidden');
-            moveCursor(50, 60, true);
-            setTimeout(() => {
-              document.getElementById('pdfAttachmentBubble').classList.add('scale-95');
-            }, 550);
-            setTimeout(() => {
-              c.classList.add('hidden');
-              playSfx('pop');
-              document.getElementById('pdfModalViewer').classList.add('open');
-            }, 1000);
+            showScene('scene4');
+            rig.className = "zoom-top-right w-full h-full flex items-center justify-center p-1.5";
+            setCaption("Bim ! Zoom sur les expériences : <span class='text-emeraldLight'>alignement chirurgical</span> 📐✨");
+          }
+        },
+        // 13.5s (00:20.6 — 2e Beat "Still going...")
+        {
+          at: 13500,
+          run: () => {
+            rig.className = "zoom-left-skills w-full h-full flex items-center justify-center p-1.5";
+            setCaption("Zéro jauge en pourcentage bidon : <span class='text-emeraldLight'>100% lisible par les ATS</span> 🎯");
+          }
+        },
+        // 15.8s (00:22.9 — 3e Beat "Still going...")
+        {
+          at: 15800,
+          run: () => {
+            rig.className = "zoom-bottom-edu w-full h-full flex items-center justify-center p-1.5";
+            setCaption("Formations, projets & compétences : <span class='text-emeraldLight'>tout tient sur 1 page A4 HD</span> 🔥");
+          }
+        },
+        // 18.2s (00:25.3 jusqu'à la fin — "Still going bad on 'em anyway... Woah!")
+        {
+          at: 18200,
+          run: () => {
+            rig.className = "zoom-full w-full h-full flex items-center justify-center p-1.5";
+            setCaption("Arrête d'envoyer des CV qui font peur 😭👉 <span class='text-emeraldLight'>marfall915.github.io</span>");
           }
         }
       ];
 
-      steps.forEach(s => {
-        setTimeout(() => {
-          document.getElementById('captionText').innerHTML = s.caption;
-          s.run();
-        }, s.at);
+      timeline.forEach(step => {
+        setTimeout(step.run, step.at);
       });
     }
   </script>
