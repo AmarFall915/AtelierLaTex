@@ -15,79 +15,10 @@
       background: #000;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-
-    /* Masque fondu dans le bleu du vrai tableau (entre ses mains, sans cacher ses doigts) */
-    #boardOverlay {
-      position: fixed;
-      width: 48vw;
-      height: 44vw;
-      left: 47.5%;
-      top: 57.5%;
-      transform: translate(-50%, -50%) rotate(-3.2deg) scale(0.7);
-      opacity: 0;
-      /* Couleur exacte du ciel de la pancarte avec bords fondus invisibles */
-      background: radial-gradient(
-        ellipse at center,
-        rgba(175, 207, 233, 0.98) 0%,
-        rgba(138, 181, 218, 0.96) 48%,
-        rgba(120, 168, 210, 0.75) 68%,
-        rgba(120, 168, 210, 0) 100%
-      );
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      text-align: center;
-      pointer-events: none;
-      z-index: 30;
-    }
-
-    #boardOverlay.track-board {
-      animation: followRealBoard 3.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    /* Suivi exact de la montée du tableau entre 00:04.6 et 00:07.6 */
-    @keyframes followRealBoard {
-      0% {
-        opacity: 0;
-        left: 46.5%;
-        top: 66%;
-        transform: translate(-50%, -50%) rotate(-6deg) scale(0.65);
-      }
-      18% {
-        opacity: 1;
-        left: 47%;
-        top: 56.5%;
-        transform: translate(-50%, -50%) rotate(-3.5deg) scale(0.95);
-      }
-      45% {
-        opacity: 1;
-        left: 47.5%;
-        top: 57.5%;
-        transform: translate(-50%, -50%) rotate(-3.2deg) scale(1);
-      }
-      75% {
-        opacity: 1;
-        left: 48%;
-        top: 58%;
-        transform: translate(-50%, -50%) rotate(-2.8deg) scale(1.02);
-      }
-      100% {
-        opacity: 1;
-        left: 47.5%;
-        top: 57.8%;
-        transform: translate(-50%, -50%) rotate(-3deg) scale(1.02);
-      }
-    }
-
-    .board-text {
-      color: #0f172a;
-      font-weight: 900;
-      font-size: clamp(1.35rem, 6.2vw, 1.85rem);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      text-shadow: 0 2px 10px rgba(255, 255, 255, 0.65);
+    #renderCanvas {
+      width: 100vw;
+      height: 100dvh;
+      display: block;
     }
   </style>
 </head>
@@ -95,9 +26,9 @@
 
   <!-- ÉCRAN DE DÉPART -->
   <div id="setupScreen" class="fixed inset-0 z-50 bg-zinc-950 text-white flex flex-col items-center justify-center p-6 text-center">
-    <h1 class="text-xl font-bold mb-2">Rendu Réaliste (Fondu sur le tableau)</h1>
+    <h1 class="text-xl font-bold mb-2">Effacement Réel (Zéro rond / Zéro carré)</h1>
     <p class="text-xs text-zinc-400 max-w-xs mb-6">
-      Les vrais bords du tableau et ses doigts restent visibles : seul le centre est remplacé par « kay ma defral la sa cv😭 ».
+      Le code efface uniquement le petit personnage rouge avec les vrais pixels du tableau et écrit « kay ma defral la sa cv😭 » directement dessus.
     </p>
 
     <label class="w-full max-w-xs py-4 px-5 rounded-2xl bg-emerald-500 text-black font-extrabold text-sm shadow-xl cursor-pointer active:scale-95 transition">
@@ -106,41 +37,188 @@
     </label>
   </div>
 
-  <!-- VIDÉO PLEIN ÉCRAN -->
-  <video id="memeVid" playsinline class="w-full h-full object-cover"></video>
+  <!-- VIDÉO SOURCE (EN COULISSES) -->
+  <video id="srcVid" playsinline style="position:fixed; opacity:0.001; pointer-events:none; width:1px; height:1px;"></video>
 
-  <!-- TEXTE FONDU DIRECTEMENT SUR SON TABLEAU BLEU -->
-  <div id="boardOverlay">
-    <p class="board-text">
-      kay ma defral la<br>sa cv😭
-    </p>
-  </div>
+  <!-- CANVAS PLEIN ÉCRAN QUI AFFICHE LA VIDÉO + LE VRAI TABLEAU MODIFIÉ -->
+  <canvas id="renderCanvas"></canvas>
 
   <script>
-    const vid = document.getElementById('memeVid');
-    const board = document.getElementById('boardOverlay');
+    const vid = document.getElementById('srcVid');
+    const canvas = document.getElementById('renderCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    // Position lissée du centre du tableau (suivi automatique du pull rouge)
+    let trackedX = null;
+    let trackedY = null;
 
     function loadMemeVideo(input) {
       const file = input.files && input.files[0];
       if (!file) return;
       vid.src = URL.createObjectURL(file);
       document.getElementById('setupScreen').classList.add('hidden');
-      setTimeout(() => {
-        vid.play();
-      }, 600);
+
+      vid.onloadedmetadata = () => {
+        canvas.width = vid.videoWidth || 720;
+        canvas.height = vid.videoHeight || 1280;
+        setTimeout(() => {
+          vid.play();
+          requestAnimationFrame(processFrame);
+        }, 500);
+      };
     }
 
-    vid.addEventListener('timeupdate', () => {
-      if (vid.currentTime >= 4.62) {
-        board.classList.add('track-board');
-      } else {
-        board.classList.remove('track-board');
-      }
-    });
+    function processFrame() {
+      if (!vid.paused && !vid.ended) {
+        const W = canvas.width;
+        const H = canvas.height;
 
+        // 1. Dessine l'image exacte de la vidéo
+        ctx.drawImage(vid, 0, 0, W, H);
+
+        // 2. Dès qu'il lève le tableau devant lui (à partir de 4.55s)
+        if (vid.currentTime >= 4.55) {
+          inpaintAndWriteText(W, H, vid.currentTime);
+        } else {
+          trackedX = null;
+          trackedY = null;
+        }
+      }
+      requestAnimationFrame(processFrame);
+    }
+
+    function inpaintAndWriteText(W, H, t) {
+      // Zone centrale de recherche du bonhomme en pull rouge sur le tableau
+      const searchX0 = Math.floor(W * 0.32);
+      const searchX1 = Math.floor(W * 0.64);
+      const searchY0 = Math.floor(H * 0.42);
+      const searchY1 = Math.floor(H * 0.68);
+      const sw = searchX1 - searchX0;
+      const sh = searchY1 - searchY0;
+
+      const imgData = ctx.getImageData(searchX0, searchY0, sw, sh);
+      const data = imgData.data;
+
+      // Détection automatique du pull rouge pour suivre le tableau au millimètre
+      let sumX = 0, sumY = 0, count = 0;
+      for (let y = 0; y < sh; y += 2) {
+        for (let x = 0; x < sw; x += 2) {
+          const i = (y * sw + x) * 4;
+          const r = data[i], g = data[i + 1], b = data[i + 2];
+          if (r > 105 && (r - g) > 42 && (r - b) > 42) {
+            sumX += (searchX0 + x);
+            sumY += (searchY0 + y);
+            count++;
+          }
+        }
+      }
+
+      // Position par défaut si le pull rouge est hors champ une milliseconde
+      let targetX = W * 0.485;
+      let targetY = H * (t < 4.9 ? 0.54 : 0.565);
+
+      if (count > 12) {
+        targetX = sumX / count;
+        targetY = (sumY / count) + H * 0.012; // Centre entre le torse et les jambes
+      }
+
+      if (trackedX === null) {
+        trackedX = targetX;
+        trackedY = targetY;
+      } else {
+        trackedX = trackedX * 0.55 + targetX * 0.45;
+        trackedY = trackedY * 0.55 + targetY * 0.45;
+      }
+
+      // Boîte englobant uniquement le petit personnage (sans jamais toucher les doigts)
+      const boxX0 = Math.max(Math.floor(W * 0.305), Math.floor(trackedX - W * 0.145));
+      const boxX1 = Math.min(Math.floor(W * 0.655), Math.floor(trackedX + W * 0.135));
+      const boxY0 = Math.max(Math.floor(H * 0.43),  Math.floor(trackedY - H * 0.082));
+      const boxY1 = Math.min(Math.floor(H * 0.685), Math.floor(trackedY + H * 0.098));
+
+      const bw = boxX1 - boxX0;
+      const bh = boxY1 - boxY0;
+      if (bw <= 10 || bh <= 10) return;
+
+      const patch = ctx.getImageData(boxX0, boxY0, bw, bh);
+      const p = patch.data;
+
+      // Échantillonnage des vraies couleurs du ciel à gauche et à droite sur chaque ligne
+      const leftSky = new Float32Array(bh * 3);
+      const rightSky = new Float32Array(bh * 3);
+
+      for (let y = 0; y < bh; y++) {
+        // Moyenne verticale sur 5px pour un fondu ultra-lisse sans rayures
+        let lr = 0, lg = 0, lb = 0, rr = 0, rg = 0, rb = 0, c = 0;
+        for (let dy = -2; dy <= 2; dy++) {
+          const yy = Math.min(bh - 1, Math.max(0, y + dy));
+          const iL = (yy * bw + 1) * 4;
+          const iR = (yy * bw + (bw - 2)) * 4;
+          lr += p[iL];     lg += p[iL + 1]; lb += p[iL + 2];
+          rr += p[iR];     rg += p[iR + 1]; rb += p[iR + 2];
+          c++;
+        }
+        leftSky[y * 3]     = lr / c;
+        leftSky[y * 3 + 1] = lg / c;
+        leftSky[y * 3 + 2] = lb / c;
+
+        rightSky[y * 3]     = rr / c;
+        rightSky[y * 3 + 1] = rg / c;
+        rightSky[y * 3 + 2] = rb / c;
+      }
+
+      // Effacement invisible du personnage avec les vrais pixels du ciel de la vidéo
+      const feather = 10;
+      for (let y = 0; y < bh; y++) {
+        const lR = leftSky[y * 3],  lG = leftSky[y * 3 + 1],  lB = leftSky[y * 3 + 2];
+        const rR = rightSky[y * 3], rG = rightSky[y * 3 + 1], rB = rightSky[y * 3 + 2];
+
+        const fadeY = Math.min(1, y / feather, (bh - 1 - y) / feather);
+
+        for (let x = 0; x < bw; x++) {
+          const u = x / (bw - 1);
+          const fadeX = Math.min(1, x / feather, (bw - 1 - x) / feather);
+          const alpha = fadeX * fadeY;
+
+          // Couleur exacte du ciel à cet endroit précis du tableau
+          const skyR = lR * (1 - u) + rR * u;
+          const skyG = lG * (1 - u) + rG * u;
+          const skyB = lB * (1 - u) + rB * u;
+
+          const idx = (y * bw + x) * 4;
+          p[idx]     = p[idx]     * (1 - alpha) + skyR * alpha;
+          p[idx + 1] = p[idx + 1] * (1 - alpha) + skyG * alpha;
+          p[idx + 2] = p[idx + 2] * (1 - alpha) + skyB * alpha;
+        }
+      }
+
+      ctx.putImageData(patch, boxX0, boxY0);
+
+      // Écriture directe sur le tableau (sans fond ni boîte, juste l'encre sur la pancarte)
+      ctx.save();
+      ctx.translate(trackedX, trackedY - H * 0.008);
+      ctx.rotate(-3.4 * Math.PI / 180);
+
+      const fontSize = Math.round(W * 0.062);
+      ctx.font = `900 ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Légère ombre douce pour intégrer le texte à la lumière du tableau
+      ctx.fillStyle = '#0f172a';
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.35)';
+      ctx.shadowBlur = 4;
+
+      ctx.fillText('kay ma defral la', 0, -fontSize * 0.62);
+      ctx.fillText('sa cv😭', 0, fontSize * 0.62);
+      ctx.restore();
+    }
+
+    // Relancer la vidéo en touchant l'écran quand elle est finie
     document.body.addEventListener('click', () => {
-      if (vid.src && vid.paused) {
-        board.classList.remove('track-board');
+      if (vid.src && (vid.paused || vid.ended)) {
+        trackedX = null;
+        trackedY = null;
         vid.currentTime = 0;
         vid.play();
       }
